@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.24"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "33307B_Group_17_Project",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "33307B_Group_17_Project::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-33307B_Group_17_Project-Debug-8f8c03eb156e0e796c64.json",
+					"name" : "33307B_Group_17_Project",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "E:/Documents/1.Western University/1.Courses/Year-3/Term-2/CS-3307B/33307B_Group-17-Project/cmake-build-debug",
+		"source" : "E:/Documents/1.Western University/1.Courses/Year-3/Term-2/CS-3307B/33307B_Group-17-Project"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
