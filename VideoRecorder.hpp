@@ -22,16 +22,21 @@ public:
 
     void closeCamera(); // Closes the camera.
 
-    void peek(); // Shows camera footage but doesn't save it.
+    void peek(); // Shows open camera footage in a window but doesn't save it.
 
-    // Shows and saves camera footage.
-    int recordVideo();
+    // Shows and saves open camera footage (default with filename hello world.avi)
+    void recordVideo();
+
+    // shows and saves open camera footage (with specified filename).
+    void recordVideo(const std::basic_string<char> &filename);
 
 
 private:
-    cv::VideoCapture cap;
-    cv::VideoWriter writer;
-    cv::Mat frame;
+    void captureFrame(); // helper function - this opens up the window that shows the video and also writes to the file.
+
+    cv::VideoCapture cap; // stores the object that captures video
+    cv::VideoWriter writer; // stores the object that writes video to a file
+    cv::Mat frame; // stores the current video frame
 };
 
 
