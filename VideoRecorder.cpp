@@ -14,10 +14,14 @@ void VideoRecorder::openCamera(){
     if(!cap.isOpened()){
         throw std:: runtime_error("Unable to open camera.");
     }
+    recording = true;
 }
 
 void VideoRecorder::closeCamera(){
+    recording = false;
+    this->writer.release();
     this->cap.release();
+    cv::destroyAllWindows();
 }
 
 void VideoRecorder::peek() {
@@ -53,6 +57,7 @@ void VideoRecorder::recordVideo(const basic_string<char> &filename) {
 }
 
 VideoRecorder::~VideoRecorder() {
+    recording = false;
     cap.release();
     writer.release();
     frame.release();
@@ -74,7 +79,7 @@ void VideoRecorder::captureFrame() {
 
         imshow("Live Camera Footage", frame);
         writer.write(frame);
-        if (waitKey(5) >= 0) {
+        if (waitKey(5) >= 0 || recording == false) {
             break;
         }
     }

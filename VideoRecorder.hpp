@@ -8,6 +8,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
 #include <opencv2/highgui.hpp>
+#include <iostream>
 
 
 class VideoRecorder {
@@ -37,6 +38,7 @@ private:
     cv::VideoCapture cap; // stores the object that captures video
     cv::VideoWriter writer; // stores the object that writes video to a file
     cv::Mat frame; // stores the current video frame
+    bool recording = false; // recording or not recording.
 };
 
 
