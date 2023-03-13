@@ -9,6 +9,7 @@
 #include <opencv2/highgui.hpp>
 #include <iostream>
 #include "VideoRecorder.hpp"
+#include "gui.h"
 
 #include <string>
 
@@ -24,4 +25,7 @@ int main(int, char**)
     // Note: The code gets hung on the previous step until a key is pressed. To close it using closeCamera(),
     // maybe try multithreading.
     vr.closeCamera();
+
+    gui test;
+    test.openGui();
 }
