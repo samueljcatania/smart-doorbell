@@ -28,12 +28,9 @@ public:
     // Shows and saves open camera footage (default with filename hello world.avi)
     void recordVideo();
 
-
     // shows and saves open camera footage (with specified filename).
     void recordVideo(const std::basic_string<char> &filename);
 
-    // sets the duration of recording for the video
-    void duration();
 
 private:
     void captureFrame(); // helper function - this opens up the window that shows the video and also writes to the file.
