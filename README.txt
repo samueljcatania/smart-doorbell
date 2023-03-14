@@ -35,4 +35,6 @@ make
 sudo make install
 
 
+Notes about running the program:
+Recorded footage files are saved to the working directory.
 
