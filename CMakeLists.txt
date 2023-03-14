@@ -18,4 +18,3 @@ add_executable(33307B_Group_17_Project
 find_package( OpenCV REQUIRED )
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 target_link_libraries( 33307B_Group_17_Project ${OpenCV_LIBS} ${GTKMM_LIBRARIES})
-
