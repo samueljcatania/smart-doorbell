@@ -14,7 +14,6 @@
 #include <queue>
 #include <mutex>
 #include <condition_variable>
-#include <ctime>
 #include <opencv2/opencv.hpp>
 
 class Camera {

@@ -6,15 +6,24 @@
 #define GROUP_17_DISPLAYWINDOW_HPP
 
 #include <gtkmm.h>
+#include "../include/VideoRecorder.hpp"
 
 class DisplayWindow {
+private:
+    VideoRecorder cam;
+
+    void cameraButtonClick();
+
+    void recordButtonClick();
+
+    void stopRecordButtonClick();
+
 public:
     DisplayWindow();
 
     ~DisplayWindow();
 
     int openGui(); // open gui
-
 };
 
 

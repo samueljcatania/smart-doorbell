@@ -2,6 +2,9 @@
 // Created by Meg Zhang on 10/03/23.
 //
 
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include "../include/VideoRecorder.hpp"
 
 using namespace cv;

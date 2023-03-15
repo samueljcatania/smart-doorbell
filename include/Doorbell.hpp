@@ -12,7 +12,8 @@
 #define GROUP_17_DOORBELL_HPP
 
 #include <thread>
-#include "Camera.hpp"
+#include "../include/Camera.hpp"
+#include "../include/DisplayWindow.hpp"
 
 class Doorbell {
 private:

@@ -3,24 +3,20 @@
 //
 
 #include "../include/DisplayWindow.hpp"
-#include "../include/VideoRecorder.hpp"
 
-VideoRecorder cam;
-
-void cameraButtonClick() { //Show camera when requested
+void DisplayWindow::cameraButtonClick() { //Show camera when requested
     cam.openCamera();
     cam.peek();
 }
 
-void recordButtonClick() {//Start recording when asked
+void DisplayWindow::recordButtonClick() {//Start recording when asked
     cam.openCamera();
     cam.recordVideo();
 }
 
-void stopRecordButtonClick() {//Stop recording??
+void DisplayWindow::stopRecordButtonClick() {//Stop recording??
     cam.closeCamera();
 }
-
 
 DisplayWindow::DisplayWindow() {
 
@@ -29,7 +25,6 @@ DisplayWindow::DisplayWindow() {
 DisplayWindow::~DisplayWindow() {
 
 }
-
 
 int DisplayWindow::openGui() { // function to open a window for user to control the camera
     auto app = Gtk::Application::create("org.gtkmm.examples.base");
@@ -51,15 +46,11 @@ int DisplayWindow::openGui() { // function to open a window for user to control 
     box.pack_start(stopRecord);
 
     //Event handling
-    camera.signal_clicked().connect(sigc::ptr_fun(&cameraButtonClick));
-    record.signal_clicked().connect(sigc::ptr_fun(&recordButtonClick));
-    stopRecord.signal_clicked().connect(sigc::ptr_fun(&stopRecordButtonClick));
+    camera.signal_clicked().connect(sigc::mem_fun(*this, &DisplayWindow::cameraButtonClick));
+    record.signal_clicked().connect(sigc::mem_fun(*this, &DisplayWindow::recordButtonClick));
+    stopRecord.signal_clicked().connect(sigc::mem_fun(*this, &DisplayWindow::stopRecordButtonClick));
 
     // Show the window and run the application
     window.show_all();
     return app->run(window);
 }
-
-
-
-
