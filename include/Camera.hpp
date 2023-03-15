@@ -19,6 +19,7 @@
 class Camera {
 private:
     cv::VideoCapture video_capture;
+    cv::VideoWriter video_writer;
     cv::Mat average_frame;
 
 public:

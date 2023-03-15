@@ -13,7 +13,7 @@ using namespace std;
 VideoRecorder::VideoRecorder() = default;
 
 void VideoRecorder::openCamera(){
-    this->cap = cv::VideoCapture(0);
+    cap = cv::VideoCapture(0);
     if(!cap.isOpened()){
         throw std:: runtime_error("Unable to open camera.");
     }
@@ -22,8 +22,8 @@ void VideoRecorder::openCamera(){
 
 void VideoRecorder::closeCamera(){
     recording = false;
-    this->writer.release();
-    this->cap.release();
+    writer.release();
+    cap.release();
     cv::destroyAllWindows();
 }
 
@@ -49,15 +49,15 @@ void VideoRecorder::peek() {
 
 void VideoRecorder::recordVideo() {
     this->frame = cv::Mat();
-    this->writer = cv::VideoWriter("hello world.avi", cv::VideoWriter::fourcc('M','J', 'P', 'G'), 30, cv::Size(640,480));
+    this->writer = cv::VideoWriter("../recordings/output.mp4", cv::VideoWriter::fourcc('a','v', 'c', '1'), 30, cv::Size(640,480));
     captureFrame();
 }
 
-void VideoRecorder::recordVideo(const basic_string<char> &filename) {
-    this->frame = cv::Mat();
-    this->writer = cv::VideoWriter(filename, cv::VideoWriter::fourcc('M','J', 'P', 'G'), 30, cv::Size(640,480));
-    captureFrame();
-}
+//void VideoRecorder::recordVideo(const basic_string<char> &filename) {
+//    this->frame = cv::Mat();
+//    this->writer = cv::VideoWriter(filename, cv::VideoWriter::fourcc('M','J', 'P', 'G'), 30, cv::Size(640,480));
+//    captureFrame();
+//}
 
 VideoRecorder::~VideoRecorder() {
     recording = false;
@@ -86,6 +86,8 @@ void VideoRecorder::captureFrame() {
             break;
         }
     }
+
+    cap.release();
 }
 
 

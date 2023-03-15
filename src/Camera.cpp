@@ -20,10 +20,6 @@ Camera::Camera() {
     // Open the default video camera
     video_capture.open(0, cv::CAP_V4L2);
 
-    // Set the video size to 512 by 288 to process faster
-    video_capture.set(3, 512);
-    video_capture.set(4, 288);
-
     // Check if the camera was successfully opened
     if (video_capture.isOpened()) {
 
@@ -36,6 +32,8 @@ Camera::Camera() {
 Camera::~Camera() {
     // Cleanup the camera and close any open windows
     video_capture.release();
+    video_writer.release();
+    average_frame.release();
     cv::destroyAllWindows();
 }
 
@@ -44,6 +42,9 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
     std::vector<std::vector<cv::Point> > contours;
 
     while (video_capture.read(frame)) {
+        // Set the frame size to 512 by 380 to process faster
+        cv::resize(frame, frame, cv::Size(512, 380));
+
         cv::Mat frame_delta, gray, thresh, absolute_difference;
         std::string camera_description = "No Motion";
 
@@ -86,6 +87,8 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
                           CV_RGB(0, 255, 0), 2);
             camera_description = "Motion Detected";
 
+            //TODO Implement circular buffer to store last 20 seconds of frames
+
             std::lock_guard<std::mutex> lock_guard{mutex_lock};
             shared_queue.push('g');
             cond_var.notify_all();
@@ -110,4 +113,6 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
             break;
         }
     }
+
+    frame.release();
 }
