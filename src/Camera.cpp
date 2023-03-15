@@ -17,8 +17,6 @@
 Camera::Camera() {
     cv::Mat frame;
 
-    std::cout << "From the Camera" << std::endl;
-
     // Open the default video camera
     video_capture.open(0, cv::CAP_V4L2);
 

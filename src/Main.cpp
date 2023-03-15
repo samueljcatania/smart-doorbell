@@ -11,10 +11,10 @@
 #include "../include/Doorbell.hpp"
 
 int main() {
-    //Doorbell doorbell;
+    Doorbell doorbell;
 
-    DisplayWindow displayWindow;
-    displayWindow.openGui();
+//    DisplayWindow displayWindow;
+//    displayWindow.openGui();
 
 //    VideoRecorder vr; // creates a new VideoRecorder object.
 //    vr.openCamera(); // Open up the camera.
