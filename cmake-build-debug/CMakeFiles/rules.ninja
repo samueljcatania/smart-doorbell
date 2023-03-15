@@ -13,7 +13,7 @@
 
 #############################################
 # Rule for linking CXX static library.
-
+#
 rule CXX_STATIC_LIBRARY_LINKER__HEADERS_Debug
   command = $PRE_LINK && /home/samuel/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/bin/cmake/linux/x64/bin/cmake -E rm -f $TARGET_FILE && /usr/bin/ar qc $TARGET_FILE $LINK_FLAGS $in && /usr/bin/ranlib $TARGET_FILE && $POST_BUILD
   description = Linking CXX static library $TARGET_FILE
