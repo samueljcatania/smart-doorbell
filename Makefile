@@ -1,6 +1,6 @@
 CC=g++
-CFLAGS = `pkg-config --cflags opencv4` `pkg-config --cflags gtkmm-3.0` -std=c++17
-LIBS = `pkg-config --libs opencv4` `pkg-config --libs gtkmm-3.0`
+CFLAGS = `pkg-config --cflags gtkmm-3.0` -std=c++17
+LIBS = `pkg-config --libs gtkmm-3.0`
 
 default:
 	make all

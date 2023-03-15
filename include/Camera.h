@@ -11,10 +11,12 @@
 #ifndef INC_33307B_GROUP_17_PROJECT_CAMERA_H
 #define INC_33307B_GROUP_17_PROJECT_CAMERA_H
 
-#include <opencv2/opencv.hpp>
 #include <queue>
 #include <mutex>
 #include <condition_variable>
+
+#include "../lib/opencv4/opencv2/opencv.hpp"
+
 
 class Camera {
 private:

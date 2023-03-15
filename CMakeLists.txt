@@ -22,7 +22,7 @@ add_executable(33307B_Group_17_Project
         include/Camera.h
         include/DisplayWindow.h
         include/Doorbell.h
-        include/VideoRecorder.h include/asda.cpp include/asda.h asfasa.cpp asfasa.h)
+        include/VideoRecorder.h)
 
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})

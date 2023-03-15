@@ -5,10 +5,10 @@
 #ifndef INC_33307B_GROUP_17_PROJECT_VIDEORECORDER_H
 #define INC_33307B_GROUP_17_PROJECT_VIDEORECORDER_H
 
-#include <opencv2/opencv.hpp>
-#include <opencv2/core.hpp>
-#include <opencv2/videoio.hpp>
-#include <opencv2/highgui/highgui.hpp>
+#include "../lib/opencv4/opencv2/opencv.hpp"
+#include "../lib/opencv4/opencv2/core.hpp"
+#include "../lib/opencv4/opencv2/videoio.hpp"
+#include "../lib/opencv4/opencv2/highgui/highgui.hpp"
 #include <iostream>
 
 

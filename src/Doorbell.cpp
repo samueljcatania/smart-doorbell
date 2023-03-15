@@ -17,6 +17,9 @@
 Doorbell::Doorbell() {
     camera_thread = std::thread(&Camera::detectMotion, camera, std::ref(shared_queue), std::ref(mutex_lock),
                                 std::ref(cond_var));
+
+//    camera_thread_one = std::thread(&Camera::detectMotion, camera_thread_one, std::ref(shared_queue), std::ref(mutex_lock),
+//                                std::ref(cond_var));
     //recorder_thread
     manager_thread = std::thread(&Doorbell::managerThread, this);
 
@@ -39,6 +42,6 @@ void Doorbell::managerThread() {
             shared_queue.pop();
         }
 
-        std::cout << "From Manager Thread: " << readData << std::endl;
+        //std::cout << "From Manager Thread: " << readData << std::endl;
     }
 }
