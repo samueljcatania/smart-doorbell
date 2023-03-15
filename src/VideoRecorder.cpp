@@ -2,7 +2,7 @@
 // Created by Meg Zhang on 10/03/23.
 //
 
-#include "../include/VideoRecorder.h"
+#include "../include/VideoRecorder.hpp"
 
 using namespace cv;
 using namespace std;

@@ -8,13 +8,10 @@
  *
  */
 
-
-#include <ctime>
-
-#include "../lib/opencv4/opencv2/core.hpp"
-#include "../lib/opencv4/opencv2/videoio.hpp"
-#include "../lib/opencv4/opencv2/highgui/highgui.hpp"
-#include "../include/Camera.h"
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include "../include/Camera.hpp"
 
 Camera::Camera() {
     cv::Mat frame;
@@ -28,11 +25,6 @@ Camera::Camera() {
 
     // Check if the camera was successfully opened
     if (video_capture.isOpened()) {
-        video_capture.read(frame);
-
-        // Convert the first frane to grayscale and set is as firstFrame
-        cvtColor(frame, first_frame, cv::COLOR_BGR2GRAY);
-        GaussianBlur(first_frame, first_frame, cv::Size(21, 21), 0);
 
     } else {
         std::cout << "Cannot open the video camera" << std::endl;
@@ -49,11 +41,6 @@ Camera::~Camera() {
 void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var) {
     cv::Mat frame;
     std::vector<std::vector<cv::Point> > contours;
-
-    if (first_frame.empty()) {
-        std::cout << "Since the camera did not initialize properly, this function cannot be called." << std::endl;
-        return;
-    }
 
     while (video_capture.read(frame)) {
         cv::Mat frame_delta, gray, thresh, absolute_difference;

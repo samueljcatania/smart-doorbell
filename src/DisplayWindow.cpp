@@ -2,8 +2,8 @@
 // Created by Jonathan Lee on 2023-03-13.
 //
 
-#include "../include/DisplayWindow.h"
-#include "../include/VideoRecorder.h"
+#include "../include/DisplayWindow.hpp"
+#include "../include/VideoRecorder.hpp"
 
 VideoRecorder cam;
 

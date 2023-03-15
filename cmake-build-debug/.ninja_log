@@ -1,3 +1,16 @@
 # ninja log v5
+4	477	1678869349125983052	Group-17	ea55c836afb567fc
 426	600	6996665953124364	33307B_Group_17_Project.exe	890319cc8e179025
-5023	5360	1678758985554901207	33307B_Group_17_Project	e28fa32eb6f6452d
+2	2682	1678867770168416627	CMakeFiles/Group-17.dir/src/Doorbell.cpp.o	270e108efbb8109e
+2	4284	1678867771768384797	CMakeFiles/Group-17.dir/src/DisplayWindow.cpp.o	fd4cc6a0ea5ee5d9
+0	23	1678870326221347513	build.ninja	49e053ba497764f8
+2	2615	1678867770100417981	CMakeFiles/Group-17.dir/src/VideoRecorder.cpp.o	5e9bde6eaedee52d
+2	2972	1678867770456410893	CMakeFiles/Group-17.dir/src/Main.cpp.o	b86a09bfca04c438
+0	41	1678861061493424382	libHEADERS.a	4202488f0686f03e
+1	2876	1678867770360412804	CMakeFiles/Group-17.dir/src/Camera.cpp.o	96d7137576c5b33e
+6	2456	1678870332761345062	CMakeFiles/Group-17.dir/src/Main.cpp.o	b86a09bfca04c438
+6	2634	1678870332941344995	CMakeFiles/Group-17.dir/src/VideoRecorder.cpp.o	5e9bde6eaedee52d
+5	2766	1678870333073344945	CMakeFiles/Group-17.dir/src/Camera.cpp.o	96d7137576c5b33e
+5	2843	1678870333149344917	CMakeFiles/Group-17.dir/src/Doorbell.cpp.o	270e108efbb8109e
+5	4262	1678870334569344382	CMakeFiles/Group-17.dir/src/DisplayWindow.cpp.o	fd4cc6a0ea5ee5d9
+11	476	1678870352149337703	Group-17	ea55c836afb567fc

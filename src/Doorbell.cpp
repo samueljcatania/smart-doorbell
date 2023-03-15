@@ -8,11 +8,8 @@
  *
  */
 
-#include <iostream>
 #include <thread>
-
-#include "../include/Doorbell.h"
-
+#include "../include/Doorbell.hpp"
 
 Doorbell::Doorbell() {
     camera_thread = std::thread(&Camera::detectMotion, camera, std::ref(shared_queue), std::ref(mutex_lock),
@@ -41,7 +38,5 @@ void Doorbell::managerThread() {
             readData += shared_queue.front();
             shared_queue.pop();
         }
-
-        //std::cout << "From Manager Thread: " << readData << std::endl;
     }
 }

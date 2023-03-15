@@ -8,7 +8,7 @@
  *
  */
 
-#include "../include/Doorbell.h"
+#include "../include/Doorbell.hpp"
 
 int main() {
     Doorbell doorbell;
