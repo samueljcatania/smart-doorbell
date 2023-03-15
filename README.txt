@@ -34,6 +34,13 @@ cmake -DWITH_GTK=ON -DWITH_GTK3=ON ..
 make
 sudo make install
 
+-------------------------------------------------------
+RUNNING THE PROGRAM
+
+After installing GTK 3.0 and OpenCV, navigate to the working directory. You can compile the program by following these commands in your terminal:
+make
+./group17
+make clean
 
 Notes about running the program:
 Recorded footage files are saved to the working directory.
