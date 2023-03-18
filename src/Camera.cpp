@@ -77,7 +77,7 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
 
             // Check each contour against a minimum size of 500 pixels, which defines a region of the frame to be
             // considered actual “motion”. If the contour is too small, skip it
-            if (contourArea(contour) < 500) {
+            if (contourArea(contour) < 2000) {
                 continue;
             }
 

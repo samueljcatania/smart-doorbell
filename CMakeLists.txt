@@ -126,7 +126,7 @@ link_directories(lib/atk-1.0)
 ################################################################
 
 # Find all header files in the include/ directory
-file(GLOB HEADER_FILES include/*.hpp)
+file(GLOB HEADER_FILES include/CircularBuffer.hpp include/*.hpp)
 
 # Add all header files as library targets
 add_library(HEADERS ${HEADER_FILES})
@@ -139,7 +139,7 @@ set_target_properties(HEADERS PROPERTIES LINKER_LANGUAGE CXX)
 ################################################################
 
 # Find all source (.cpp) files in the src/ directory
-file(GLOB SOURCE_FILES src/*.cpp)
+file(GLOB SOURCE_FILES src/CircularBuffer.cpp src/*.cpp)
 
 # Add all source (.cpp) files as executable targets
 add_executable(Group-17 ${SOURCE_FILES})
