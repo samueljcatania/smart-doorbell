@@ -5,6 +5,10 @@
 #include "gui.h"
 #include "VideoRecorder.hpp"
 #include <gtkmm.h>
+#include <gtkmm/window.h>
+#include <gtkmm/box.h>
+#include <gtkmm/button.h>
+
 
 VideoRecorder cam;
 
