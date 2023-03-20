@@ -29,7 +29,7 @@
 #include <glib/gerror.h>
 
 #ifdef G_OS_UNIX
-#include "dirent.h"
+#include <dirent.h>
 #endif
 
 G_BEGIN_DECLS
