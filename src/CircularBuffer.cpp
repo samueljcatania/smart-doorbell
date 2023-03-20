@@ -29,6 +29,10 @@ void CircularBuffer<T>::push(T element) {
     if (current_size > max_size) {
         current_size = max_size;
     }
+
+//    if (tail == head) {
+//        head = (head + 1) % max_size;
+//    }
 }
 
 template<typename T>
@@ -45,19 +49,8 @@ T CircularBuffer<T>::pop() {
 }
 
 template<typename T>
-T CircularBuffer<T>::element_at_index(size_t index) {
-    return vector[index];
-}
-
-
-template<typename T>
 size_t CircularBuffer<T>::size() {
     return current_size;
-}
-
-template<typename T>
-size_t CircularBuffer<T>::capacity() {
-    return max_size;
 }
 
 template<typename T>

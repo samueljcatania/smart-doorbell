@@ -9,32 +9,44 @@
  */
 
 #include "../include/Doorbell.hpp"
+#include "../include/CircularBuffer.hpp"
+
 
 int main() {
-    //Doorbell doorbell;
+//    Doorbell doorbell;
 
-    CircularBuffer<int> buff = CircularBuffer<int>(5);
-
-    for(int x = 0; x < 2; x++){
-        buff.push(x);
-    }
-
-    for(int x = 0; x < 10; x++){
-        std::cout << "Position: " << x << " Element: " << buff.pop() << std::endl;
-    }
-
-//    DisplayWindow displayWindow;
-//    displayWindow.openGui();
-
-//    VideoRecorder vr; // creates a new VideoRecorder object.
-//    vr.openCamera(); // Open up the camera.
-//    vr.recordVideo(); // Start recording video.
+    CircularBuffer<int> buffer = CircularBuffer<int>(5);
 //
-//    // Note: The code gets hung on the previous step until a key is pressed. To close it using closeCamera(),
-//    // maybe try multithreading.
-//    vr.closeCamera();
+//    for (int a = 0; a < 5; a++) {
+//        std::cout << buffer.pop(a) << std::endl;
+//    }
 //
-//    DisplayWindow test;
-//    test.openGui();
+//    std::cout << "" << std::endl;
+//
+//    buffer.push(1);
+//    buffer.push(2);
+//    buffer.push(3);
+//    buffer.push(4);
+//    buffer.push(5);
+//    buffer.push(6);
+//    buffer.push(7);
+//
+//    for (int a = 0; a < 5; a++) {
+//        std::cout << buffer.pop(a) << std::endl;
+//    }
+
+    DisplayWindow displayWindow;
+    displayWindow.openGui();
+
+    VideoRecorder vr; // creates a new VideoRecorder object.
+    vr.openCamera(); // Open up the camera.
+    vr.recordVideo(); // Start recording video.
+
+    // Note: The code gets hung on the previous step until a key is pressed. To close it using closeCamera(),
+    // maybe try multithreading.
+    vr.closeCamera();
+
+    DisplayWindow test;
+    test.openGui();
     return 0;
 }

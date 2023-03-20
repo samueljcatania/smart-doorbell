@@ -49,7 +49,7 @@ void VideoRecorder::peek() {
 
 void VideoRecorder::recordVideo() {
     this->frame = cv::Mat();
-    this->writer = cv::VideoWriter("../recordings/output.mp4", cv::VideoWriter::fourcc('a','v', 'c', '1'), 30, cv::Size(640,480));
+    this->writer = cv::VideoWriter("../recordings/output.avi", cv::VideoWriter::fourcc('a','v', 'c', '1'), 30, cv::Size(640,480));
     captureFrame();
 }
 

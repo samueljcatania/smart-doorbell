@@ -33,7 +33,7 @@
 #include <string.h>
 
 #if defined(__BIONIC__) && defined (GLIB_HAVE_ALLOCA_H)
-# include <alloca.h>
+# include <malloc.h>
 #elif defined(__GNUC__)
 /* GCC does the right thing */
 # undef alloca

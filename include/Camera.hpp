@@ -22,12 +22,12 @@
 class Camera {
 private:
     cv::VideoCapture video_capture;
-    cv::VideoWriter video_writer = cv::VideoWriter("../recordings/output.mp4",
-                                                   cv::VideoWriter::fourcc('a', 'v', 'c', '1'),
+    cv::VideoWriter video_writer = cv::VideoWriter("../recordings/output.avi",
+                                                   cv::VideoWriter::fourcc('M', 'J', 'P', 'G'),
                                                    30,
                                                    cv::Size(640, 480));
     cv::Mat average_frame;
-    CircularBuffer<cv::Mat> lead_up_buffer = CircularBuffer<cv::Mat>(1000);
+    CircularBuffer<cv::Mat> lead_up_buffer = CircularBuffer<cv::Mat>(400);
     std::chrono::time_point<std::chrono::system_clock> last_motion_time, recent_motion_time;
 
 public:

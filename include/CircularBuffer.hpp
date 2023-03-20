@@ -35,11 +35,7 @@ public:
 
     T pop();
 
-    T element_at_index(size_t index);
-
     size_t size();
-
-    size_t capacity();
 
     void clear();
 };
