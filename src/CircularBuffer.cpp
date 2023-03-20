@@ -14,33 +14,32 @@ template<typename T>
 CircularBuffer<T>::CircularBuffer(size_t size) {
     max_size = size;
     vector.resize(size);
-    std::fill(vector.begin(), vector.end(), NULL);
+    std::fill(vector.begin(), vector.end(), T());
 }
 
 template<typename T>
-CircularBuffer<T>::~CircularBuffer() {
-
-}
+CircularBuffer<T>::~CircularBuffer() = default;
 
 template<typename T>
 void CircularBuffer<T>::push(T element) {
     tail = (tail + 1) % max_size;
     vector.insert(vector.begin() + tail, element);
     current_size++;
+
+    if (current_size > max_size) {
+        current_size = max_size;
+    }
 }
 
 template<typename T>
 T CircularBuffer<T>::pop() {
-    T element;
-
     if (current_size == 0) {
-        return element;
+        return T();
 
     } else {
-        element = vector[head];
-        head = (head + 1) * max_size;
-        head--;
-
+        T element = vector[head];
+        head = (head + 1) % max_size;
+        current_size--;
         return element;
     }
 }
@@ -65,8 +64,11 @@ template<typename T>
 void CircularBuffer<T>::clear() {
     vector.clear();
     vector.resize(max_size);
-    std::fill(vector.begin(), vector.end(), NULL);
+    std::fill(vector.begin(), vector.end(), T());
 }
 
-template class CircularBuffer<int>;
-template class CircularBuffer<cv::Mat>;
+template
+class CircularBuffer<int>;
+
+template
+class CircularBuffer<cv::Mat>;

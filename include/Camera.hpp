@@ -11,16 +11,24 @@
 #ifndef GROUP_17_CAMERA_HPP
 #define GROUP_17_CAMERA_HPP
 
+#include <chrono>
+#include <ctime>
 #include <queue>
 #include <mutex>
 #include <condition_variable>
 #include <opencv2/opencv.hpp>
+#include "../include/CircularBuffer.hpp"
 
 class Camera {
 private:
     cv::VideoCapture video_capture;
-    cv::VideoWriter video_writer;
+    cv::VideoWriter video_writer = cv::VideoWriter("../recordings/output.mp4",
+                                                   cv::VideoWriter::fourcc('a', 'v', 'c', '1'),
+                                                   30,
+                                                   cv::Size(640, 480));
     cv::Mat average_frame;
+    CircularBuffer<cv::Mat> lead_up_buffer = CircularBuffer<cv::Mat>(1000);
+    std::chrono::time_point<std::chrono::system_clock> last_motion_time, recent_motion_time;
 
 public:
     Camera();

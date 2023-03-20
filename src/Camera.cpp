@@ -8,7 +8,7 @@
  *
  */
 
-#include <ctime>
+#include <iostream>
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -26,10 +26,16 @@ Camera::Camera() {
     } else {
         std::cout << "Cannot open the video camera" << std::endl;
     }
+
+    recent_motion_time = std::chrono::system_clock::now();
 }
 
 
 Camera::~Camera() {
+    for (int a = 0; a < lead_up_buffer.size(); a++) {
+        video_writer.write(lead_up_buffer.pop());
+    }
+
     // Cleanup the camera and close any open windows
     video_capture.release();
     video_writer.release();
@@ -47,6 +53,9 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
 
         cv::Mat frame_delta, gray, thresh, absolute_difference;
         std::string camera_description = "No Motion";
+
+        //Add the frame to the 20-second lead-up buffer
+        lead_up_buffer.push(frame);
 
         // Convert the current frame to greyscale
         cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
@@ -83,7 +92,8 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
 
             // Generate a green bounding box for the contour to draw on the frame, and update the frame description
             cv::Rect rect = cv::boundingRect(contour);
-            cv::rectangle(frame, cv::Point(rect.x, rect.y), cv::Point(rect.x + rect.width, rect.y + rect.height),
+            cv::rectangle(frame, cv::Point(rect.x, rect.y),
+                          cv::Point(rect.x + rect.width, rect.y + rect.height),
                           CV_RGB(0, 255, 0), 2);
             camera_description = "Motion Detected";
 
