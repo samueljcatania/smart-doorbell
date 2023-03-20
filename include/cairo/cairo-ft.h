@@ -47,7 +47,7 @@
 #include FT_FREETYPE_H
 
 #if CAIRO_HAS_FC_FONT
-#include <fontconfig/fontconfig.h>
+#include <fontconfig.h>
 #endif
 
 CAIRO_BEGIN_DECLS

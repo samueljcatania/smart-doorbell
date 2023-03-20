@@ -11,7 +11,7 @@
 #include "../include/Doorbell.hpp"
 
 int main() {
-//    Doorbell doorbell;
+    Doorbell doorbell;
 
     CircularBuffer<int> buffer = CircularBuffer<int>(5);
 //
