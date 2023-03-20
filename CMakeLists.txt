@@ -153,10 +153,12 @@ include_directories(INCLUDE_DIR)
 ################################################################
 
 # Find all source (.cpp) files in the src/ directory
-file(GLOB SOURCE_FILES src/CircularBuffer.cpp src/*.cpp)
+file(GLOB SOURCE_FILES src/*.cpp)
 
 # Add all source (.cpp) files as executable targets
-add_executable(Group-17 ${SOURCE_FILES})
+#add_executable(Group-17 ${SOURCE_FILES})
+
+add_executable(Group-17 src/Camera.cpp src/CircularBuffer.cpp src/DisplayWindow.cpp src/Doorbell.cpp src/Main.cpp src/VideoRecorder.cpp)
 
 ################################################################
 # Link Library Binaries
