@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 project(Group-17)
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS -std=c++17)
 
 ################################################################
 # opencv4
@@ -136,14 +135,18 @@ link_directories(lib/fontconfig)
 ## Find all header files in the include/ directory
 #file(GLOB HEADER_FILES include/*.hpp)
 
-## Find all header files in the include/ directory
-file(GLOB HEADER_FILES include/Camera.hpp include/CircularBuffer.hpp include/DisplayWindow.hpp include/Doorbell.hpp include/VideoRecorder.hpp)
+### Find all header files in the include/ directory
+#file(GLOB HEADER_FILES include/*.hpp)
+#
+## Add all header files as library targets
+#add_library(HEADERS ${HEADER_FILES})
+#
+## Must set the linker language for these headers to CXX, otherwise an error occurs
+#set_target_properties(HEADERS PROPERTIES LINKER_LANGUAGE CXX)
 
-# Add all header files as library targets
-add_library(HEADERS ${HEADER_FILES})
+set(INCLUDE_DIR /include)
 
-# Must set the linker language for these headers to CXX, otherwise an error occurs
-set_target_properties(HEADERS PROPERTIES LINKER_LANGUAGE CXX)
+include_directories(INCLUDE_DIR)
 
 ################################################################
 # Project-Created Source Files
@@ -159,7 +162,7 @@ add_executable(Group-17 ${SOURCE_FILES})
 # Link Library Binaries
 ################################################################
 
-target_link_libraries(Group-17 HEADERS
+target_link_libraries(Group-17
         opencv_highgui opencv_videoio opencv_imgproc opencv_core
         gtkmm-3.0 atkmm-1.6 gdkmm-3.0 giomm-2.4 gtk-3 gdk-3 atk-1.0
         cairo-gobject gio-2.0 pangomm-1.4 glibmm-2.4 cairomm-1.0 sigc-2.0
