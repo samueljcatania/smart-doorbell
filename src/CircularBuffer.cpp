@@ -30,9 +30,9 @@ void CircularBuffer<T>::push(T element) {
         current_size = max_size;
     }
 
-//    if (tail == head) {
-//        head = (head + 1) % max_size;
-//    }
+    if (tail == head) {
+        head = (head + 1) % max_size;
+    }
 }
 
 template<typename T>

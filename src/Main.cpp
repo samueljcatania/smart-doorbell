@@ -9,8 +9,6 @@
  */
 
 #include "../include/Doorbell.hpp"
-#include "../include/CircularBuffer.hpp"
-
 
 int main() {
 //    Doorbell doorbell;
@@ -35,18 +33,18 @@ int main() {
 //        std::cout << buffer.pop(a) << std::endl;
 //    }
 
-    DisplayWindow displayWindow;
-    displayWindow.openGui();
-
-    VideoRecorder vr; // creates a new VideoRecorder object.
-    vr.openCamera(); // Open up the camera.
-    vr.recordVideo(); // Start recording video.
-
-    // Note: The code gets hung on the previous step until a key is pressed. To close it using closeCamera(),
-    // maybe try multithreading.
-    vr.closeCamera();
-
-    DisplayWindow test;
-    test.openGui();
+//    DisplayWindow displayWindow;
+//    displayWindow.openGui();
+//
+//    VideoRecorder vr; // creates a new VideoRecorder object.
+//    vr.openCamera(); // Open up the camera.
+//    vr.recordVideo(); // Start recording video.
+//
+//    // Note: The code gets hung on the previous step until a key is pressed. To close it using closeCamera(),
+//    // maybe try multithreading.
+//    vr.closeCamera();
+//
+//    DisplayWindow test;
+//    test.openGui();
     return 0;
 }

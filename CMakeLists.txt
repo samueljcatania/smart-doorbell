@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 project(Group-17)
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_FLAGS -std=c++17)
 
 ################################################################
 # opencv4
@@ -120,6 +121,13 @@ link_directories(lib/atkmm-1.6)
 
 include_directories(include/atk-1.0)
 link_directories(lib/atk-1.0)
+
+################################################################
+# fontconfig
+################################################################
+
+include_directories(include/fontconfig)
+link_directories(lib/fontconfig)
 
 ################################################################
 # Project-Created Headers
