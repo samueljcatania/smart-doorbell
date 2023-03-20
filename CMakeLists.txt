@@ -133,8 +133,11 @@ link_directories(lib/fontconfig)
 # Project-Created Headers
 ################################################################
 
-# Find all header files in the include/ directory
-file(GLOB HEADER_FILES include/CircularBuffer.hpp include/*.hpp)
+## Find all header files in the include/ directory
+#file(GLOB HEADER_FILES include/*.hpp)
+
+## Find all header files in the include/ directory
+file(GLOB HEADER_FILES include/Camera.hpp include/CircularBuffer.hpp include/DisplayWindow.hpp include/Doorbell.hpp include/VideoRecorder.hpp)
 
 # Add all header files as library targets
 add_library(HEADERS ${HEADER_FILES})
