@@ -3,18 +3,18 @@ project(Group-17)
 set(CMAKE_CXX_STANDARD 14)
 
 ################################################################
-# opencv4
-################################################################
-
-include_directories(include/opencv4)
-link_directories(lib/opencv4)
-
-################################################################
 # gtkmm
 ################################################################
 
 include_directories(include/gtkmm-3.0)
 link_directories(lib/gtkmm-3.0)
+
+################################################################
+# opencv4
+################################################################
+
+include_directories(include/opencv4)
+link_directories(lib/opencv4)
 
 ################################################################
 # glibmm
@@ -162,9 +162,9 @@ add_executable(Group-17 ${SOURCE_FILES})
 # Link Library Binaries
 ################################################################
 
-target_link_libraries(Group-17
+target_link_libraries(Group-17 gtkmm-3.0
         opencv_highgui opencv_videoio opencv_imgproc opencv_core
-        gtkmm-3.0 atkmm-1.6 gdkmm-3.0 giomm-2.4 gtk-3 gdk-3 atk-1.0
+        atkmm-1.6 gdkmm-3.0 giomm-2.4 gtk-3 gdk-3 atk-1.0
         cairo-gobject gio-2.0 pangomm-1.4 glibmm-2.4 cairomm-1.0 sigc-2.0
         pangocairo-1.0 pango-1.0 harfbuzz cairo gdk_pixbuf-2.0 gobject-2.0
         glib-2.0)
