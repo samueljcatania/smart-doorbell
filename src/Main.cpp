@@ -13,26 +13,6 @@
 int main() {
     Doorbell doorbell;
 
-    CircularBuffer<int> buffer = CircularBuffer<int>(5);
-//
-//    for (int a = 0; a < 5; a++) {
-//        std::cout << buffer.pop(a) << std::endl;
-//    }
-//
-//    std::cout << "" << std::endl;
-//
-//    buffer.push(1);
-//    buffer.push(2);
-//    buffer.push(3);
-//    buffer.push(4);
-//    buffer.push(5);
-//    buffer.push(6);
-//    buffer.push(7);
-//
-//    for (int a = 0; a < 5; a++) {
-//        std::cout << buffer.pop(a) << std::endl;
-//    }
-
 //    DisplayWindow displayWindow;
 //    displayWindow.openGui();
 //

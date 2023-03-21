@@ -33,11 +33,6 @@ Camera::Camera() {
 
 
 Camera::~Camera() {
-    std::cout << lead_up_buffer.size() << std::endl;
-    for (int a = 0; a < lead_up_buffer.size(); a++) {
-        video_writer.write(lead_up_buffer.pop());
-    }
-
     // Cleanup the camera and close any open windows
     video_capture.release();
     video_writer.release();
@@ -52,8 +47,6 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
     while (video_capture.read(frame)) {
         //Add the frame to the 20-second lead-up buffer
         lead_up_buffer.push(frame);
-
-//        video_writer.write(frame);
 
         // Set the frame size to 512 by 380 to process faster
         cv::resize(frame, frame, cv::Size(512, 380));
@@ -124,6 +117,11 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
 
         //If the Escape key is pressed, break the while loop.
         if (cv::waitKey(1) == 27) {
+            std::cout << lead_up_buffer.size() << std::endl;
+            for (int a = 0; a < lead_up_buffer.size(); a++) {
+                video_writer.write(lead_up_buffer.pop());
+            }
+
             break;
         }
     }

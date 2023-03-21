@@ -23,15 +23,15 @@ CircularBuffer<T>::~CircularBuffer() = default;
 template<typename T>
 void CircularBuffer<T>::push(T element) {
     tail = (tail + 1) % max_size;
-    vector.insert(vector.begin() + tail, element);
+    vector[tail] = element;
     current_size++;
 
     if (current_size > max_size) {
         current_size = max_size;
-    }
 
-    if (tail == head) {
-        head = (head + 1) % max_size;
+        if (tail == head) {
+            head = (head + 1) % max_size;
+        }
     }
 }
 
@@ -44,6 +44,7 @@ T CircularBuffer<T>::pop() {
         T element = vector[head];
         head = (head + 1) % max_size;
         current_size--;
+
         return element;
     }
 }

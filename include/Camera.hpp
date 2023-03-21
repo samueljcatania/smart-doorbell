@@ -24,7 +24,7 @@ private:
     cv::VideoCapture video_capture;
     cv::VideoWriter video_writer = cv::VideoWriter("../recordings/output.avi",
                                                    cv::VideoWriter::fourcc('M', 'J', 'P', 'G'),
-                                                   30,
+                                                   15,
                                                    cv::Size(640, 480));
     cv::Mat average_frame;
     CircularBuffer<cv::Mat> lead_up_buffer = CircularBuffer<cv::Mat>(400);
