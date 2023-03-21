@@ -3,6 +3,13 @@ project(Group-17)
 set(CMAKE_CXX_STANDARD 14)
 
 ################################################################
+# cairomm
+################################################################
+
+include_directories(include/cairomm-1.0)
+link_directories(lib/cairomm-1.0)
+
+################################################################
 # gtkmm
 ################################################################
 
@@ -92,13 +99,6 @@ link_directories(lib/cairo)
 
 include_directories(include/gdk-pixbuf-2.0)
 link_directories(lib/gdk-pixbuf-2.0)
-
-################################################################
-# cairomm
-################################################################
-
-include_directories(include/cairomm-1.0)
-link_directories(lib/cairomm-1.0)
 
 ################################################################
 # freetype2
