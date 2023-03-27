@@ -9,9 +9,13 @@
  */
 
 #include "../include/Doorbell.hpp"
+#include "../include/WebApp.hpp"
 
-int main() {
-    Doorbell doorbell;
+int main(int argc, char **argv) {
+    return Wt::WRun(argc, argv, [](const Wt::WEnvironment& env) {
+        return std::make_unique<WebApp>(env);
+    });
+//    Doorbell doorbell;
 
 //    DisplayWindow displayWindow;
 //    displayWindow.openGui();
