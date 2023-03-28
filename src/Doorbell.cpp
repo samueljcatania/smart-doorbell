@@ -7,10 +7,12 @@
  * Description of Doorbell.cpp:
  *
  */
-
 #include "../include/Doorbell.hpp"
 
 Doorbell::Doorbell() {
+    // Turn off OpenCV console logging output
+    cv::utils::logging::setLogLevel(cv::utils::logging::LogLevel::LOG_LEVEL_SILENT);
+
     camera_thread = std::thread(&Camera::detectMotion, camera, std::ref(shared_queue), std::ref(mutex_lock),
                                 std::ref(cond_var));
 

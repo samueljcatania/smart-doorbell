@@ -18,13 +18,9 @@ void DisplayWindow::stopRecordButtonClick() {//Stop recording??
     cam.closeCamera();
 }
 
-DisplayWindow::DisplayWindow() {
+DisplayWindow::DisplayWindow() = default;
 
-}
-
-DisplayWindow::~DisplayWindow() {
-
-}
+DisplayWindow::~DisplayWindow() = default;
 
 int DisplayWindow::openGui() { // function to open a window for user to control the camera
     auto app = Gtk::Application::create("org.gtkmm.examples.base");
@@ -52,5 +48,5 @@ int DisplayWindow::openGui() { // function to open a window for user to control 
 
     // Show the window and run the application
     window.show_all();
-    return app->run(window);
+    return app->make_window_and_run<MyWindow>();
 }
