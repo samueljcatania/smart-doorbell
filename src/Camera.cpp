@@ -11,15 +11,15 @@
 #include <iostream>
 
 #include <opencv2/core.hpp>
-#include <opencv2/videoio.hpp>
 #include <opencv2/highgui/highgui.hpp>
+
 #include "../include/Camera.hpp"
 
 Camera::Camera() {
     cv::Mat frame;
 
     // Open the default video camera
-    video_capture.open(0, cv::CAP_V4L2);
+    video_capture.open(0, cv::CAP_V4L);
 
     // Check if the camera was successfully opened
     if (video_capture.isOpened()) {
@@ -47,6 +47,7 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
     while (video_capture.read(frame)) {
         //Add the frame to the 20-second lead-up buffer
         lead_up_buffer.push(frame);
+        video_writer.write(frame);
 
         // Set the frame size to 512 by 380 to process faster
         cv::resize(frame, frame, cv::Size(512, 380));
@@ -117,10 +118,10 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
 
         //If the Escape key is pressed, break the while loop.
         if (cv::waitKey(1) == 27) {
-            std::cout << lead_up_buffer.size() << std::endl;
-            for (int a = 0; a < lead_up_buffer.size(); a++) {
-                video_writer.write(lead_up_buffer.pop());
-            }
+//            std::cout << lead_up_buffer.size() << std::endl;
+//            for (int a = 0; a < lead_up_buffer.size(); a++) {
+//                video_writer.write(lead_up_buffer.pop());
+//            }
 
             break;
         }

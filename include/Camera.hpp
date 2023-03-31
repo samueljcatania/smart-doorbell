@@ -17,12 +17,14 @@
 #include <mutex>
 #include <condition_variable>
 #include <opencv2/opencv.hpp>
+#include <opencv2/core/utils/logger.hpp>
+
 #include "../include/CircularBuffer.hpp"
 
 class Camera {
 private:
     cv::VideoCapture video_capture;
-    cv::VideoWriter video_writer = cv::VideoWriter("../recordings/output.avi",
+    cv::VideoWriter video_writer = cv::VideoWriter("../recordings/output_001.avi",
                                                    cv::VideoWriter::fourcc('M', 'J', 'P', 'G'),
                                                    15,
                                                    cv::Size(640, 480));

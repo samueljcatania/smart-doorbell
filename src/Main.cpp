@@ -8,9 +8,13 @@
  *
  */
 
+#include <opencv2/core/utils/logger.hpp>
 #include "../include/Doorbell.hpp"
 
 int main() {
+    // Turn off OpenCV console logging output
+    cv::utils::logging::setLogLevel(cv::utils::logging::LogLevel::LOG_LEVEL_SILENT);
+
     Doorbell doorbell;
 
 //    DisplayWindow displayWindow;
