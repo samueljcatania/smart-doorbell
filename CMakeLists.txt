@@ -164,7 +164,7 @@ include_directories(INCLUDE_DIR)
 file(GLOB SOURCE_FILES src/CircularBuffer.cpp src/*.cpp)
 
 # Add all source (.cpp) files as executable targets
-add_executable(Group-17 ${SOURCE_FILES} src/WebApp.cpp)
+add_executable(Group-17 ${SOURCE_FILES} src/WebApp.cpp src/WebApp.cpp src/WebApp.cpp)
 
 ################################################################
 # Link Library Binaries
