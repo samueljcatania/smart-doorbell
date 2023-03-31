@@ -24,6 +24,8 @@
 #include <ctime>
 #include <iomanip>
 
+#include <queue>
+
 #ifndef GROUP_17_WEBSOCKET_HPP
 #define GROUP_17_WEBSOCKET_HPP
 
@@ -42,6 +44,12 @@ public:
 
     static WebApp* instance();
 
+    bool motionDetectedCurr = false;
+    bool motionDetectedPrev = false;
+
+    static std::queue<int> motionQueue;
+
+
 
 private:
     Wt::WLineEdit *nameEdit_;
@@ -54,7 +62,14 @@ private:
     Wt::WTimer *timer_;
     int messageCounter_;
 
+    Wt::WText *currMotionStatus_;
+
     void updateServerMessage();
+
+    void updateMotionStatus();
+
+    void trackMotionChanges();
+
 };
 
 #endif //GROUP_17_WEBSOCKET_HPP

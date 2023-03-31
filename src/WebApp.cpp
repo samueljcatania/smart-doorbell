@@ -8,6 +8,7 @@
 Wt::WContainerWidget* WebApp::greetingsContainer_ = nullptr;
 WebApp* WebApp::instance_ = nullptr;
 std::mutex WebApp::sendMessageMutex;
+std::queue<int> WebApp::motionQueue;
 
 // Code in WebApp runs forever until the web application is closed.
 WebApp::WebApp(const Wt::WEnvironment& env)
@@ -27,8 +28,15 @@ WebApp::WebApp(const Wt::WEnvironment& env)
     timer_ = root()->addChild(std::make_unique<Wt::WTimer>());
     timer_->setInterval(std::chrono::seconds(1));
     timer_->timeout().connect(this, &WebApp::updateServerMessage);
+    // update motion detected status
+    timer_->timeout().connect(this, &WebApp::updateMotionStatus);
     timer_->start();
 
+    // Current Motion Detected Status
+    root()->addWidget(std::make_unique<Wt::WBreak>());
+    currMotionStatus_ = root()->addWidget(std::make_unique<Wt::WText>("Current Status: No Motion Detected at this moment."));
+    root()->addWidget(std::make_unique<Wt::WBreak>());
+    root()->addWidget(std::make_unique<Wt::WBreak>());
 
 
     // Greetings sample code to reverse engineer
@@ -101,6 +109,39 @@ void WebApp::updateServerMessage()
 
     // Update the server message with the current date and time
     serverMessage_->setText("Current Server Time: " + ss.str());
+}
+
+void WebApp::updateMotionStatus(){
+    if (!motionDetectedCurr){
+        currMotionStatus_->setText("Current Status: No Motion Detected at this moment.");
+    }
+    else{
+        currMotionStatus_->setText("Current Status: Motion Detected");
+    }
+}
+
+void notifyWebAppMotionDetected(){
+     WebApp::motionQueue.push(1);
+}
+
+void WebApp::trackMotionChanges(){
+    // queue is empty - no motion detected
+    if (motionQueue.empty()){
+        // if the queue is empty, then no motion is currently detected.
+        motionDetectedCurr = false;
+    // prev = motion detected, curr = no motion detected
+        if (motionDetectedPrev){
+            !motionDetectedPrev;
+        }
+    // prev = no motion detected, curr = no motion detected
+    }
+    // prev = no motion detected, curr = motion detected
+    // send notification
+
+    // prev = motion detected, curr = motion detected
+
+
+
 }
 
 WebApp *WebApp::instance() {
