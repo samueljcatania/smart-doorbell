@@ -23,7 +23,7 @@
 class Camera {
 private:
     cv::VideoCapture video_capture;
-    cv::VideoWriter video_writer = cv::VideoWriter("../recordings/output.avi",
+    cv::VideoWriter video_writer = cv::VideoWriter(generateTimestampedFilename(),
                                                    cv::VideoWriter::fourcc('M', 'J', 'P', 'G'),
                                                    15,
                                                    cv::Size(640, 480));
@@ -37,6 +37,16 @@ public:
     ~Camera();
 
     void detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var);
+
+    // Function to generate the timestamped filename
+    static std::string generateTimestampedFilename() {
+        auto now = std::chrono::system_clock::now();
+        auto now_c = std::chrono::system_clock::to_time_t(now);
+        std::stringstream ss;
+        ss << "../recordings/" << std::put_time(std::localtime(&now_c), "%Y%m%d_%H%M%S") << ".avi";
+        return ss.str();
+    }
+
 };
 
 #endif // GROUP_17_CAMERA_HPP
