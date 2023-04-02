@@ -65,7 +65,7 @@ private:
 
     void updateMotionStatus();
 
-    void trackMotionChanges();
+    bool trackMotionChanges();
 
 };
 
