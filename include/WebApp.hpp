@@ -34,18 +34,12 @@ public:
     // run this function to start the web server using the parameters specified in WebAppConfig.txt.
     static int startApplication(int argc, char **argv);
 
-    void sendMessage(const std::string& msg);
-
     static WebApp* getInstance();
 
     bool motionDetectedCurr = false;
     bool motionDetectedPrev = false;
 
     static std::queue<int> motionQueue;
-
-    void updateMotionDetected_test();
-
-
 
 
 private:
@@ -61,7 +55,7 @@ private:
 
     Wt::WText *currMotionStatus_;
 
-    void updateServerMessage();
+    void updateServerTimeMsg();
 
     void updateMotionStatus();
 

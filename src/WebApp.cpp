@@ -26,7 +26,7 @@ WebApp::WebApp(const Wt::WEnvironment& env)
     // Add timer for updating server messages
     timer_ = root()->addChild(std::make_unique<Wt::WTimer>());
     timer_->setInterval(std::chrono::seconds(1));
-    timer_->timeout().connect(this, &WebApp::updateServerMessage);
+    timer_->timeout().connect(this, &WebApp::updateServerTimeMsg);
     // update motion detected status
     timer_->timeout().connect(this, &WebApp::updateMotionStatus);
     timer_->start();
@@ -89,13 +89,6 @@ WebApp::WebApp(const Wt::WEnvironment& env)
 
 }
 
-void WebApp::sendMessage(const std::string& msg){
-        greetingsContainer_->addWidget(std::make_unique<Wt::WText>(Wt::WString(msg)));
-        greetingsContainer_->addWidget(std::make_unique<Wt::WBreak>());
-        timer_->timeout().connect(this, &WebApp::updateMotionStatus);
-
-}
-
 // Call this function to start the Web Application.
 int WebApp::startApplication(int argc, char **argv){
 
@@ -125,7 +118,7 @@ int WebApp::startApplication(int argc, char **argv){
 }
 
 // This function updates the date and time displayed in the Web Application.
-void WebApp::updateServerMessage()
+void WebApp::updateServerTimeMsg()
 {
     // Get the current date and time
     auto now = std::chrono::system_clock::now();
@@ -140,11 +133,7 @@ void WebApp::updateServerMessage()
     serverMessage_->setText("Current Server Time: " + ss.str());
 }
 
-void WebApp::updateMotionDetected_test(){
-    currMotionStatus_->setText("Current Status: Motion Detected");
-
-}
-
+// This function updates the webapp to display whether motion has been detected or not
 void WebApp::updateMotionStatus(){
     if (!motionDetectedCurr){
         currMotionStatus_->setText("Current Status: No Motion Detected at this moment.");
@@ -154,10 +143,7 @@ void WebApp::updateMotionStatus(){
     }
 }
 
-void notifyWebAppMotionDetected(){
-     WebApp::motionQueue.push(1);
-}
-
+// this function tracks motion changes for use of keeping a history of when motion was detected
 bool WebApp::trackMotionChanges(){
     // prev = no motion detected, curr = motion detected
     if (!motionDetectedPrev && motionDetectedCurr){
@@ -171,7 +157,7 @@ bool WebApp::trackMotionChanges(){
         return false;
     }
 
-    // prev = motion detected, curr = motion detected
+    // prev = motion detected, curr = motion detected OR
     // prev = no motion detected, curr = no motion detected
     else{
         return false;
@@ -179,6 +165,7 @@ bool WebApp::trackMotionChanges(){
 
 }
 
+// Return the instance of WebApp that is being run.
 WebApp *WebApp::getInstance() {
     return instance_;
 }
