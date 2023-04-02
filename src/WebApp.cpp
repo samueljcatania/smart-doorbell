@@ -29,6 +29,8 @@ WebApp::WebApp(const Wt::WEnvironment& env)
     timer_->timeout().connect(this, &WebApp::updateServerTimeMsg);
     // update motion detected status
     timer_->timeout().connect(this, &WebApp::updateMotionStatus);
+    // update files
+    timer_->timeout().connect(this, &WebApp::updateFileList);
     timer_->start();
 
     // Current Motion Detected Status
@@ -92,16 +94,7 @@ WebApp::WebApp(const Wt::WEnvironment& env)
 //    Wt::WPushButton *startRecordingButton = root()->addWidget(std::make_unique<Wt::WPushButton>("Start Recording"));
 //    Wt::WPushButton *stopRecordingButton = root()->addWidget(std::make_unique<Wt::WPushButton>("Stop Recording"));
 
-
-// file explorer
-
-
-
-
-
     instance_ = this;
-
-    // test
 
 }
 
@@ -188,6 +181,9 @@ void WebApp::updateFileList() {
     if (!boost::filesystem::exists(recordingsPath_) || !boost::filesystem::is_directory(recordingsPath_)) {
         return;
     }
+
+    // Clear the entire table if there are existing entries
+    fileTable_->clear();
 
     for (const auto &entry : boost::filesystem::directory_iterator(recordingsPath_)) {
         if (boost::filesystem::is_regular_file(entry.path())) {
