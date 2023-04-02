@@ -40,21 +40,48 @@ WebApp::WebApp(const Wt::WEnvironment& env)
     // Greetings sample code to reverse engineer
 
 
-    root()->addWidget(std::make_unique<Wt::WText>("Your name, please? "));
-    nameEdit_ = root()->addWidget(std::make_unique<Wt::WLineEdit>());
-    Wt::WPushButton *button = root()->addWidget(std::make_unique<Wt::WPushButton>("Greet me."));
+    //root()->addWidget(std::make_unique<Wt::WText>("Your name, please? "));
+    //nameEdit_ = root()->addWidget(std::make_unique<Wt::WLineEdit>());
+    //Wt::WPushButton *button = root()->addWidget(std::make_unique<Wt::WPushButton>("Greet me."));
     root()->addWidget(std::make_unique<Wt::WBreak>());
     greeting_ = root()->addWidget(std::make_unique<Wt::WText>());
 
+
     auto greet = [this]{
-        greetingsContainer_->addWidget(std::make_unique<Wt::WText>("Hello there, " + nameEdit_->text()));
+        // Get the current date and time
+        auto now = std::chrono::system_clock::now();
+        std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+        std::tm now_tm = *std::localtime(&now_c);
+
+        // Format the date and time as a string
+        std::stringstream ss;
+        ss << std::put_time(&now_tm, "%Y-%m-%d %H:%M:%S");
+
+        //greetingsContainer_->addWidget(std::make_unique<Wt::WText>("Hello there, " + nameEdit_->text()));
+        greetingsContainer_->addWidget(std::make_unique<Wt::WText>("Motion Detected at " + ss.str()));
         greetingsContainer_->addWidget(std::make_unique<Wt::WBreak>());
     };
-    button->clicked().connect(greet);
+    //button->clicked().connect(greet);
+    timer_->timeout().connect([this, greet]{
+        if (trackMotionChanges()){
+            greet();
+        }
+    });
 
 
     greetingsContainer_ = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
     greetingsContainer_->addWidget(std::make_unique<Wt::WBreak>());
+
+    // recording buttons
+//    Wt::WPushButton *startRecordingButton = root()->addWidget(std::make_unique<Wt::WPushButton>("Start Recording"));
+//    Wt::WPushButton *stopRecordingButton = root()->addWidget(std::make_unique<Wt::WPushButton>("Stop Recording"));
+
+
+// file explorer
+
+
+
+
 
     instance_ = this;
 
@@ -131,21 +158,24 @@ void notifyWebAppMotionDetected(){
      WebApp::motionQueue.push(1);
 }
 
-void WebApp::trackMotionChanges(){
-    // queue is empty - no motion detected
-    if (motionQueue.empty()){
-        // if the queue is empty, then no motion is currently detected.
-        motionDetectedCurr = false;
-    // prev = motion detected, curr = no motion detected
-        if (motionDetectedPrev){
-            !motionDetectedPrev;
-        }
-    // prev = no motion detected, curr = no motion detected
-    }
+bool WebApp::trackMotionChanges(){
     // prev = no motion detected, curr = motion detected
-    // send notification
+    if (!motionDetectedPrev && motionDetectedCurr){
+        motionDetectedPrev = true;
+        return true;
+    }
+
+    // prev = motion detected, curr = no motion detected
+    if (motionDetectedPrev && !motionDetectedCurr){
+        motionDetectedPrev = false;
+        return false;
+    }
 
     // prev = motion detected, curr = motion detected
+    // prev = no motion detected, curr = no motion detected
+    else{
+        return false;
+    }
 
 }
 
