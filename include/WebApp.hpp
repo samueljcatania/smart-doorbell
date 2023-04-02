@@ -60,7 +60,6 @@ private:
     void updateMotionStatus();
 
     bool trackMotionChanges();
-
 };
 
 #endif //GROUP_17_WEBSOCKET_HPP
