@@ -3,11 +3,9 @@
 //
 
 #include "../include/WebApp.hpp"
-#include <Wt/WLineEdit.h>
 
 Wt::WContainerWidget* WebApp::greetingsContainer_ = nullptr;
 WebApp* WebApp::instance_ = nullptr;
-std::queue<int> WebApp::motionQueue;
 
 // Code in WebApp runs forever until the web application is closed.
 WebApp::WebApp(const Wt::WEnvironment& env)
@@ -53,16 +51,6 @@ WebApp::WebApp(const Wt::WEnvironment& env)
 
     // end file explorer module
 
-
-    // Greetings sample code to reverse engineer
-
-    //root()->addWidget(std::make_unique<Wt::WText>("Your name, please? "));
-    //nameEdit_ = root()->addWidget(std::make_unique<Wt::WLineEdit>());
-    //Wt::WPushButton *button = root()->addWidget(std::make_unique<Wt::WPushButton>("Greet me."));
-    //root()->addWidget(std::make_unique<Wt::WBreak>());
-    greeting_ = root()->addWidget(std::make_unique<Wt::WText>());
-
-
     auto greet = [this]{
         // Get the current date and time
         auto now = std::chrono::system_clock::now();
@@ -77,7 +65,6 @@ WebApp::WebApp(const Wt::WEnvironment& env)
         greetingsContainer_->addWidget(std::make_unique<Wt::WText>("Motion Detected at " + ss.str()));
         greetingsContainer_->addWidget(std::make_unique<Wt::WBreak>());
     };
-    //button->clicked().connect(greet);
     timer_->timeout().connect([this, greet]{
         if (trackMotionChanges()){
             greet();
@@ -166,8 +153,7 @@ bool WebApp::trackMotionChanges(){
         return false;
     }
 
-    // prev = motion detected, curr = motion detected OR
-    // prev = no motion detected, curr = no motion detected
+    // prev = motion detected, curr = motion detected OR prev = no motion detected, curr = no motion detected
     else{
         return false;
     }
