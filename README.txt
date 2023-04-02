@@ -2,6 +2,7 @@ Prerequisites:
 Required Dependencies:
 - GTK-3.0
 - OpenCV (with GTK3 dependencies)
+- libboost
 - Wt 4.9.1
 
 IMPORTANT: Make sure that no other versions of GTK such as GTK 2.0 are installed. This will cause conflicts in
@@ -51,6 +52,10 @@ sudo make install
 =============================================================================================================
 
 Installing Wt 4.9.1
+
+0. Please make sure you first have the libboost dependencies: install them by running the following command
+sudo apt update
+sudo apt install libboost-all-dev
 
 1. Download Wt 4.9.1 and extract the files: https://www.webtoolkit.eu/wt/download
 
