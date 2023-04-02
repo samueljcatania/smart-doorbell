@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+
 #include <Wt/WApplication.h>
 #include <Wt/WBreak.h>
 #include <Wt/WContainerWidget.h>
@@ -12,13 +13,8 @@
 #include <Wt/WServer.h>
 #include <mutex>
 
-#include <Wt/WApplication.h>
-#include <Wt/WBreak.h>
-#include <Wt/WContainerWidget.h>
-#include <Wt/WLineEdit.h>
-#include <Wt/WPushButton.h>
-#include <Wt/WText.h>
 #include <Wt/WTimer.h>
+#include <Wt/WSignal.h>
 
 #include <chrono>
 #include <ctime>
@@ -38,25 +34,26 @@ public:
     // run this function to start the web server using the parameters specified in WebAppConfig.txt.
     static int startApplication(int argc, char **argv);
 
-    static void sendMessage(const std::string& msg);
+    void sendMessage(const std::string& msg);
 
-    static std::mutex sendMessageMutex;
-
-    static WebApp* instance();
+    static WebApp* getInstance();
 
     bool motionDetectedCurr = false;
     bool motionDetectedPrev = false;
 
     static std::queue<int> motionQueue;
 
+    void updateMotionDetected_test();
+
+
 
 
 private:
+    static WebApp *instance_;
+
+
     Wt::WLineEdit *nameEdit_;
     static Wt::WContainerWidget *greetingsContainer_;
-    const char* WebAppConfigParse();
-
-    static WebApp *instance_;
     Wt::WText *greeting_;
     Wt::WText *serverMessage_;
     Wt::WTimer *timer_;

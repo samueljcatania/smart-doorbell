@@ -38,6 +38,7 @@ int main(int argc, char **argv) {
 //    });
 
 //    messageThread.join();
+    Doorbell doorbell;
     serverThread.join();
 
    // WebApp::sendMessage("Hello World!");

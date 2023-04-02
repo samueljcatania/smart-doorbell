@@ -53,6 +53,12 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
 
         cv::Mat frame_delta, gray, thresh, absolute_difference;
         std::string camera_description = "No Motion";
+        WebApp* webAppInstance = WebApp::getInstance();
+
+        if (webAppInstance) {
+            webAppInstance->motionDetectedCurr = false;
+        }
+
 
         // Convert the current frame to greyscale
         cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
@@ -94,6 +100,9 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
                           CV_RGB(0, 255, 0), 2);
             camera_description = "Motion Detected";
 
+            if (webAppInstance) {
+                webAppInstance->motionDetectedCurr = true;
+            }
             //TODO Implement circular buffer to store last 20 seconds of frames
 
             std::lock_guard<std::mutex> lock_guard{mutex_lock};

@@ -7,7 +7,6 @@
 
 Wt::WContainerWidget* WebApp::greetingsContainer_ = nullptr;
 WebApp* WebApp::instance_ = nullptr;
-std::mutex WebApp::sendMessageMutex;
 std::queue<int> WebApp::motionQueue;
 
 // Code in WebApp runs forever until the web application is closed.
@@ -38,7 +37,6 @@ WebApp::WebApp(const Wt::WEnvironment& env)
     root()->addWidget(std::make_unique<Wt::WBreak>());
     root()->addWidget(std::make_unique<Wt::WBreak>());
 
-
     // Greetings sample code to reverse engineer
 
 
@@ -59,12 +57,16 @@ WebApp::WebApp(const Wt::WEnvironment& env)
     greetingsContainer_->addWidget(std::make_unique<Wt::WBreak>());
 
     instance_ = this;
+
+    // test
+
 }
 
 void WebApp::sendMessage(const std::string& msg){
-        std::lock_guard<std::mutex> lock(sendMessageMutex);
         greetingsContainer_->addWidget(std::make_unique<Wt::WText>(Wt::WString(msg)));
         greetingsContainer_->addWidget(std::make_unique<Wt::WBreak>());
+        timer_->timeout().connect(this, &WebApp::updateMotionStatus);
+
 }
 
 // Call this function to start the Web Application.
@@ -111,6 +113,11 @@ void WebApp::updateServerMessage()
     serverMessage_->setText("Current Server Time: " + ss.str());
 }
 
+void WebApp::updateMotionDetected_test(){
+    currMotionStatus_->setText("Current Status: Motion Detected");
+
+}
+
 void WebApp::updateMotionStatus(){
     if (!motionDetectedCurr){
         currMotionStatus_->setText("Current Status: No Motion Detected at this moment.");
@@ -140,10 +147,8 @@ void WebApp::trackMotionChanges(){
 
     // prev = motion detected, curr = motion detected
 
-
-
 }
 
-WebApp *WebApp::instance() {
+WebApp *WebApp::getInstance() {
     return instance_;
 }

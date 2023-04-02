@@ -18,6 +18,7 @@
 #include <condition_variable>
 #include <opencv2/opencv.hpp>
 #include "../include/CircularBuffer.hpp"
+#include "WebApp.hpp"
 
 class Camera {
 private:
