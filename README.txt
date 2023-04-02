@@ -77,5 +77,8 @@ make clean
 
 =============================================================================================================
 Notes about running the program:
-Recorded footage files are saved to the working directory.
+Recorded footage files are saved to a folder called 'recordings' in the project directory. 
+IMPORTANT: please create a 'recordings' folder before first run. 
+Please use the following command line arguments when running the program: --docroot . --http-address 0.0.0.0 --http-port 8080
+If you change the http-address to your inet IP address, then you will be able to access the WebApp from any other device on the network. 
 
