@@ -11,7 +11,12 @@
 #include <Wt/WPushButton.h>
 #include <Wt/WText.h>
 #include <Wt/WServer.h>
-#include <mutex>
+
+#include <Wt/WEnvironment.h>
+#include <Wt/WTable.h>
+#include <Wt/WAnchor.h>
+#include <Wt/WFileResource.h>
+#include <boost/filesystem.hpp>
 
 #include <Wt/WTimer.h>
 #include <Wt/WSignal.h>
@@ -43,6 +48,9 @@ public:
 
 
 private:
+    Wt::WTable *fileTable_;
+    boost::filesystem::path recordingsPath_{"../recordings"};
+
     static WebApp *instance_;
 
 
@@ -60,6 +68,8 @@ private:
     void updateMotionStatus();
 
     bool trackMotionChanges();
+
+    void updateFileList();
 };
 
 #endif //GROUP_17_WEBSOCKET_HPP

@@ -35,15 +35,29 @@ WebApp::WebApp(const Wt::WEnvironment& env)
     root()->addWidget(std::make_unique<Wt::WBreak>());
     currMotionStatus_ = root()->addWidget(std::make_unique<Wt::WText>("Current Status: No Motion Detected at this moment."));
     root()->addWidget(std::make_unique<Wt::WBreak>());
+
+    //file explorer module
     root()->addWidget(std::make_unique<Wt::WBreak>());
+    root()->addWidget(std::make_unique<Wt::WText>("Stored Recordings: "));
+    auto container = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
+    container->setStyleClass("container");
+
+    fileTable_ = container->addWidget(std::make_unique<Wt::WTable>());
+    //fileTable_->setHeaderCount(1);
+    fileTable_->setWidth(Wt::WLength("100%"));
+    //fileTable_->elementAt(0, 0)->addWidget(std::make_unique<Wt::WText>("File Name"));
+
+    updateFileList();
+
+    // end file explorer module
+
 
     // Greetings sample code to reverse engineer
-
 
     //root()->addWidget(std::make_unique<Wt::WText>("Your name, please? "));
     //nameEdit_ = root()->addWidget(std::make_unique<Wt::WLineEdit>());
     //Wt::WPushButton *button = root()->addWidget(std::make_unique<Wt::WPushButton>("Greet me."));
-    root()->addWidget(std::make_unique<Wt::WBreak>());
+    //root()->addWidget(std::make_unique<Wt::WBreak>());
     greeting_ = root()->addWidget(std::make_unique<Wt::WText>());
 
 
@@ -68,8 +82,10 @@ WebApp::WebApp(const Wt::WEnvironment& env)
         }
     });
 
-
+    // activity history layout on webapp
     greetingsContainer_ = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
+    greetingsContainer_->addWidget(std::make_unique<Wt::WBreak>());
+    greetingsContainer_->addWidget(std::make_unique<Wt::WText>("Activity History:"));
     greetingsContainer_->addWidget(std::make_unique<Wt::WBreak>());
 
     // recording buttons
@@ -163,6 +179,28 @@ bool WebApp::trackMotionChanges(){
         return false;
     }
 
+}
+
+// function to retrieve Recordings folder files.
+void WebApp::updateFileList() {
+    int row = 1;
+
+    if (!boost::filesystem::exists(recordingsPath_) || !boost::filesystem::is_directory(recordingsPath_)) {
+        return;
+    }
+
+    for (const auto &entry : boost::filesystem::directory_iterator(recordingsPath_)) {
+        if (boost::filesystem::is_regular_file(entry.path())) {
+            auto fileName = entry.path().filename().string();
+            auto filePath = (recordingsPath_ / fileName).string();
+            auto fileResource = std::make_shared<Wt::WFileResource>("", filePath);
+            fileResource->suggestFileName(fileName);
+
+            fileTable_->elementAt(row, 0)->addWidget(std::make_unique<Wt::WAnchor>(Wt::WLink(fileResource), fileName));
+
+            ++row;
+        }
+    }
 }
 
 // Return the instance of WebApp that is being run.
