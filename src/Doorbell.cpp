@@ -16,22 +16,22 @@ Doorbell::Doorbell() {
     // Turn off OpenCV console logging output
     cv::utils::logging::setLogLevel(cv::utils::logging::LogLevel::LOG_LEVEL_SILENT);
 
-    camera_thread = std::thread(&Camera::detectMotion, camera, std::ref(shared_queue), std::ref(mutex_lock),
-    camera_thread = std::thread(&Camera::detect_motion, camera, std::ref(shared_queue), std::ref(mutex_lock),
+    camera_thread = std::thread(&Camera::detect_motion,
+                                camera,
+                                std::ref(shared_queue),
+                                std::ref(mutex_lock),
                                 std::ref(cond_var));
 
     //recorder_thread
-    manager_thread = std::thread(&Doorbell::thread_manager, this);
+    master_thread = std::thread(&Doorbell::thread_manager, this);
 
     camera_thread.join();
-    manager_thread.join();
+    master_thread.join();
 }
 
-void Doorbell::thread_manager() {
-
+Doorbell::~Doorbell() {
+    cv::destroyAllWindows();
 }
-
-Doorbell::~Doorbell() = default;
 
 int Doorbell::open_window(int argc, char *argv[]) {
     Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv, "org.gtkmm.example");

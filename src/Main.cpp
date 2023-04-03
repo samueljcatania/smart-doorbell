@@ -8,14 +8,15 @@
  *
  */
 
-#include "../include/Doorbell.hpp"
-#include "../include/WebApp.hpp"
-
 #include <iostream>
 #include <thread>
 
+#include "../include/Doorbell.hpp"
+#include "../include/WebApp.hpp"
+
 int main(int argc, char *argv[]) {
-    Doorbell doorbell1;
+    Doorbell doorbell;
+    doorbell.open_window(argc, argv);
 
 //int main(int argc, char **argv) {
 //
@@ -37,8 +38,6 @@ int main(int argc, char *argv[]) {
 //    });
 
 //    messageThread.join();
-    Doorbell doorbell;
-    doorbell.open_window(argc, argv);
 
 //    DisplayWindow displayWindow;
 //    displayWindow.open_window(argc, argv);

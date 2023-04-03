@@ -28,11 +28,8 @@ Camera::Camera() {
     } else {
         std::cout << "Cannot open the video camera" << std::endl;
     }
-<<<<<<<<< Temporary merge branch 1
 
     recent_motion_time = std::chrono::system_clock::now();
-=========
->>>>>>>>> Temporary merge branch 2
 }
 
 
@@ -49,29 +46,27 @@ void Camera::detect_motion(std::queue<char> &shared_queue, std::mutex &mutex_loc
     std::vector<std::vector<cv::Point> > contours;
 
     while (video_capture.read(frame)) {
-<<<<<<<<< Temporary merge branch 1
         //Add the frame to the 20-second lead-up buffer
         lead_up_buffer.push(frame);
         video_writer.write(frame);
 
         auto rectangles = face_detector.detect_face_rectangles(frame);
-         cv::Scalar colour(0, 105, 205);
-         int frame_thickness = 4;
-         for(const auto & r : rectangles){
-             cv::rectangle(frame, r, colour, frame_thickness);
-         }
+        cv::Scalar colour(0, 105, 205);
+        int frame_thickness = 4;
+        for (const auto &r: rectangles) {
+            cv::rectangle(frame, r, colour, frame_thickness);
+        }
 
         // Set the frame size to 512 by 380 to process faster
         cv::resize(frame, frame, cv::Size(512, 380));
 
         cv::Mat frame_delta, gray, thresh, absolute_difference;
         std::string camera_description = "No Motion";
-        WebApp* webAppInstance = WebApp::getInstance();
+        WebApp *webAppInstance = WebApp::getInstance();
 
         if (webAppInstance) {
             webAppInstance->motionDetectedCurr = false;
         }
-
 
         // Convert the current frame to greyscale
         cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
@@ -108,13 +103,11 @@ void Camera::detect_motion(std::queue<char> &shared_queue, std::mutex &mutex_loc
 
             // Generate a green bounding box for the contour to draw on the frame, and update the frame description
             cv::Rect rect = cv::boundingRect(contour);
-<<<<<<<<< Temporary merge branch 1
             cv::rectangle(frame, cv::Point(rect.x, rect.y),
                           cv::Point(rect.x + rect.width, rect.y + rect.height),
-=========
-            cv::rectangle(frame, cv::Point(rect.x, rect.y), cv::Point(rect.x + rect.width, rect.y + rect.height),
->>>>>>>>> Temporary merge branch 2
-                          CV_RGB(0, 255, 0), 2);
+                          cv::rectangle(frame, cv::Point(rect.x, rect.y),
+                                        cv::Point(rect.x + rect.width, rect.y + rect.height),
+                                        CV_RGB(0, 255, 0), 2);
             camera_description = "Motion Detected";
 
             if (webAppInstance) {
@@ -145,14 +138,12 @@ void Camera::detect_motion(std::queue<char> &shared_queue, std::mutex &mutex_loc
         if (cv::waitKey(1) == 27) {
             std::cout << lead_up_buffer.capacity() << std::endl;
             int a = 1;
-            while(lead_up_buffer.size() > 0){
+            while (lead_up_buffer.size() > 0) {
                 video_writer.write(lead_up_buffer.pop());
                 std::cout << a << std::endl;
                 a++;
             }
 
-=========
->>>>>>>>> Temporary merge branch 2
             break;
         }
     }

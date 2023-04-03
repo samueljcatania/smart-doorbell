@@ -8,7 +8,7 @@
 #include <gtkmm/box.h>
 #include <gtkmm/button.h>
 #include <gtkmm/window.h>
-#include "../include/VideoRecorder.hpp"
+#include "VideoRecorder.hpp"
 
 class DisplayWindow : public Gtk::Window {
 public:

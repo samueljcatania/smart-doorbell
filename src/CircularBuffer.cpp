@@ -23,7 +23,6 @@ CircularBuffer<T>::~CircularBuffer() = default;
 template<typename T>
 void CircularBuffer<T>::push(T element) {
     tail = (tail + 1) % max_size;
-<<<<<<<<< Temporary merge branch 1
     vector[tail] = element;
     current_size++;
 

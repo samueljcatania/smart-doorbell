@@ -22,9 +22,9 @@ private:
     std::queue<char> shared_queue;
     std::mutex mutex_lock;
     std::condition_variable cond_var;
-    std::thread camera_thread, recorder_thread, manager_thread;
+    std::thread camera_thread, recorder_thread, master_thread;
 
-    void threadManager();
+    void thread_manager();
 
 public:
     Doorbell();

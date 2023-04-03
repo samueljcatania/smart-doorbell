@@ -19,8 +19,8 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/utils/logger.hpp>
 
-#include "../include/FaceDetector.hpp"
-#include "../include/CircularBuffer.hpp"
+#include "FaceDetector.hpp"
+#include "CircularBuffer.hpp"
 #include "WebApp.hpp"
 
 class Camera {
