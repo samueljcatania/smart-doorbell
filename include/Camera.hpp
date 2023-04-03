@@ -28,7 +28,7 @@ class Camera {
 private:
     cv::VideoCapture video_capture;
     cv::Mat average_frame;
-    CircularBuffer<cv::Mat> lead_up_buffer = CircularBuffer<cv::Mat>(1);
+    CircularBuffer<cv::Mat> lead_up_buffer = CircularBuffer<cv::Mat>(0);
     std::chrono::time_point<std::chrono::system_clock> camera_start_time, last_motion_time;
     FaceDetector face_detector;
     int frame_rate;
@@ -41,9 +41,10 @@ public:
 
     ~Camera();
 
-    void detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue,
-                       std::mutex &mutex_lock, std::condition_variable &recording_updated,
-                       std::condition_variable &queue_updated);
+    void
+    detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::mutex &camera_lock, std::mutex &buffer_lock,
+                  CircularBuffer<cv::Mat> &shared_lead_up_buffer, std::condition_variable &recording_updated,
+                  std::condition_variable &buffer_updated, std::condition_variable &queue_updated);
 
     int get_frame_rate() const;
 

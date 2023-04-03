@@ -28,6 +28,8 @@ private:
 public:
     explicit CircularBuffer(size_t size);
 
+    CircularBuffer(const CircularBuffer<cv::Mat> &circular_buffer);
+
     ~CircularBuffer();
 
     void push(T element);
@@ -42,5 +44,6 @@ public:
 
     void clear();
 };
+
 
 #endif //GROUP_17_CIRCULARBUFFER_HPP

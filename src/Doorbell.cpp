@@ -22,8 +22,11 @@ Doorbell::Doorbell() {
                                 camera,
                                 std::ref(recording),
                                 std::ref(shared_queue),
-                                std::ref(mutex_lock),
+                                std::ref(camera_lock),
+                                std::ref(buffer_lock),
+                                std::ref(shared_lead_up_buffer),
                                 std::ref(recording_updated),
+                                std::ref(buffer_updated),
                                 std::ref(queue_updated));
 
     //recorder_thread
@@ -51,27 +54,30 @@ void Doorbell::thread_manager() {
 
     while (1) {
         // Critical Section
-        std::unique_lock<std::mutex> unique_lock{mutex_lock};
+        std::unique_lock<std::mutex> unique_lock{camera_lock};
         recording_updated.wait(unique_lock, [&] {
-            return !recording;
+            return recording;
         });
-
-        std::cout << "RECORDING IS TRUEEEEE" << std::endl;
 
         create_video_recorder_thread();
     }
 }
 
 void Doorbell::create_video_recorder_thread() {
-    VideoRecorder video_recorder(camera.get_lead_up_buffer(), camera.get_frame_rate());
+    VideoRecorder video_recorder(camera.get_frame_rate());
+
+    std::cout << "Create da thread" << std::endl;
 
     recorder_thread = std::thread(&VideoRecorder::write_frames,
-                                video_recorder,
-                                std::ref(recording),
-                                std::ref(shared_queue),
-                                std::ref(mutex_lock),
-                                std::ref(recording_updated),
-                                std::ref(queue_updated));
+                                  video_recorder,
+                                  std::ref(recording),
+                                  std::ref(shared_queue),
+                                  std::ref(recorder_lock),
+                                  std::ref(shared_lead_up_buffer),
+                                  std::ref(recording_updated),
+                                  std::ref(queue_updated));
+
+    std::cout << "Da thread created" << std::endl;
 
     recorder_thread.join();
 }

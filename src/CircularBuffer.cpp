@@ -18,6 +18,15 @@ CircularBuffer<T>::CircularBuffer(size_t size) {
 }
 
 template<typename T>
+CircularBuffer<T>::CircularBuffer(const CircularBuffer<cv::Mat> &circular_buffer) {
+    head = circular_buffer.head;
+    tail = circular_buffer.tail;
+    current_size = circular_buffer.current_size;
+    max_size = circular_buffer.max_size;
+    vector = circular_buffer.vector;
+}
+
+template<typename T>
 CircularBuffer<T>::~CircularBuffer() = default;
 
 template<typename T>
@@ -62,6 +71,7 @@ size_t CircularBuffer<T>::get_capacity() {
 template<typename T>
 void CircularBuffer<T>::set_capacity(size_t new_max_size) {
     max_size = new_max_size;
+    clear();
 }
 
 template<typename T>
@@ -70,9 +80,6 @@ void CircularBuffer<T>::clear() {
     vector.resize(max_size);
     std::fill(vector.begin(), vector.end(), T());
 }
-
-template
-class CircularBuffer<int>;
 
 template
 class CircularBuffer<cv::Mat>;

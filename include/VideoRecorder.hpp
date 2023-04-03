@@ -23,20 +23,21 @@
 
 class VideoRecorder {
 private:
-    CircularBuffer<cv::Mat> lead_up_buffer;
+    CircularBuffer<cv::Mat> lead_up_buffer = CircularBuffer<cv::Mat>(0);
     cv::VideoWriter video_writer;
 
     static std::string generate_timestamped_filename();
 
 public:
     // Constructor for VideoRecorder - creates a new VideoRecorder object.
-    explicit VideoRecorder(const CircularBuffer<cv::Mat> &buffer, int frame_rate);
+    explicit VideoRecorder(int frame_rate);
 
     // Destructor
     ~VideoRecorder();
 
     void write_frames(bool &recording, std::queue<cv::Mat> &shared_queue,
-                      std::mutex &mutex_lock, std::condition_variable &recording_updated,
+                      std::mutex &recorder_lock, CircularBuffer<cv::Mat> &shared_lead_up_buffer,
+                      std::condition_variable &recording_updated,
                       std::condition_variable &queue_updated);
 };
 

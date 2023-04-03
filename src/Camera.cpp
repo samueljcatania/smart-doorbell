@@ -54,7 +54,8 @@ Camera::Camera() {
         std::cout << "Cannot open the video camera" << std::endl;
     }
 
-    frame_rate = measure_camera_frame_rate();
+    frame_rate = 15;
+//    frame_rate = measure_camera_frame_rate();
 
     lead_up_buffer.set_capacity(SECONDS_OF_LEAD_UP_FOOTAGE * frame_rate);
 
@@ -70,13 +71,15 @@ Camera::~Camera() {
 }
 
 void
-Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue,
-                      std::mutex &mutex_lock, std::condition_variable &recording_updated,
+Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::mutex &camera_lock,
+                      std::mutex &buffer_lock, CircularBuffer<cv::Mat> &shared_lead_up_buffer,
+                      std::condition_variable &recording_updated, std::condition_variable &buffer_updated,
                       std::condition_variable &queue_updated) {
     cv::Mat frame;
     std::vector<std::vector<cv::Point> > contours;
 
     while (video_capture.read(frame)) {
+
         if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()
                                                              - last_motion_time).count() <=
             SECONDS_TO_WAIT_FOR_MOTION && std::chrono::duration_cast<std::chrono::seconds>(
@@ -91,15 +94,19 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue,
             //Add the frame to the 15-second lead-up buffer
             lead_up_buffer.push(frame);
 
+            std::cout << lead_up_buffer.get_capacity() << std::endl;
+            std::cout << lead_up_buffer.get_size() << std::endl;
+
             if (active_video_writer) {
                 active_video_writer = false;
 
                 // Critical Section
-                std::lock_guard<std::mutex> lock_guard{mutex_lock};
+                std::lock_guard<std::mutex> lock_guard{camera_lock};
                 recording = false;
                 recording_updated.notify_all();
             }
         }
+
 
         auto rectangles = face_detector.detect_face_rectangles(frame);
         for (const auto &r: rectangles) {
@@ -113,9 +120,11 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue,
         std::string camera_description = "No Motion";
         WebApp *webAppInstance = WebApp::getInstance();
 
+
         if (webAppInstance) {
             webAppInstance->motionDetectedCurr = false;
         }
+
 
         // Convert the current frame to greyscale
         cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
@@ -171,9 +180,13 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue,
                     active_video_writer = true;
 
                     // Critical Section
-                    std::lock_guard<std::mutex> lock_guard{mutex_lock};
+                    std::lock_guard<std::mutex> lock_guard_one{camera_lock};
                     recording = true;
                     recording_updated.notify_all();
+
+                    std::lock_guard<std::mutex> lock_guard_two{buffer_lock};
+                    shared_lead_up_buffer = lead_up_buffer;
+                    buffer_updated.notify_all();
                 }
             }
         }
@@ -203,8 +216,4 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue,
 
 int Camera::get_frame_rate() const {
     return frame_rate;
-}
-
-CircularBuffer<cv::Mat> Camera::get_lead_up_buffer() {
-    return lead_up_buffer;
 }
