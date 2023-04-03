@@ -22,6 +22,19 @@ link_directories(${OpenCV_LIB_DIR})
 link_libraries(${OpenCV_LIBS})
 
 ################################################################
+# Find and include Wt Library
+################################################################
+
+find_package(Wt REQUIRED)
+
+SET(BOOST_LIBS
+        boost_system
+        boost_thread
+        boost_filesystem
+        boost_program_options
+        )
+
+################################################################
 # Add Project-Created Headers
 ################################################################
 
@@ -48,6 +61,9 @@ add_executable(Group-17 ${SOURCE_FILES})
 # Link External Libraries
 ################################################################
 
-target_link_libraries(Group-17 ${OpenCV_LIBS} ${GTKMM_LIBRARIES})
+target_link_libraries(Group-17 ${OpenCV_LIBS} ${GTKMM_LIBRARIES} wt
+        wthttp
+        ${WT_DBO_CONNECTOR}
+        ${BOOST_LIBS})
 
 ################################################################

@@ -43,15 +43,17 @@ int Doorbell::open_window(int argc, char *argv[]) {
 }
 
 void Doorbell::thread_manager() {
-    std::string readData;
+    cv::Mat frame;
 
     while (1) {
         // Critical Section
         std::unique_lock<std::mutex> unique_lock{mutex_lock};
-        cond_var.wait(unique_lock, [&] { return !shared_queue.empty(); });
+        cond_var.wait(unique_lock, [&] {
+            return !shared_queue.empty();
+        });
 
         while (!shared_queue.empty()) {
-            readData += shared_queue.front();
+            frame += shared_queue.front();
             shared_queue.pop();
         }
     }

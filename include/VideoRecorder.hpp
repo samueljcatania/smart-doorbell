@@ -1,35 +1,41 @@
-//
-// Created by Meg Zhang on 10/03/23.
-//
+/*
+ * Author: Samuel Catania
+ * Username: scatani9
+ * Student Number: 251175283
+ * Date: Friday, March 17, 2023
+ *
+ * Description of Camera.cpp:
+ *
+ */
 
 #ifndef GROUP_17_VIDEORECORDER_HPP
 #define GROUP_17_VIDEORECORDER_HPP
 
+#include <chrono>
+#include <ctime>
 #include <iostream>
 #include <queue>
 #include <mutex>
 #include <condition_variable>
 #include <opencv2/opencv.hpp>
+
 #include "CircularBuffer.hpp"
 
 class VideoRecorder {
 private:
+    CircularBuffer<cv::Mat> lead_up_buffer;
     cv::VideoWriter video_writer;
+
+    static std::string generate_timestamped_filename();
 
 public:
     // Constructor for VideoRecorder - creates a new VideoRecorder object.
-    explicit VideoRecorder();
+    explicit VideoRecorder(const CircularBuffer<cv::Mat> &buffer);
 
     // Destructor
     ~VideoRecorder();
 
-    void write_frames(std::queue<char> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var);
-
-    // Shows and saves open camera footage (default with filename hello world.avi)
-    void recordVideo();
-
-    // shows and saves open camera footage (with specified filename).
-    void recordVideo(const std::basic_string<char> &filename);
+    void write_frames(std::queue<cv::Mat> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var);
 };
 
 

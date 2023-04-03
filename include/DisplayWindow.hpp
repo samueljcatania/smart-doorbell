@@ -14,7 +14,7 @@ class DisplayWindow : public Gtk::Window {
 public:
     DisplayWindow();
 
-    virtual ~DisplayWindow();
+    ~DisplayWindow() override;
 
 protected:
     Gtk::Box window_box;
