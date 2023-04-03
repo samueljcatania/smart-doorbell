@@ -6,6 +6,9 @@
 #define GROUP_17_VIDEORECORDER_HPP
 
 #include <iostream>
+#include <queue>
+#include <mutex>
+#include <condition_variable>
 #include <opencv2/opencv.hpp>
 #include "CircularBuffer.hpp"
 

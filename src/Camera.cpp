@@ -105,9 +105,8 @@ void Camera::detect_motion(std::queue<char> &shared_queue, std::mutex &mutex_loc
             cv::Rect rect = cv::boundingRect(contour);
             cv::rectangle(frame, cv::Point(rect.x, rect.y),
                           cv::Point(rect.x + rect.width, rect.y + rect.height),
-                          cv::rectangle(frame, cv::Point(rect.x, rect.y),
-                                        cv::Point(rect.x + rect.width, rect.y + rect.height),
-                                        CV_RGB(0, 255, 0), 2);
+                          CV_RGB(0, 255, 0),
+                          2);
             camera_description = "Motion Detected";
 
             if (webAppInstance) {

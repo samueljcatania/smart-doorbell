@@ -12,6 +12,10 @@ VideoRecorder::~VideoRecorder() {
     video_writer.release();
 }
 
+void VideoRecorder::write_frames(std::queue<char> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var) {
+
+}
+
 
 
 //void VideoRecorder::recordVideo(const basic_string<char> &filename) {
@@ -20,29 +24,5 @@ VideoRecorder::~VideoRecorder() {
 //    captureFrame();
 //}
 
-
-
-void VideoRecorder::captureFrame() {
-    if(!cap.isOpened()){
-        throw std:: runtime_error("Camera has not been opened. Please open the camera by calling openCamera()");
-    }
-    cout << "Start grabbing" << endl
-         << "Press any key to terminate" << endl;
-
-    for(;;) {
-        cap.read(frame);
-        if (frame.empty()) {
-            throw std::runtime_error("Blank frame grabbed.");
-        }
-
-        imshow("Live Camera Footage", frame);
-        writer.write(frame);
-        if (waitKey(5) >= 0 || !recording) {
-            break;
-        }
-    }
-
-    cap.release();
-}
 
 

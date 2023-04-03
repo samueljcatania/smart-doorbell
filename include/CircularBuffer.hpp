@@ -12,7 +12,6 @@
 #define GROUP_17_CIRCULARBUFFER_HPP
 
 
-#include <cstdio>
 #include <vector>
 #include <opencv2/opencv.hpp>
 

@@ -50,18 +50,3 @@ void DisplayWindow::on_button_clicked(const Glib::ustring &data) {
 
 }
 
-//void DisplayWindow::cameraButtonClick() { //Show camera when requested
-//    cam.openCamera();
-//    cam.peek();
-//}
-//
-//void DisplayWindow::recordButtonClick() {//Start recording when asked
-//    cam.openCamera();
-//    cam.recordVideo();
-//}
-//
-//void DisplayWindow::stopRecordButtonClick() {//Stop recording??
-//    cam.closeCamera();
-//}
-
-
