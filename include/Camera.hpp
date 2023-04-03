@@ -32,6 +32,7 @@ private:
     std::chrono::time_point<std::chrono::system_clock> camera_start_time, last_motion_time, last_face_detection_time;
     FaceDetector face_detector;
     int frame_rate;
+    int last_number_of_faces_detected = 0;
     bool active_video_writer = false;
 
     int measure_camera_frame_rate();
@@ -41,10 +42,10 @@ public:
 
     ~Camera();
 
-    void
-    detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::mutex &camera_lock, std::mutex &buffer_lock,
-                  CircularBuffer<cv::Mat> &shared_lead_up_buffer, std::condition_variable &recording_updated,
-                  std::condition_variable &buffer_updated, std::condition_variable &queue_updated);
+    void detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::mutex &queue_lock,
+                       std::mutex &camera_lock, std::mutex &buffer_lock, CircularBuffer<cv::Mat> &shared_lead_up_buffer,
+                       std::condition_variable &recording_updated, std::condition_variable &buffer_updated,
+                       std::condition_variable &queue_updated);
 
     int get_frame_rate() const;
 

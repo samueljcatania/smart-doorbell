@@ -22,6 +22,7 @@ Doorbell::Doorbell() {
                                 camera,
                                 std::ref(recording),
                                 std::ref(shared_queue),
+                                std::ref(queue_lock),
                                 std::ref(camera_lock),
                                 std::ref(buffer_lock),
                                 std::ref(shared_lead_up_buffer),
@@ -59,6 +60,8 @@ void Doorbell::thread_manager() {
             return recording;
         });
 
+        unique_lock.unlock();
+
         create_video_recorder_thread();
     }
 }
@@ -72,9 +75,11 @@ void Doorbell::create_video_recorder_thread() {
                                   video_recorder,
                                   std::ref(recording),
                                   std::ref(shared_queue),
-                                  std::ref(recorder_lock),
+                                  std::ref(camera_lock),
+                                  std::ref(buffer_lock),
                                   std::ref(shared_lead_up_buffer),
                                   std::ref(recording_updated),
+                                  std::ref(buffer_updated),
                                   std::ref(queue_updated));
 
     std::cout << "Da thread created" << std::endl;

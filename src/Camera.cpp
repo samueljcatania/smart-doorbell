@@ -71,12 +71,13 @@ Camera::~Camera() {
 }
 
 void
-Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::mutex &camera_lock,
-                      std::mutex &buffer_lock, CircularBuffer<cv::Mat> &shared_lead_up_buffer,
+Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::mutex &queue_lock,
+                      std::mutex &camera_lock, std::mutex &buffer_lock, CircularBuffer<cv::Mat> &shared_lead_up_buffer,
                       std::condition_variable &recording_updated, std::condition_variable &buffer_updated,
                       std::condition_variable &queue_updated) {
     cv::Mat frame;
     std::vector<std::vector<cv::Point> > contours;
+    int face_count = 0;
 
     while (video_capture.read(frame)) {
 
@@ -90,9 +91,9 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::m
             SECONDS_TO_WAIT_FOR_CAMERA_TO_START) {
 
             // Critical Section
-//            std::lock_guard<std::mutex> lock_guard{mutex_lock};
-//            shared_queue.push(frame);
-//            queue_updated.notify_all();
+            std::lock_guard<std::mutex> lock_guard{queue_lock};
+            shared_queue.push(frame);
+            queue_updated.notify_all();
 
         } else {
             //Add the frame to the 15-second lead-up buffer
@@ -110,14 +111,21 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::m
 
         auto rectangles = face_detector.detect_face_rectangles(frame);
 
-        // If there are currently faces detected, update the time of last face detection
-        if (!rectangles.empty()) {
-            last_face_detection_time = std::chrono::system_clock::now();
-        }
-
         for (const auto &r: rectangles) {
             cv::rectangle(frame, r, CV_RGB(255, 0, 0), 4);
         }
+
+        // If there are currently faces detected, update the time of last face detection
+        if (!rectangles.empty()) {
+            last_face_detection_time = std::chrono::system_clock::now();
+
+            if (last_number_of_faces_detected != (int) rectangles.size()) {
+                face_count++;
+                imwrite("../recordings/images/face_detection_" + std::to_string(face_count) + ".jpg", frame);
+            }
+        }
+
+        last_number_of_faces_detected = (int) rectangles.size();
 
         // Set the frame size to 512 by 380 to process faster
         cv::resize(frame, frame, cv::Size(512, 380));
@@ -186,11 +194,11 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::m
                     active_video_writer = true;
 
                     // Critical Section
-                    std::lock_guard<std::mutex> lock_guard_one{camera_lock};
+                    std::lock_guard<std::mutex> camera_lock_guard{camera_lock};
                     recording = true;
                     recording_updated.notify_all();
 
-                    std::lock_guard<std::mutex> lock_guard_two{buffer_lock};
+                    std::lock_guard<std::mutex> buffer_lock_guard{buffer_lock};
                     shared_lead_up_buffer = lead_up_buffer;
                     buffer_updated.notify_all();
                 }

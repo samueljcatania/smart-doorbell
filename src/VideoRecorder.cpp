@@ -34,14 +34,10 @@ VideoRecorder::~VideoRecorder() {
 }
 
 void VideoRecorder::write_frames(bool &recording, std::queue<cv::Mat> &shared_queue,
-                                 std::mutex &recorder_lock, CircularBuffer<cv::Mat> &shared_lead_up_buffer,
-                                 std::condition_variable &recording_updated,
+                                 std::mutex &recorder_lock, std::mutex &buffer_lock,
+                                 CircularBuffer<cv::Mat> &shared_lead_up_buffer,
+                                 std::condition_variable &recording_updated, std::condition_variable &buffer_updated,
                                  std::condition_variable &queue_updated) {
-//    // Critical Section
-//    std::unique_lock<std::mutex> unique_lock{recorder_lock};
-//    recording_updated.wait(unique_lock, [&] {
-//        return !recording;
-//    });
 
     std::cout << shared_lead_up_buffer.get_capacity() << std::endl;
     std::cout << shared_lead_up_buffer.get_size() << std::endl;
@@ -53,24 +49,31 @@ void VideoRecorder::write_frames(bool &recording, std::queue<cv::Mat> &shared_qu
         a++;
     }
 
+    // Critical Section
+    std::unique_lock<std::mutex> recorder_unique_lock{recorder_lock};
+    recording_updated.wait(recorder_unique_lock, [&] {
+        return recording;
+    });
+
     std::cout << "IN DA THREADDDD" << std::endl;
 
-    while (1) {
+    while (recording) {
 
-//        // Critical Section
-//        std::unique_lock<std::mutex> unique_lock{recorder_lock};
-////        queue_updated.wait(unique_lock, [&] {
-////            return shared_queue.empty();
-////        });
-//        queue_updated.wait(unique_lock);
+        recorder_unique_lock.unlock();
 
+        std::cout << "After unlock" << std::endl;
 
         // Critical Section
-        std::unique_lock<std::mutex> unique_lock{recorder_lock};
-        recording_updated.wait(unique_lock, [&] {
-            return !recording;
+        std::unique_lock<std::mutex> queue_unique_lock{recorder_lock};
+        queue_updated.wait(queue_unique_lock, [&] {
+            return shared_queue.empty();
         });
+        queue_updated.wait(queue_unique_lock);
 
+        queue_unique_lock.unlock();
+
+
+//
         std::cout << "its false now homie" << std::endl;
 //
 //
