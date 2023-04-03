@@ -37,6 +37,8 @@ public:
 
     size_t size();
 
+    size_t capacity();
+
     void clear();
 };
 

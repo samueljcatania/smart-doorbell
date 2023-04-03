@@ -7,20 +7,17 @@
 
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include "CircularBuffer.hpp"
 
 class VideoRecorder {
 public:
     // Constructor for VideoRecorder - creates a new VideoRecorder object.
     explicit VideoRecorder();
 
-    // deconstructor
+    // Destructor
     ~VideoRecorder();
 
-    void openCamera(); // Opens up the camera.
-
-    void closeCamera(); // Closes the camera.
-
-    void peek(); // Shows open camera footage in a window but doesn't save it.
+    void write_frames(std::queue<char> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var) {
 
     // Shows and saves open camera footage (default with filename hello world.avi)
     void recordVideo();

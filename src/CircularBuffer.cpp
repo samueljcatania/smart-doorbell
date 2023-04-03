@@ -55,6 +55,11 @@ size_t CircularBuffer<T>::size() {
 }
 
 template<typename T>
+size_t CircularBuffer<T>::capacity() {
+    return max_size;
+}
+
+template<typename T>
 void CircularBuffer<T>::clear() {
     vector.clear();
     vector.resize(max_size);

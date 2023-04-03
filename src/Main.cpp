@@ -11,12 +11,12 @@
 #include "../include/Doorbell.hpp"
 #include "../include/WebApp.hpp"
 
-
 #include <iostream>
 #include <thread>
 
 int main(int argc, char **argv) {
 
+    Doorbell doorbell1;
 
 //int main(int argc, char **argv) {
 //

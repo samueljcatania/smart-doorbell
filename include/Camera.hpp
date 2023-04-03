@@ -23,12 +23,16 @@
 class Camera {
 private:
     cv::VideoCapture video_capture;
-    cv::VideoWriter video_writer = cv::VideoWriter(generateTimestampedFilename(),
+//    cv::VideoWriter video_writer = cv::VideoWriter(generateTimestampedFilename(),
+//                                                   cv::VideoWriter::fourcc('M', 'J', 'P', 'G'),
+//                                                   15,
+//                                                   cv::Size(640, 480));
+    cv::VideoWriter video_writer = cv::VideoWriter("TESToutput1234_21.avi",
                                                    cv::VideoWriter::fourcc('M', 'J', 'P', 'G'),
-                                                   15,
+                                                   30,
                                                    cv::Size(640, 480));
     cv::Mat average_frame;
-    CircularBuffer<cv::Mat> lead_up_buffer = CircularBuffer<cv::Mat>(400);
+    CircularBuffer<cv::Mat> lead_up_buffer = CircularBuffer<cv::Mat>(30 * 10);
     std::chrono::time_point<std::chrono::system_clock> last_motion_time, recent_motion_time;
 
 public:
@@ -36,7 +40,7 @@ public:
 
     ~Camera();
 
-    void detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var);
+    void detect_motion(std::queue<char> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var);
 
     // Function to generate the timestamped filename
     static std::string generateTimestampedFilename() {

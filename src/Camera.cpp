@@ -40,7 +40,7 @@ Camera::~Camera() {
     cv::destroyAllWindows();
 }
 
-void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var) {
+void Camera::detect_motion(std::queue<char> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var) {
     cv::Mat frame;
     std::vector<std::vector<cv::Point> > contours;
 
@@ -126,9 +126,12 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
 
         //If the Escape key is pressed, break the while loop.
         if (cv::waitKey(1) == 27) {
-            std::cout << lead_up_buffer.size() << std::endl;
-            for (int a = 0; a < lead_up_buffer.size(); a++) {
+            std::cout << lead_up_buffer.capacity() << std::endl;
+            int a = 1;
+            while(lead_up_buffer.size() > 0){
                 video_writer.write(lead_up_buffer.pop());
+                std::cout << a << std::endl;
+                a++;
             }
 
             break;
