@@ -16,16 +16,17 @@
 
 int main(int argc, char *argv[]) {
     Doorbell doorbell;
-    doorbell.open_window(argc, argv);
+
+//    doorbell.open_window(argc, argv);
 
 //int main(int argc, char **argv) {
 //
 //    WebApp::startApplication(argc, argv);
 //    WebApp::sendMessage("Hello World");
 
-    std::thread serverThread([argc, argv] {
-        WebApp::startApplication(argc, argv);
-    });
+//    std::thread serverThread([argc, argv] {
+//        WebApp::startApplication(argc, argv);
+//    });
 
 
     // Give some time for the server to start
@@ -45,7 +46,7 @@ int main(int argc, char *argv[]) {
 //    VideoRecorder vr; // creates a new VideoRecorder object.
 //    vr.openCamera(); // Open up the camera.
 //    vr.recordVideo(); // Start recording video.
-    serverThread.join();
+//    serverThread.join();
 
    // WebApp::sendMessage("Hello World!");
 

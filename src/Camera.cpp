@@ -15,7 +15,6 @@
 #include "../include/Camera.hpp"
 
 #define SECONDS_TO_WAIT_FOR_MOTION_OR_FACE 5
-#define SECONDS_TO_WAIT_FOR_CAMERA_TO_START 2
 #define NUMBER_OF_FRAMES_TO_TEST_FRAME_RATE 120
 #define SECONDS_OF_LEAD_UP_FOOTAGE 15
 
@@ -59,7 +58,8 @@ Camera::Camera() {
 
     lead_up_buffer.set_capacity(SECONDS_OF_LEAD_UP_FOOTAGE * frame_rate);
 
-    camera_start_time = std::chrono::system_clock::now();
+    last_motion_time = std::chrono::system_clock::now();
+    last_face_detection_time = std::chrono::system_clock::now();
 }
 
 
@@ -80,33 +80,36 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::m
     int face_count = 0;
 
     while (video_capture.read(frame)) {
-
-        if (std::chrono::duration_cast<std::chrono::seconds>(
-                std::chrono::system_clock::now() - last_motion_time).count() <=
-            SECONDS_TO_WAIT_FOR_MOTION_OR_FACE && std::chrono::duration_cast<std::chrono::seconds>(
-                std::chrono::system_clock::now() - last_face_detection_time).count() <=
-                                                  SECONDS_TO_WAIT_FOR_MOTION_OR_FACE &&
-            std::chrono::duration_cast<std::chrono::seconds>(
-                    std::chrono::system_clock::now() - camera_start_time).count() <=
-            SECONDS_TO_WAIT_FOR_CAMERA_TO_START) {
+        if (motion_detected && (std::chrono::duration_cast<std::chrono::seconds>(
+                std::chrono::system_clock::now() - last_motion_time).count() <= SECONDS_TO_WAIT_FOR_MOTION_OR_FACE ||
+                                std::chrono::duration_cast<std::chrono::seconds>(
+                                        std::chrono::system_clock::now() - last_face_detection_time).count() <=
+                                SECONDS_TO_WAIT_FOR_MOTION_OR_FACE)) {
 
             // Critical Section
-//            std::lock_guard<std::mutex> lock_guard{queue_lock};
-//            shared_queue.push(frame);
-//            std::cout << shared_queue.size() << std::endl;
-//            queue_updated.notify_all();
+            std::lock_guard<std::mutex> lock_guard{queue_lock};
+            shared_queue.push(frame);
+            queue_updated.notify_all();
 
         } else {
             //Add the frame to the 15-second lead-up buffer
             lead_up_buffer.push(frame);
 
-            if (active_video_writer) {
-                active_video_writer = false;
+            if (motion_detected) {
+                motion_detected = false;
+
+                std::cout << "motion switched off" << std::endl;
 
                 // Critical Section
-                std::lock_guard<std::mutex> lock_guard{camera_lock};
+                std::lock_guard<std::mutex> recording_lock_guard{camera_lock};
                 recording = false;
-                recording_updated.notify_all();
+
+                // Critical Section
+                std::lock_guard<std::mutex> queue_lock_guard{queue_lock};
+                shared_queue.push(frame);
+                queue_updated.notify_all();
+
+                lead_up_buffer.clear();
             }
         }
 
@@ -186,24 +189,21 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::m
                 webAppInstance->motionDetectedCurr = true;
             }
 
-            if (std::chrono::duration_cast<std::chrono::seconds>(
-                    std::chrono::system_clock::now() - camera_start_time).count() >=
-                SECONDS_TO_WAIT_FOR_CAMERA_TO_START) {
-                last_motion_time = std::chrono::system_clock::now();
+            last_motion_time = std::chrono::system_clock::now();
 
-                if (!active_video_writer) {
-                    active_video_writer = true;
+            if (!motion_detected) {
+                motion_detected = true;
 
-                    // Critical Section
-                    std::lock_guard<std::mutex> camera_lock_guard{camera_lock};
-                    recording = true;
-                    recording_updated.notify_all();
+                // Critical Section
+                std::lock_guard<std::mutex> camera_lock_guard{camera_lock};
+                recording = true;
+                recording_updated.notify_all();
 
-                    std::lock_guard<std::mutex> buffer_lock_guard{buffer_lock};
-                    shared_lead_up_buffer = lead_up_buffer;
-                    buffer_updated.notify_all();
-                }
+                std::lock_guard<std::mutex> buffer_lock_guard{buffer_lock};
+                shared_lead_up_buffer = lead_up_buffer;
+                buffer_updated.notify_all();
             }
+
         }
 
         auto end = std::chrono::system_clock::now();

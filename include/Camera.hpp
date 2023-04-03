@@ -29,11 +29,11 @@ private:
     cv::VideoCapture video_capture;
     cv::Mat average_frame;
     CircularBuffer<cv::Mat> lead_up_buffer = CircularBuffer<cv::Mat>(0);
-    std::chrono::time_point<std::chrono::system_clock> camera_start_time, last_motion_time, last_face_detection_time;
+    std::chrono::time_point<std::chrono::system_clock> last_motion_time, last_face_detection_time;
     FaceDetector face_detector;
     int frame_rate;
     int last_number_of_faces_detected = 0;
-    bool active_video_writer = false;
+    bool motion_detected = false;
 
     int measure_camera_frame_rate();
 

@@ -28,7 +28,7 @@ private:
 public:
     explicit CircularBuffer(size_t size);
 
-    CircularBuffer(const CircularBuffer<cv::Mat> &circular_buffer);
+    explicit CircularBuffer(const CircularBuffer<cv::Mat> &circular_buffer);
 
     ~CircularBuffer();
 
