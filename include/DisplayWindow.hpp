@@ -1,11 +1,17 @@
-//
-// Created by Jonathan Lee on 2023-03-13.
-//
-
 #ifndef GROUP_17_DISPLAYWINDOW_HPP
 #define GROUP_17_DISPLAYWINDOW_HPP
 
 #include <gtkmm.h>
+
+/**
+ * @brief The Display Window class creates the GUI from which camera functionalities can be utilized
+ *
+ * DisplayWindow will create the GUI that allows the user to interact with the camera. The
+ * various views can be selected to be displayed. Saved images or videos can also be accessed
+ * via this GUI.
+ *
+ * @author Samuel Catania
+ */
 
 class DisplayWindow : public Gtk::Window {
 public:

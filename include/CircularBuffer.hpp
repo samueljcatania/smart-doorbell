@@ -1,12 +1,3 @@
-/*
- * Author: Samuel Catania
- * Username: scatani9
- * Student Number: 251175283
- * Date: Friday, March 17, 2023
- *
- * Description of Camera.cpp:
- *
- */
 
 #ifndef GROUP_17_CIRCULARBUFFER_HPP
 #define GROUP_17_CIRCULARBUFFER_HPP
@@ -14,6 +5,17 @@
 
 #include <vector>
 #include <opencv2/opencv.hpp>
+
+/**
+ * @brief Circular buffer class to aid in computations for motion detection
+ *
+ * CircularBuffer contains the constructor, getter, setter, and cleanup functions
+ * for the CircularBuffer. The CircularBuffer is utilized within Camera's motion detection
+ * method to perform the frame comparison computations.
+ *
+ * @author Samuel Catania
+ *
+ */
 
 template<typename T>
 
