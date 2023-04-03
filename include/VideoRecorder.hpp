@@ -35,7 +35,7 @@ public:
     // Destructor
     ~VideoRecorder();
 
-    void write_frames(bool &recording, std::queue<cv::Mat> &shared_queue,
+    void write_frames(bool &recording, std::queue<cv::Mat> &shared_queue, std::mutex &queue_lock,
                       std::mutex &recorder_lock, std::mutex &buffer_lock,
                       CircularBuffer<cv::Mat> &shared_lead_up_buffer,
                       std::condition_variable &recording_updated, std::condition_variable &buffer_updated,
