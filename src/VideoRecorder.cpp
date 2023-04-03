@@ -22,12 +22,12 @@ std::string VideoRecorder::generate_timestamped_filename() {
     return ss.str();
 }
 
-VideoRecorder::VideoRecorder(const CircularBuffer<cv::Mat> &buffer)
+VideoRecorder::VideoRecorder(const CircularBuffer<cv::Mat> &buffer, int frame_rate)
         : lead_up_buffer(buffer) {
 
     video_writer = cv::VideoWriter(generate_timestamped_filename(),
                                    cv::VideoWriter::fourcc('M', 'J', 'P', 'G'),
-                                   15,
+                                   frame_rate,
                                    cv::Size(640, 480));
 }
 
@@ -35,15 +35,34 @@ VideoRecorder::~VideoRecorder() {
     video_writer.release();
 }
 
-void VideoRecorder::write_frames(std::queue<cv::Mat> &shared_queue, std::mutex &mutex_lock,
-                                 std::condition_variable &cond_var) {
-    std::cout << lead_up_buffer.capacity() << std::endl;
+void VideoRecorder::write_frames(bool &recording, std::queue<cv::Mat> &shared_queue,
+                                 std::mutex &mutex_lock, std::condition_variable &recording_updated,
+                                 std::condition_variable &queue_updated) {
+
+    std::cout << lead_up_buffer.get_capacity() << std::endl;
     int a = 1;
-    while (lead_up_buffer.size() > 0) {
+    while (lead_up_buffer.get_size() > 0) {
         video_writer.write(lead_up_buffer.pop());
         std::cout << a << std::endl;
         a++;
     }
+
+    while (1) {
+        // Critical Section
+        std::unique_lock<std::mutex> unique_lock{mutex_lock};
+        queue_updated.wait(unique_lock, [&] {
+            return shared_queue.empty();
+        });
+
+        video_writer.write(shared_queue.front());
+        shared_queue.pop();
+    }
+
+//    // Critical Section
+//    std::unique_lock<std::mutex> unique_lock{mutex_lock};
+//    recording_updated.wait(unique_lock, [&] {
+//        return !recording;
+//    });
 
 }
 

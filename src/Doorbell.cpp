@@ -11,6 +11,8 @@
 #include <gtkmm/application.h>
 
 #include "../include/Doorbell.hpp"
+#include "../include/VideoRecorder.hpp"
+
 
 Doorbell::Doorbell() {
     // Turn off OpenCV console logging output
@@ -18,9 +20,11 @@ Doorbell::Doorbell() {
 
     camera_thread = std::thread(&Camera::detect_motion,
                                 camera,
+                                std::ref(recording),
                                 std::ref(shared_queue),
                                 std::ref(mutex_lock),
-                                std::ref(cond_var));
+                                std::ref(recording_updated),
+                                std::ref(queue_updated));
 
     //recorder_thread
     master_thread = std::thread(&Doorbell::thread_manager, this);
@@ -48,13 +52,26 @@ void Doorbell::thread_manager() {
     while (1) {
         // Critical Section
         std::unique_lock<std::mutex> unique_lock{mutex_lock};
-        cond_var.wait(unique_lock, [&] {
-            return !shared_queue.empty();
+        recording_updated.wait(unique_lock, [&] {
+            return !recording;
         });
 
-        while (!shared_queue.empty()) {
-            frame += shared_queue.front();
-            shared_queue.pop();
-        }
+        std::cout << "RECORDING IS TRUEEEEE" << std::endl;
+
+        create_video_recorder_thread();
     }
+}
+
+void Doorbell::create_video_recorder_thread() {
+    VideoRecorder video_recorder(camera.get_lead_up_buffer(), camera.get_frame_rate());
+
+    recorder_thread = std::thread(&VideoRecorder::write_frames,
+                                video_recorder,
+                                std::ref(recording),
+                                std::ref(shared_queue),
+                                std::ref(mutex_lock),
+                                std::ref(recording_updated),
+                                std::ref(queue_updated));
+
+    recorder_thread.join();
 }

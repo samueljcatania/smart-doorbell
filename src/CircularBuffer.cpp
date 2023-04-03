@@ -50,13 +50,18 @@ T CircularBuffer<T>::pop() {
 }
 
 template<typename T>
-size_t CircularBuffer<T>::size() {
+size_t CircularBuffer<T>::get_size() {
     return current_size;
 }
 
 template<typename T>
-size_t CircularBuffer<T>::capacity() {
+size_t CircularBuffer<T>::get_capacity() {
     return max_size;
+}
+
+template<typename T>
+void CircularBuffer<T>::set_capacity(size_t new_max_size) {
+    max_size = new_max_size;
 }
 
 template<typename T>

@@ -34,9 +34,11 @@ public:
 
     T pop();
 
-    size_t size();
+    size_t get_size();
 
-    size_t capacity();
+    size_t get_capacity();
+
+    void set_capacity(size_t new_max_size);
 
     void clear();
 };

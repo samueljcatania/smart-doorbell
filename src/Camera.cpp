@@ -16,6 +16,30 @@
 
 #define SECONDS_TO_WAIT_FOR_MOTION 5
 #define SECONDS_TO_WAIT_FOR_CAMERA_TO_START 2
+#define NUMBER_OF_FRAMES_TO_TEST_FRAME_RATE 120
+#define SECONDS_OF_LEAD_UP_FOOTAGE 15
+
+int Camera::measure_camera_frame_rate() {
+    // Variable for storing video frames
+    cv::Mat frame;
+
+    // Start time
+    auto start = std::chrono::system_clock::now();
+
+    // Read frames
+    for (int i = 0; i < NUMBER_OF_FRAMES_TO_TEST_FRAME_RATE; i++) {
+        video_capture >> frame;
+    }
+
+    // End time
+    auto end = std::chrono::system_clock::now();
+
+    // Calculate the time that has elapsed
+    long seconds = std::chrono::duration_cast<std::chrono::seconds>(end - start).count();
+
+    // Calculate the frame rate
+    return (int) ((NUMBER_OF_FRAMES_TO_TEST_FRAME_RATE / seconds) / 2);
+}
 
 Camera::Camera() {
     cv::Mat frame;
@@ -30,6 +54,10 @@ Camera::Camera() {
         std::cout << "Cannot open the video camera" << std::endl;
     }
 
+    frame_rate = measure_camera_frame_rate();
+
+    lead_up_buffer.set_capacity(SECONDS_OF_LEAD_UP_FOOTAGE * frame_rate);
+
     camera_start_time = std::chrono::system_clock::now();
 }
 
@@ -42,7 +70,9 @@ Camera::~Camera() {
 }
 
 void
-Camera::detect_motion(std::queue<cv::Mat> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var) {
+Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue,
+                      std::mutex &mutex_lock, std::condition_variable &recording_updated,
+                      std::condition_variable &queue_updated) {
     cv::Mat frame;
     std::vector<std::vector<cv::Point> > contours;
 
@@ -52,12 +82,23 @@ Camera::detect_motion(std::queue<cv::Mat> &shared_queue, std::mutex &mutex_lock,
             SECONDS_TO_WAIT_FOR_MOTION && std::chrono::duration_cast<std::chrono::seconds>(
                 std::chrono::system_clock::now() - camera_start_time).count() >= SECONDS_TO_WAIT_FOR_CAMERA_TO_START) {
 
-            std::lock_guard<std::mutex> lock_guard{mutex_lock};
-            shared_queue.push(frame);
-            cond_var.notify_all();
+            // Critical Section
+//            std::lock_guard<std::mutex> lock_guard{mutex_lock};
+//            shared_queue.push(frame);
+//            queue_updated.notify_all();
+
         } else {
             //Add the frame to the 15-second lead-up buffer
             lead_up_buffer.push(frame);
+
+            if (active_video_writer) {
+                active_video_writer = false;
+
+                // Critical Section
+                std::lock_guard<std::mutex> lock_guard{mutex_lock};
+                recording = false;
+                recording_updated.notify_all();
+            }
         }
 
         auto rectangles = face_detector.detect_face_rectangles(frame);
@@ -125,6 +166,15 @@ Camera::detect_motion(std::queue<cv::Mat> &shared_queue, std::mutex &mutex_lock,
                     std::chrono::system_clock::now() - camera_start_time).count() >=
                 SECONDS_TO_WAIT_FOR_CAMERA_TO_START) {
                 last_motion_time = std::chrono::system_clock::now();
+
+                if (!active_video_writer) {
+                    active_video_writer = true;
+
+                    // Critical Section
+                    std::lock_guard<std::mutex> lock_guard{mutex_lock};
+                    recording = true;
+                    recording_updated.notify_all();
+                }
             }
         }
 
@@ -149,4 +199,12 @@ Camera::detect_motion(std::queue<cv::Mat> &shared_queue, std::mutex &mutex_lock,
     }
 
     frame.release();
+}
+
+int Camera::get_frame_rate() const {
+    return frame_rate;
+}
+
+CircularBuffer<cv::Mat> Camera::get_lead_up_buffer() {
+    return lead_up_buffer;
 }
