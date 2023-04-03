@@ -1,7 +1,3 @@
-//
-// Created by Meg on 20/03/23.
-//
-
 #include <iostream>
 #include <Wt/WApplication.h>
 #include <Wt/WBreak.h>
@@ -25,11 +21,15 @@
 #define GROUP_17_WEBSOCKET_HPP
 
 /**
- * WebApp is a self hosted web server that shows the status of the Smart Doorbell.
- * It takes in command line arguments to bind to an IP address
+ * @brief WebApp is a self hosted web server that shows the status of the Smart Doorbell.
+ *
+ * The Smart Doorbell takes in command line arguments to bind to an IP address.
  * When running, use --docroot . --http-address 0.0.0.0 --http-port 8080
  * You can change the http address to your computer's IP address so that other devices on the network can
  * access the webpage.
+ *
+ * @author Meg Zhang
+ *
  */
 class WebApp : public Wt::WApplication
 {
@@ -71,9 +71,26 @@ private:
      */
     bool motionDetectedPrev = false;
 
+    /**
+     * fileTable stores the files found on the system.
+     * It also includes weblinks so that you can remotely download the files.
+     */
     Wt::WTable *fileTable_;
+
+    /**
+     * serverMessage keeps track of the current time and displays it on the WebApp.
+     */
     Wt::WText *serverMessage_;
+
+    /**
+     * Timer is used to refresh the data shown on the page at regular intervals.
+     */
     Wt::WTimer *timer_;
+
+    /**
+     * currMotionStatus is a variable storing text which is displayed on the WebApp
+     * indicating whether or not motion is currently detected.
+     */
     Wt::WText *currMotionStatus_;
 
     /**
@@ -86,13 +103,13 @@ private:
     static Wt::WContainerWidget *greetingsContainer_;
 
     /**
-     *
+     * This function automatically updates the current time displayed on the WebApp.
      *
      */
     void updateServerTimeMsg();
 
     /**
-     * This function is called by WebApp to
+     * This function is called by WebApp to check if there have been any motion changes.
      *
      */
     void updateMotionStatus();
