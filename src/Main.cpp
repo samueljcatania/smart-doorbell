@@ -16,8 +16,7 @@
 
 int main(int argc, char *argv[]) {
     Doorbell doorbell;
-
-//    doorbell.open_window(argc, argv);
+    doorbell.open_window(argc, argv);
 
 //int main(int argc, char **argv) {
 //

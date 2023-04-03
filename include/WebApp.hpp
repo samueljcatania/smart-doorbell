@@ -1,7 +1,3 @@
-//
-// Created by Meg on 20/03/23.
-//
-
 #include <iostream>
 #include <Wt/WApplication.h>
 #include <Wt/WBreak.h>
@@ -25,24 +21,28 @@
 #define GROUP_17_WEBSOCKET_HPP
 
 /**
- * WebApp is a self hosted web server that shows the status of the Smart Doorbell.
- * It takes in command line arguments to bind to an IP address
+ * @brief WebApp is a self hosted web server that shows the status of the Smart Doorbell.
+ *
+ * The Smart Doorbell takes in command line arguments to bind to an IP address.
  * When running, use --docroot . --http-address 0.0.0.0 --http-port 8080
  * You can change the http address to your computer's IP address so that other devices on the network can
  * access the webpage.
+ *
+ * @author Meg Zhang
+ *
  */
 class WebApp : public Wt::WApplication
 {
 public:
     /**
-     * Constructor for WebApp.
+     * @brief Constructor for WebApp.
      * @param env Wt::WEnvironment object take takes in required info to create the web application.
      */
     explicit WebApp(const Wt::WEnvironment& env);
 
     /**
      * Call startApplication to start running the web application.
-     * This static function initializes the WebApp object.
+     * @brief This static function initializes the WebApp object.
      *
      * @param argc number of command line arguments. Should be passed through main().
      * @param argv The content of the command line arguments. Should be passed through main().
@@ -71,9 +71,32 @@ private:
      */
     bool motionDetectedPrev = false;
 
+    /**
+     * fileTable stores the files found on the system.
+     * It also includes weblinks so that you can remotely download the files.
+     */
     Wt::WTable *fileTable_;
+
+    /**
+     * imageTable stores the images found on the system.
+     * It displays them in a gallery.
+     */
+    Wt::WTable *imageTable_;
+
+    /**
+     * serverMessage keeps track of the current time and displays it on the WebApp.
+     */
     Wt::WText *serverMessage_;
+
+    /**
+     * Timer is used to refresh the data shown on the page at regular intervals.
+     */
     Wt::WTimer *timer_;
+
+    /**
+     * currMotionStatus is a variable storing text which is displayed on the WebApp
+     * indicating whether or not motion is currently detected.
+     */
     Wt::WText *currMotionStatus_;
 
     /**
@@ -82,17 +105,37 @@ private:
      */
     boost::filesystem::path recordingsPath_{"../recordings"};
 
+    /**
+    * The path that the WebApp accesses to look for images.
+    *
+    */
+    boost::filesystem::path imagesPath_{"../recordings/images"};
+
+    /**
+     * A set that stores the displayed images in the WebApp.
+     */
+    std::set<std::string> displayedImages;
+
+    /**
+     * Returns the instance of WebApp that is currently running.
+     *
+     */
     static WebApp *instance_;
+
+    /**
+     * GreetingsContainer stores the motion detected history.
+     *
+     */
     static Wt::WContainerWidget *greetingsContainer_;
 
     /**
-     *
+     * This function automatically updates the current time displayed on the WebApp.
      *
      */
     void updateServerTimeMsg();
 
     /**
-     * This function is called by WebApp to
+     * This function is called by WebApp to check if there have been any motion changes.
      *
      */
     void updateMotionStatus();
@@ -111,6 +154,11 @@ private:
      */
     bool trackMotionChanges();
 
+    /**
+     * This function adds new faces to the image gallery when images are captured.
+     *
+     */
+    void updateImagesList();
 };
 
 #endif //GROUP_17_WEBSOCKET_HPP
