@@ -35,14 +35,14 @@ class WebApp : public Wt::WApplication
 {
 public:
     /**
-     * Constructor for WebApp.
+     * @brief Constructor for WebApp.
      * @param env Wt::WEnvironment object take takes in required info to create the web application.
      */
     explicit WebApp(const Wt::WEnvironment& env);
 
     /**
      * Call startApplication to start running the web application.
-     * This static function initializes the WebApp object.
+     * @brief This static function initializes the WebApp object.
      *
      * @param argc number of command line arguments. Should be passed through main().
      * @param argv The content of the command line arguments. Should be passed through main().
