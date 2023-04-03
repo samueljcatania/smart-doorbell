@@ -1,6 +1,7 @@
 Prerequisites:
 Required Dependencies:
 - GTK-3.0
+- gtkmm-3.0
 - OpenCV (with GTK3 dependencies)
 - libboost
 - Wt 4.9.1

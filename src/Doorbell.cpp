@@ -13,7 +13,6 @@
 #include "../include/Doorbell.hpp"
 #include "../include/VideoRecorder.hpp"
 
-
 Doorbell::Doorbell() {
     // Turn off OpenCV console logging output
     cv::utils::logging::setLogLevel(cv::utils::logging::LogLevel::LOG_LEVEL_SILENT);
