@@ -12,8 +12,8 @@
 #define GROUP_17_DOORBELL_HPP
 
 #include <thread>
-#include "../include/Camera.hpp"
-#include "../include/DisplayWindow.hpp"
+#include "Camera.hpp"
+#include "DisplayWindow.hpp"
 
 class Doorbell {
 private:
@@ -24,7 +24,7 @@ private:
     std::condition_variable cond_var;
     std::thread camera_thread, recorder_thread, manager_thread;
 
-    void managerThread();
+    void threadManager();
 
 public:
     Doorbell();

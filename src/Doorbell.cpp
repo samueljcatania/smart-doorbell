@@ -17,13 +17,18 @@ Doorbell::Doorbell() {
     cv::utils::logging::setLogLevel(cv::utils::logging::LogLevel::LOG_LEVEL_SILENT);
 
     camera_thread = std::thread(&Camera::detectMotion, camera, std::ref(shared_queue), std::ref(mutex_lock),
+    camera_thread = std::thread(&Camera::detect_motion, camera, std::ref(shared_queue), std::ref(mutex_lock),
                                 std::ref(cond_var));
 
     //recorder_thread
-    manager_thread = std::thread(&Doorbell::managerThread, this);
+    manager_thread = std::thread(&Doorbell::thread_manager, this);
 
     camera_thread.join();
     manager_thread.join();
+}
+
+void Doorbell::thread_manager() {
+
 }
 
 Doorbell::~Doorbell() = default;
@@ -37,7 +42,7 @@ int Doorbell::open_window(int argc, char *argv[]) {
     return app->run(display_window);
 }
 
-void Doorbell::managerThread() {
+void Doorbell::thread_manager() {
     std::string readData;
 
     while (1) {

@@ -11,6 +11,7 @@
 #include <iostream>
 
 #include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
 #include "../include/Camera.hpp"
@@ -19,7 +20,7 @@ Camera::Camera() {
     cv::Mat frame;
 
     // Open the default video camera
-    video_capture.open(0, cv::CAP_V4L);
+    video_capture.open(0, cv::CAP_V4L2);
 
     // Check if the camera was successfully opened
     if (video_capture.isOpened()) {
@@ -27,8 +28,11 @@ Camera::Camera() {
     } else {
         std::cout << "Cannot open the video camera" << std::endl;
     }
+<<<<<<<<< Temporary merge branch 1
 
     recent_motion_time = std::chrono::system_clock::now();
+=========
+>>>>>>>>> Temporary merge branch 2
 }
 
 
@@ -40,11 +44,12 @@ Camera::~Camera() {
     cv::destroyAllWindows();
 }
 
-void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var) {
+void Camera::detect_motion(std::queue<char> &shared_queue, std::mutex &mutex_lock, std::condition_variable &cond_var) {
     cv::Mat frame;
     std::vector<std::vector<cv::Point> > contours;
 
     while (video_capture.read(frame)) {
+<<<<<<<<< Temporary merge branch 1
         //Add the frame to the 20-second lead-up buffer
         lead_up_buffer.push(frame);
         video_writer.write(frame);
@@ -61,6 +66,12 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
 
         cv::Mat frame_delta, gray, thresh, absolute_difference;
         std::string camera_description = "No Motion";
+        WebApp* webAppInstance = WebApp::getInstance();
+
+        if (webAppInstance) {
+            webAppInstance->motionDetectedCurr = false;
+        }
+
 
         // Convert the current frame to greyscale
         cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
@@ -97,11 +108,18 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
 
             // Generate a green bounding box for the contour to draw on the frame, and update the frame description
             cv::Rect rect = cv::boundingRect(contour);
+<<<<<<<<< Temporary merge branch 1
             cv::rectangle(frame, cv::Point(rect.x, rect.y),
                           cv::Point(rect.x + rect.width, rect.y + rect.height),
+=========
+            cv::rectangle(frame, cv::Point(rect.x, rect.y), cv::Point(rect.x + rect.width, rect.y + rect.height),
+>>>>>>>>> Temporary merge branch 2
                           CV_RGB(0, 255, 0), 2);
             camera_description = "Motion Detected";
 
+            if (webAppInstance) {
+                webAppInstance->motionDetectedCurr = true;
+            }
             //TODO Implement circular buffer to store last 20 seconds of frames
 
             std::lock_guard<std::mutex> lock_guard{mutex_lock};
@@ -125,11 +143,16 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
 
         //If the Escape key is pressed, break the while loop.
         if (cv::waitKey(1) == 27) {
-//            std::cout << lead_up_buffer.size() << std::endl;
-//            for (int a = 0; a < lead_up_buffer.size(); a++) {
-//                video_writer.write(lead_up_buffer.pop());
-//            }
+            std::cout << lead_up_buffer.capacity() << std::endl;
+            int a = 1;
+            while(lead_up_buffer.size() > 0){
+                video_writer.write(lead_up_buffer.pop());
+                std::cout << a << std::endl;
+                a++;
+            }
 
+=========
+>>>>>>>>> Temporary merge branch 2
             break;
         }
     }

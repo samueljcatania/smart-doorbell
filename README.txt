@@ -2,6 +2,7 @@ Prerequisites:
 Required Dependencies:
 - GTK-3.0
 - OpenCV (with GTK3 dependencies)
+- libboost
 - Wt 4.9.1
 
 IMPORTANT: Make sure that no other versions of GTK such as GTK 2.0 are installed. This will cause conflicts in
@@ -52,6 +53,10 @@ sudo make install
 
 Installing Wt 4.9.1
 
+0. Please make sure you first have the libboost dependencies: install them by running the following command
+sudo apt update
+sudo apt install libboost-all-dev
+
 1. Download Wt 4.9.1 and extract the files: https://www.webtoolkit.eu/wt/download
 
 2. After extracting the files, run the following commands to build Wt 4.9.1:
@@ -77,5 +82,8 @@ make clean
 
 =============================================================================================================
 Notes about running the program:
-Recorded footage files are saved to the working directory.
+Recorded footage files are saved to a folder called 'recordings' in the project directory. 
+IMPORTANT: please create a 'recordings' folder before first run. 
+Please use the following command line arguments when running the program: --docroot . --http-address 0.0.0.0 --http-port 8080
+If you change the http-address to your inet IP address, then you will be able to access the WebApp from any other device on the network. 
 
