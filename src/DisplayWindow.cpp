@@ -2,51 +2,66 @@
 // Created by Jonathan Lee on 2023-03-13.
 //
 
+#include <gtkmm/application.h>
 #include "../include/DisplayWindow.hpp"
 
-void DisplayWindow::cameraButtonClick() { //Show camera when requested
-    cam.openCamera();
-    cam.peek();
-}
+DisplayWindow::DisplayWindow() :
+        toggle_camera_button("Camera ON/OFF"),
+        start_recording_button("Record"),
+        stop_recording_button("Stop recording") {
 
-void DisplayWindow::recordButtonClick() {//Start recording when asked
-    cam.openCamera();
-    cam.recordVideo();
-}
+    // Set the title of the window
+    set_title("Control Panel");
 
-void DisplayWindow::stopRecordButtonClick() {//Stop recording??
-    cam.closeCamera();
-}
+    // Sets the margin around the box
+    window_box.set_margin(10);
 
-DisplayWindow::DisplayWindow() = default;
+    // Put the box into the main window
+    set_child(window_box);
+
+    // Set an event handler for each button, so upon button press the on_button_clicked() function is called
+    toggle_camera_button.signal_clicked().connect(sigc::bind(
+            sigc::mem_fun(*this, &DisplayWindow::on_button_clicked), "1"));
+    start_recording_button.signal_clicked().connect(sigc::bind(
+            sigc::mem_fun(*this, &DisplayWindow::on_button_clicked), "2"));
+    stop_recording_button.signal_clicked().connect(sigc::bind(
+            sigc::mem_fun(*this, &DisplayWindow::on_button_clicked), "3"));
+
+    // Add the buttons to the window
+    window_box.append(toggle_camera_button);
+    window_box.append(start_recording_button);
+    window_box.append(stop_recording_button);
+
+}
 
 DisplayWindow::~DisplayWindow() = default;
 
-int DisplayWindow::openGui() { // function to open a window for user to control the camera
-    auto app = Gtk::Application::create("org.gtkmm.examples.base");
+void DisplayWindow::on_button_clicked(const Glib::ustring &data) {
 
-    // Create a window with a vertical box container
-    Gtk::Window window;
-    window.set_border_width(10);
-    window.override_background_color(Gdk::RGBA("black"));
+    std::cout << "Hello World - " << data << " was pressed" << std::endl;
 
-    Gtk::Box box(Gtk::ORIENTATION_VERTICAL, 10);
-    window.add(box);
-
-    // three buttons for user to interact with
-    Gtk::Button camera("Camera ON/OFF");
-    Gtk::Button record("Record");
-    Gtk::Button stopRecord("Stop recording");
-    box.pack_start(camera);
-    box.pack_start(record);
-    box.pack_start(stopRecord);
-
-    //Event handling
-    camera.signal_clicked().connect(sigc::mem_fun(*this, &DisplayWindow::cameraButtonClick));
-    record.signal_clicked().connect(sigc::mem_fun(*this, &DisplayWindow::recordButtonClick));
-    stopRecord.signal_clicked().connect(sigc::mem_fun(*this, &DisplayWindow::stopRecordButtonClick));
-
-    // Show the window and run the application
-    window.show_all();
-    return app->make_window_and_run<MyWindow>();
 }
+
+//void DisplayWindow::cameraButtonClick() { //Show camera when requested
+//    cam.openCamera();
+//    cam.peek();
+//}
+//
+//void DisplayWindow::recordButtonClick() {//Start recording when asked
+//    cam.openCamera();
+//    cam.recordVideo();
+//}
+//
+//void DisplayWindow::stopRecordButtonClick() {//Stop recording??
+//    cam.closeCamera();
+//}
+
+
+int DisplayWindow::open_window(int argc, char *argv[]) {
+    auto app = Gtk::Application::create("org.gtkmm.example");
+
+    // Shows the window and returns when it is closed
+    return app->make_window_and_run<DisplayWindow>(argc, argv);
+}
+
+

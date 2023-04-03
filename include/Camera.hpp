@@ -19,6 +19,7 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/utils/logger.hpp>
 
+#include "../include/FaceDetector.hpp"
 #include "../include/CircularBuffer.hpp"
 
 class Camera {
@@ -31,6 +32,8 @@ private:
     cv::Mat average_frame;
     CircularBuffer<cv::Mat> lead_up_buffer = CircularBuffer<cv::Mat>(400);
     std::chrono::time_point<std::chrono::system_clock> last_motion_time, recent_motion_time;
+
+    FaceDetector face_detector;
 
 public:
     Camera();

@@ -18,6 +18,8 @@
 class Doorbell {
 private:
     Camera camera;
+    VideoRecorder video_recorder;
+    DisplayWindow display_window;
     std::queue<char> shared_queue;
     std::mutex mutex_lock;
     std::condition_variable cond_var;

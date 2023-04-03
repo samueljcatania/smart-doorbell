@@ -5,25 +5,27 @@
 #ifndef GROUP_17_DISPLAYWINDOW_HPP
 #define GROUP_17_DISPLAYWINDOW_HPP
 
-#include <gtkmm.h>
+#include <gtkmm/box.h>
+#include <gtkmm/button.h>
+#include <gtkmm/window.h>
 #include "../include/VideoRecorder.hpp"
 
-class DisplayWindow {
+class DisplayWindow : public Gtk::Window {
 private:
     VideoRecorder cam;
-
-    void cameraButtonClick();
-
-    void recordButtonClick();
-
-    void stopRecordButtonClick();
 
 public:
     DisplayWindow();
 
-    ~DisplayWindow();
+    ~DisplayWindow() override;
 
-    int openGui(); // open gui
+    int open_window(int argc, char *argv[]);
+
+protected:
+    Gtk::Box window_box;
+    Gtk::Button toggle_camera_button, start_recording_button, stop_recording_button;
+
+    void on_button_clicked(const Glib::ustring &data);
 };
 
 

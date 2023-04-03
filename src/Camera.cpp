@@ -49,6 +49,13 @@ void Camera::detectMotion(std::queue<char> &shared_queue, std::mutex &mutex_lock
         lead_up_buffer.push(frame);
         video_writer.write(frame);
 
+        auto rectangles = face_detector.detect_face_rectangles(frame);
+         cv::Scalar colour(0, 105, 205);
+         int frame_thickness = 4;
+         for(const auto & r : rectangles){
+             cv::rectangle(frame, r, colour, frame_thickness);
+         }
+
         // Set the frame size to 512 by 380 to process faster
         cv::resize(frame, frame, cv::Size(512, 380));
 

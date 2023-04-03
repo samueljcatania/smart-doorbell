@@ -14,13 +14,15 @@ include_directories(${GTKMM_INCLUDE_DIRS})
 link_libraries(${GTKMM_LIBRARIES})
 
 # Find Package
-find_package(OpenCV REQUIRED)
+find_package(OpenCV CONFIG REQUIRED)
 
 # Additional Include Directories
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 # Additional Library Directories
 link_directories(${OpenCV_LIB_DIR})
+
+#target_link_libraries(main PRIVATE opencv_ml opencv_dnn opencv_core opencv_flann)
 
 ################################################################
 # Find and include GTKMM library
@@ -39,7 +41,7 @@ link_directories(${OpenCV_LIB_DIR})
 file(GLOB HEADER_FILES include/*.hpp)
 
 # Add all header files as library targets
-add_library(HEADERS ${HEADER_FILES})
+add_library(HEADERS ${HEADER_FILES} src/FaceDetector.cpp include/FaceDetector.hpp)
 
 # Must set the linker language for these headers to CXX, otherwise an error occurs
 set_target_properties(HEADERS PROPERTIES LINKER_LANGUAGE CXX)
@@ -52,10 +54,8 @@ set_target_properties(HEADERS PROPERTIES LINKER_LANGUAGE CXX)
 file(GLOB SOURCE_FILES src/*.cpp)
 
 ## Add all source (.cpp) files as executable targets
-add_executable(Group-17 ${SOURCE_FILES})
+add_executable(Group-17 ${SOURCE_FILES} src/FaceDetector.cpp include/FaceDetector.hpp)
 
-#target_link_libraries(Group-17 ${OpenCV_LIBS} ${GTKMM_LIBRARIES})
-target_link_libraries(Group-17 ${OpenCV_LIBS})
-
+target_link_libraries(Group-17 ${OpenCV_LIBS} ${GTKMM_LIBRARIES})
 
 ################################################################
