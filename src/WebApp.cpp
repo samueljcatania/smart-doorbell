@@ -29,6 +29,8 @@ WebApp::WebApp(const Wt::WEnvironment& env)
     timer_->timeout().connect(this, &WebApp::updateMotionStatus);
     // update files
     timer_->timeout().connect(this, &WebApp::updateFileList);
+    //update images
+    timer_->timeout().connect(this, &WebApp::updateImagesList);
     timer_->start();
 
     // Current Motion Detected Status
@@ -43,10 +45,7 @@ WebApp::WebApp(const Wt::WEnvironment& env)
     container->setStyleClass("container");
 
     fileTable_ = container->addWidget(std::make_unique<Wt::WTable>());
-    //fileTable_->setHeaderCount(1);
     fileTable_->setWidth(Wt::WLength("100%"));
-    //fileTable_->elementAt(0, 0)->addWidget(std::make_unique<Wt::WText>("File Name"));
-
     updateFileList();
 
     // end file explorer module
@@ -76,6 +75,16 @@ WebApp::WebApp(const Wt::WEnvironment& env)
     greetingsContainer_->addWidget(std::make_unique<Wt::WBreak>());
     greetingsContainer_->addWidget(std::make_unique<Wt::WText>("Activity History:"));
     greetingsContainer_->addWidget(std::make_unique<Wt::WBreak>());
+
+    // image gallery
+    root()->addWidget(std::make_unique<Wt::WBreak>());
+    root()->addWidget(std::make_unique<Wt::WText>("Image Gallery: "));
+    auto container2 = root()->addWidget(std::make_unique<Wt::WContainerWidget>());
+    container2->setStyleClass("container");
+    imageTable_ = container2->addWidget(std::make_unique<Wt::WTable>());
+    imageTable_->setWidth(Wt::WLength("100%"));
+    updateImagesList();
+
 
     // recording buttons
 //    Wt::WPushButton *startRecordingButton = root()->addWidget(std::make_unique<Wt::WPushButton>("Start Recording"));
@@ -181,6 +190,43 @@ void WebApp::updateFileList() {
             fileTable_->elementAt(row, 0)->addWidget(std::make_unique<Wt::WAnchor>(Wt::WLink(fileResource), fileName));
 
             ++row;
+        }
+    }
+}
+
+// function to update images.
+void WebApp::updateImagesList() {
+    int row = imageTable_->rowCount();
+
+    if (!boost::filesystem::exists(imagesPath_) || !boost::filesystem::is_directory(imagesPath_)) {
+        return;
+    }
+
+    for (const auto &entry : boost::filesystem::directory_iterator(imagesPath_)) {
+        if (boost::filesystem::is_regular_file(entry.path())) {
+            auto fileName = entry.path().filename().string();
+            auto filePath = (imagesPath_ / fileName).string();
+
+            // Check if the image is already displayed
+            if (displayedImages.find(fileName) == displayedImages.end()) {
+                auto fileResource = std::make_shared<Wt::WFileResource>("", filePath);
+                fileResource->suggestFileName(fileName);
+
+                // Create a WImage widget with the file resource as a source and add it to the table
+                auto imageWidget = std::make_unique<Wt::WImage>(Wt::WLink(fileResource));
+                imageWidget->setAlternateText(fileName); // Set the alternate text to the file name
+
+                // Set the image size (width and height)
+                imageWidget->setWidth(Wt::WLength(150, Wt::LengthUnit::Pixel));
+                imageWidget->setHeight(Wt::WLength(100, Wt::LengthUnit::Pixel));
+
+                imageTable_->elementAt(row, 0)->addWidget(std::move(imageWidget));
+
+                // Add the image to the displayed images set
+                displayedImages.insert(fileName);
+
+                ++row;
+            }
         }
     }
 }

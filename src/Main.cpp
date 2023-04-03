@@ -15,8 +15,7 @@
 #include "../include/WebApp.hpp"
 
 int main(int argc, char *argv[]) {
-    Doorbell doorbell;
-    doorbell.open_window(argc, argv);
+
 
 //int main(int argc, char **argv) {
 //
@@ -27,6 +26,8 @@ int main(int argc, char *argv[]) {
         WebApp::startApplication(argc, argv);
     });
 
+    Doorbell doorbell;
+    doorbell.open_window(argc, argv);
 
     // Give some time for the server to start
     std::this_thread::sleep_for(std::chrono::seconds(1));

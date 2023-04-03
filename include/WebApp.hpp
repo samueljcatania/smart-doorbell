@@ -78,6 +78,12 @@ private:
     Wt::WTable *fileTable_;
 
     /**
+     * imageTable stores the images found on the system.
+     * It displays them in a gallery.
+     */
+    Wt::WTable *imageTable_;
+
+    /**
      * serverMessage keeps track of the current time and displays it on the WebApp.
      */
     Wt::WText *serverMessage_;
@@ -99,7 +105,27 @@ private:
      */
     boost::filesystem::path recordingsPath_{"../recordings"};
 
+    /**
+    * The path that the WebApp accesses to look for images.
+    *
+    */
+    boost::filesystem::path imagesPath_{"../recordings/images"};
+
+    /**
+     * A set that stores the displayed images in the WebApp.
+     */
+    std::set<std::string> displayedImages;
+
+    /**
+     * Returns the instance of WebApp that is currently running.
+     *
+     */
     static WebApp *instance_;
+
+    /**
+     * GreetingsContainer stores the motion detected history.
+     *
+     */
     static Wt::WContainerWidget *greetingsContainer_;
 
     /**
@@ -128,6 +154,11 @@ private:
      */
     bool trackMotionChanges();
 
+    /**
+     * This function adds new faces to the image gallery when images are captured.
+     *
+     */
+    void updateImagesList();
 };
 
 #endif //GROUP_17_WEBSOCKET_HPP
