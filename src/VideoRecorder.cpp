@@ -9,6 +9,8 @@
  */
 
 #include <opencv2/core.hpp>
+#include <chrono>
+#include <thread>
 #include "../include/VideoRecorder.hpp"
 
 // Function to generate the timestamped filename
@@ -33,21 +35,24 @@ VideoRecorder::~VideoRecorder() {
     video_writer.release();
 }
 
-void VideoRecorder::write_frames(bool &recording, std::queue<cv::Mat> &shared_queue,
+void VideoRecorder::write_frames(bool &recording, std::queue<cv::Mat> &shared_queue, std::mutex &queue_lock,
                                  std::mutex &recorder_lock, std::mutex &buffer_lock,
                                  CircularBuffer<cv::Mat> &shared_lead_up_buffer,
                                  std::condition_variable &recording_updated, std::condition_variable &buffer_updated,
                                  std::condition_variable &queue_updated) {
 
-    std::cout << shared_lead_up_buffer.get_capacity() << std::endl;
-    std::cout << shared_lead_up_buffer.get_size() << std::endl;
-
-    int a = 1;
-    while (shared_lead_up_buffer.get_size() > 0) {
-        video_writer.write(shared_lead_up_buffer.pop());
-        std::cout << a << std::endl;
-        a++;
-    }
+//    // Critical Section
+//    std::unique_lock<std::mutex> buffer_unique_lock{buffer_lock};
+//
+//    std::cout << shared_lead_up_buffer.get_capacity() << std::endl;
+//    std::cout << shared_lead_up_buffer.get_size() << std::endl;
+//
+//    while (shared_lead_up_buffer.get_size() > 0) {
+//        video_writer.write(shared_lead_up_buffer.pop());
+////        std::this_thread::sleep_for(std::chrono::milliseconds(2000000));
+//    }
+//
+//    buffer_unique_lock.unlock();
 
     // Critical Section
     std::unique_lock<std::mutex> recorder_unique_lock{recorder_lock};
@@ -62,19 +67,23 @@ void VideoRecorder::write_frames(bool &recording, std::queue<cv::Mat> &shared_qu
         recorder_unique_lock.unlock();
 
         std::cout << "After unlock" << std::endl;
+         std::this_thread::sleep_for(std::chrono::seconds (2));
 
-        // Critical Section
-        std::unique_lock<std::mutex> queue_unique_lock{recorder_lock};
-        queue_updated.wait(queue_unique_lock, [&] {
-            return shared_queue.empty();
-        });
-        queue_updated.wait(queue_unique_lock);
-
-        queue_unique_lock.unlock();
-
-
+//        // Critical Section
+//        std::unique_lock<std::mutex> queue_unique_lock{queue_lock};
+//        queue_updated.wait(queue_unique_lock, [&] {
+//            return shared_queue.empty();
+//        });
 //
-        std::cout << "its false now homie" << std::endl;
+//        video_writer.write(shared_queue.front());
+//        shared_lead_up_buffer.pop();
+//
+//        queue_unique_lock.unlock();
+
+
+        return;
+//
+//        std::cout << "its false now homie" << std::endl;
 //
 //
 //        video_writer.write(shared_queue.front());

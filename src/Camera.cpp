@@ -38,7 +38,7 @@ int Camera::measure_camera_frame_rate() {
     long seconds = std::chrono::duration_cast<std::chrono::seconds>(end - start).count();
 
     // Calculate the frame rate
-    return (int) ((NUMBER_OF_FRAMES_TO_TEST_FRAME_RATE / seconds) / 2);
+    return (int) (NUMBER_OF_FRAMES_TO_TEST_FRAME_RATE / seconds);
 }
 
 Camera::Camera() {
@@ -54,7 +54,7 @@ Camera::Camera() {
         std::cout << "Cannot open the video camera" << std::endl;
     }
 
-    frame_rate = 15;
+    frame_rate = 30;
 //    frame_rate = measure_camera_frame_rate();
 
     lead_up_buffer.set_capacity(SECONDS_OF_LEAD_UP_FOOTAGE * frame_rate);
@@ -91,9 +91,10 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::m
             SECONDS_TO_WAIT_FOR_CAMERA_TO_START) {
 
             // Critical Section
-            std::lock_guard<std::mutex> lock_guard{queue_lock};
-            shared_queue.push(frame);
-            queue_updated.notify_all();
+//            std::lock_guard<std::mutex> lock_guard{queue_lock};
+//            shared_queue.push(frame);
+//            std::cout << shared_queue.size() << std::endl;
+//            queue_updated.notify_all();
 
         } else {
             //Add the frame to the 15-second lead-up buffer

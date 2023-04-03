@@ -75,6 +75,7 @@ void Doorbell::create_video_recorder_thread() {
                                   video_recorder,
                                   std::ref(recording),
                                   std::ref(shared_queue),
+                                  std::ref(queue_lock),
                                   std::ref(camera_lock),
                                   std::ref(buffer_lock),
                                   std::ref(shared_lead_up_buffer),
