@@ -85,12 +85,30 @@ private:
     static WebApp *instance_;
     static Wt::WContainerWidget *greetingsContainer_;
 
+    /**
+     *
+     *
+     */
     void updateServerTimeMsg();
 
+    /**
+     * This function is called by WebApp to
+     *
+     */
     void updateMotionStatus();
 
+    /**
+     * This function is called by WebApp in order to refresh the File Explorer
+     * so that any file additions/deletions are reflected.
+     *
+     */
     void updateFileList();
 
+    /**
+     * trackMotionChanges tracks whether motion has been detected recently
+     *
+     * @return whether motion is currently detected in the camera.
+     */
     bool trackMotionChanges();
 
 };
