@@ -7,6 +7,9 @@
  * Description of Doorbell.cpp:
  *
  */
+
+#include <gtkmm/application.h>
+
 #include "../include/Doorbell.hpp"
 
 Doorbell::Doorbell() {
@@ -24,6 +27,15 @@ Doorbell::Doorbell() {
 }
 
 Doorbell::~Doorbell() = default;
+
+int Doorbell::open_window(int argc, char *argv[]) {
+    Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
+
+    DisplayWindow display_window;
+
+    // Shows the window and returns when it is closed
+    return app->run(display_window);
+}
 
 void Doorbell::managerThread() {
     std::string readData;

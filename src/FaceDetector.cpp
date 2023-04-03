@@ -11,14 +11,9 @@
 
 #include <sstream>
 #include <vector>
-#include <string>
 #include <opencv2/opencv.hpp>
 
 #include "../include/FaceDetector.hpp"
-#include "../include/FaceDetector.hpp"
-
-#define FACE_DETECTION_CONFIGURATION "../assets/deploy.prototxt"
-#define FACE_DETECTION_WEIGHTS "../assets/"
 
 FaceDetector::FaceDetector() :
         confidence_threshold(0.5),
@@ -28,7 +23,7 @@ FaceDetector::FaceDetector() :
         mean_values({104., 177.0, 123.0}) {
     // Note: The variables MODEL_CONFIGURATION_FILE
     // and MODEL_WEIGHTS_FILE are passed in via cmake
-    network = cv::dnn::readNetFromCaffe("../assets/deploy.protoxt",
+    network = cv::dnn::readNetFromCaffe("../assets/deploy.prototxt",
                                         "../assets/res10_300x300_ssd_iter_140000_fp16.caffemodel");
     if (network.empty()) {
         std::ostringstream ss;

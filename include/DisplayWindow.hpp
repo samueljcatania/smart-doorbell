@@ -11,15 +11,10 @@
 #include "../include/VideoRecorder.hpp"
 
 class DisplayWindow : public Gtk::Window {
-private:
-    VideoRecorder cam;
-
 public:
     DisplayWindow();
 
-    ~DisplayWindow() override;
-
-    int open_window(int argc, char *argv[]);
+    virtual ~DisplayWindow();
 
 protected:
     Gtk::Box window_box;

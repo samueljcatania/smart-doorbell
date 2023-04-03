@@ -8,17 +8,14 @@
  *
  */
 
-#include <opencv2/core/utils/logger.hpp>
 #include "../include/Doorbell.hpp"
 
 int main(int argc, char *argv[]) {
-    // Turn off OpenCV console logging output
-    cv::utils::logging::setLogLevel(cv::utils::logging::LogLevel::LOG_LEVEL_SILENT);
+    Doorbell doorbell;
+    doorbell.open_window(argc, argv);
 
-//    Doorbell doorbell;
-
-    DisplayWindow displayWindow;
-    displayWindow.open_window(argc, argv);
+//    DisplayWindow displayWindow;
+//    displayWindow.open_window(argc, argv);
 //
 //    VideoRecorder vr; // creates a new VideoRecorder object.
 //    vr.openCamera(); // Open up the camera.
