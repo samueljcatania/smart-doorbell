@@ -14,7 +14,7 @@
 
 #include "../include/Camera.hpp"
 
-#define SECONDS_TO_WAIT_FOR_MOTION 5
+#define SECONDS_TO_WAIT_FOR_MOTION_OR_FACE 5
 #define SECONDS_TO_WAIT_FOR_CAMERA_TO_START 2
 #define NUMBER_OF_FRAMES_TO_TEST_FRAME_RATE 120
 #define SECONDS_OF_LEAD_UP_FOOTAGE 15
@@ -80,10 +80,14 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::m
 
     while (video_capture.read(frame)) {
 
-        if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now()
-                                                             - last_motion_time).count() <=
-            SECONDS_TO_WAIT_FOR_MOTION && std::chrono::duration_cast<std::chrono::seconds>(
-                std::chrono::system_clock::now() - camera_start_time).count() >= SECONDS_TO_WAIT_FOR_CAMERA_TO_START) {
+        if (std::chrono::duration_cast<std::chrono::seconds>(
+                std::chrono::system_clock::now() - last_motion_time).count() <=
+            SECONDS_TO_WAIT_FOR_MOTION_OR_FACE && std::chrono::duration_cast<std::chrono::seconds>(
+                std::chrono::system_clock::now() - last_face_detection_time).count() <=
+                                                  SECONDS_TO_WAIT_FOR_MOTION_OR_FACE &&
+            std::chrono::duration_cast<std::chrono::seconds>(
+                    std::chrono::system_clock::now() - camera_start_time).count() <=
+            SECONDS_TO_WAIT_FOR_CAMERA_TO_START) {
 
             // Critical Section
 //            std::lock_guard<std::mutex> lock_guard{mutex_lock};
@@ -93,9 +97,6 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::m
         } else {
             //Add the frame to the 15-second lead-up buffer
             lead_up_buffer.push(frame);
-
-            std::cout << lead_up_buffer.get_capacity() << std::endl;
-            std::cout << lead_up_buffer.get_size() << std::endl;
 
             if (active_video_writer) {
                 active_video_writer = false;
@@ -107,8 +108,13 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::m
             }
         }
 
-
         auto rectangles = face_detector.detect_face_rectangles(frame);
+
+        // If there are currently faces detected, update the time of last face detection
+        if (!rectangles.empty()) {
+            last_face_detection_time = std::chrono::system_clock::now();
+        }
+
         for (const auto &r: rectangles) {
             cv::rectangle(frame, r, CV_RGB(255, 0, 0), 4);
         }

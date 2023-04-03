@@ -47,8 +47,8 @@ void VideoRecorder::write_frames(bool &recording, std::queue<cv::Mat> &shared_qu
     std::cout << shared_lead_up_buffer.get_size() << std::endl;
 
     int a = 1;
-    while (lead_up_buffer.get_size() > 0) {
-        video_writer.write(lead_up_buffer.pop());
+    while (shared_lead_up_buffer.get_size() > 0) {
+        video_writer.write(shared_lead_up_buffer.pop());
         std::cout << a << std::endl;
         a++;
     }
