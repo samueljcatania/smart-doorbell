@@ -2,9 +2,7 @@
  * Author: Samuel Catania
  * Username: scatani9
  * Student Number: 251175283
- * Date: Wednesday, March 8, 2023
- *
- * Description of Camera.hpp:
+ * Date: Saturday, April 1, 2023
  *
  */
 
