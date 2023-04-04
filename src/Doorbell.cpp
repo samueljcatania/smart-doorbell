@@ -10,10 +10,8 @@
 
 #include <gtkmm/application.h>
 #include <atomic>
-#include <gtkmm.h>
 
 #include "../include/Doorbell.hpp"
-#include "../include/VideoRecorder.hpp"
 
 Doorbell::Doorbell(char **argv) {
     // Turn off OpenCV console logging output
