@@ -65,16 +65,13 @@ private:
 public:
     /**
      * @brief Constructor for Face Detector class
-     *
-     *
-     *
      */
     explicit FaceDetector();
 
     /**
-     * TODO
-     * @param frame
-     * @return
+     * detect_face_rectangles frames any detected faces in the current captured frame from the camera
+     * @param frame Current frame captured from camera.
+     * @return a rectangle to overlay over the footage.
      */
     std::vector<cv::Rect> detect_face_rectangles(const cv::Mat &frame);
 };

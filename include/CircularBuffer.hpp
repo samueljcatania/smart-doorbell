@@ -7,6 +7,11 @@
 #include <opencv2/opencv.hpp>
 
 /**
+ * @tparam T Generic type so that the Circular Buffer can handle many different types of objects.
+ */
+template<typename T>
+
+/**
  * @brief Circular buffer class to aid in computations for motion detection
  *
  * CircularBuffer contains the constructor, getter, setter, and cleanup functions
@@ -16,34 +21,85 @@
  * @author Samuel Catania
  *
  */
-
-template<typename T>
-
 class CircularBuffer {
 private:
+    /**
+     * TODO
+     */
     size_t head = 0;
+
+    /**
+     * TODO
+     */
     size_t tail = -1;
+
+    /**
+     * TODO
+     */
     size_t current_size = 0;
+
+    /**
+     * TODO
+     */
     size_t max_size;
+
+    /**
+     * TODO
+     */
     std::vector<T> vector;
 
 public:
+    /**
+     * Todo
+     * @param size
+     */
     explicit CircularBuffer(size_t size);
 
+    /**
+     * TODO
+     * @param circular_buffer
+     */
     explicit CircularBuffer(const CircularBuffer<cv::Mat> &circular_buffer);
 
+    /**
+     * TODO
+     */
     ~CircularBuffer();
 
+    /**
+     * TODO
+     * @param element
+     */
     void push(T element);
 
+    /**
+     * TODO
+     * @return
+     */
     T pop();
 
+    /**
+     * TODO
+     * @return
+     */
     size_t get_size();
 
+    /**
+     * TODO
+     * @return
+     */
     size_t get_capacity();
 
+    /**
+     * TODO
+     * @param new_max_size
+     */
     void set_capacity(size_t new_max_size);
 
+
+    /**
+     * TODO
+     */
     void clear();
 };
 

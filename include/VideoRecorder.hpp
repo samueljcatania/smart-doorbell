@@ -45,7 +45,9 @@ private:
      * be titled according to this timestamp, in the form "YYYYMMDD_HHMMSS", where YYYY is the year
      * MM is the month, DD is the day, HH is hour, MM is minutes, and SS is seconds.
      *
-     * @return
+     * @return the current timestamp on the system.
+     *
+     * @author Meg Zhang
      */
     static std::string generate_timestamped_filename();
 
@@ -78,13 +80,13 @@ public:
      *
      * @param recording Boolean that represents the state of the camera, recording or not recording
      * @param shared_queue The collection of captured live-feed frames
-     * @param queue_lock TODO
-     * @param camera_lock TODO
-     * @param buffer_lock TODO
-     * @param shared_lead_up_buffer TODO
-     * @param recording_updated TODO
-     * @param buffer_updated Boolean representing the TODO
-     * @param queue_updated TODO
+     * @param queue_lock mutex lock for controlling access to the queue
+     * @param camera_lock mutex lock for controlling access to the camera
+     * @param buffer_lock mutex lock for controlling access to the buffer
+     * @param shared_lead_up_buffer buffer that stores up to 15 seconds of footage prior to motion detection
+     * @param recording_updated condition variable for tracking whether the recording was updated.
+     * @param buffer_updated condition variable representing whether the buffer was updated.
+     * @param queue_updated condition variable representing whether the queue was updated.
      */
     void write_frames(bool &recording, std::queue<cv::Mat> &shared_queue, std::mutex &queue_lock,
                       std::mutex &camera_lock, std::mutex &buffer_lock,
