@@ -45,8 +45,6 @@ void VideoRecorder::write_frames(bool &recording, std::queue<cv::Mat> &shared_qu
     // Critical Section
     std::unique_lock<std::mutex> buffer_unique_lock{buffer_lock};
 
-    std::cout << "Buffer current size: " << shared_lead_up_buffer.get_size() << std::endl;
-
     while (shared_lead_up_buffer.get_size() > 0) {
         video_writer.write(shared_lead_up_buffer.pop());
     }
@@ -65,8 +63,6 @@ void VideoRecorder::write_frames(bool &recording, std::queue<cv::Mat> &shared_qu
 
         queue_unique_lock.unlock();
     }
-
-    std::cout << "exited thread" << std::endl;
 
     while (!shared_queue.empty()) {
         video_writer.write(shared_queue.front());

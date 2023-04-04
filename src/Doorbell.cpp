@@ -80,8 +80,6 @@ void Doorbell::thread_manager() {
 void Doorbell::create_video_recorder_thread() {
     VideoRecorder video_recorder(camera.get_frame_rate());
 
-    std::cout << "Create da thread" << std::endl;
-
     recorder_thread = std::thread(&VideoRecorder::write_frames,
                                   video_recorder,
                                   std::ref(recording),
@@ -93,8 +91,6 @@ void Doorbell::create_video_recorder_thread() {
                                   std::ref(recording_updated),
                                   std::ref(buffer_updated),
                                   std::ref(queue_updated));
-
-    std::cout << "Da thread created" << std::endl;
-
+    
     recorder_thread.join();
 }

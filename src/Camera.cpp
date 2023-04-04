@@ -15,7 +15,7 @@
 
 #include "../include/Camera.hpp"
 
-#define SECONDS_TO_WAIT_FOR_MOTION_OR_FACE 5
+#define SECONDS_TO_WAIT_FOR_MOTION_OR_FACE 20
 #define NUMBER_OF_FRAMES_TO_TEST_FRAME_RATE 120
 #define SECONDS_OF_LEAD_UP_FOOTAGE 15
 
@@ -217,15 +217,15 @@ Camera::detect_motion(std::atomic<bool> &show_raw_camera, std::atomic<bool> &sho
 
         // Show the raw frame, thresh frame, and frame delta frame
 //        if (show_raw_camera) {
-            imshow("Camera", frame);
+        imshow("Camera", frame);
 //        }
 
 //        if (show_threshold_camera) {
-            imshow("Thresh", thresh);
+        imshow("Thresh", thresh);
 //        }
 
 //        if (show_delta_camera) {
-            imshow("Frame Delta", frame_delta);
+        imshow("Frame Delta", frame_delta);
 //        }
 
         //If the Escape key is pressed, break the while loop.
