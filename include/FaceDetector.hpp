@@ -71,6 +71,11 @@ public:
      */
     explicit FaceDetector();
 
+    /**
+     * TODO
+     * @param frame
+     * @return
+     */
     std::vector<cv::Rect> detect_face_rectangles(const cv::Mat &frame);
 };
 

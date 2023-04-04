@@ -27,15 +27,41 @@
  * @author Samuel Catania
  *
  */
-
 class Doorbell {
 private:
+    /**
+     * TODO
+     */
     Camera camera;
+
+    /**
+     * TODO
+     */
     bool recording = false;
+
+    /**
+     * TODO
+     */
     std::queue<cv::Mat> shared_queue;
+
+    /**
+     * TODO
+     */
     CircularBuffer<cv::Mat> shared_lead_up_buffer = CircularBuffer<cv::Mat>(0);
+
+    /**
+     * TODO
+     */
     std::mutex queue_lock, camera_lock, buffer_lock;
+
+    /**
+     * TODO
+     */
     std::condition_variable recording_updated, queue_updated, buffer_updated;
+
+    /**
+     * TODO
+     */
     std::thread camera_thread, recorder_thread, master_thread;
 
     /**
@@ -69,7 +95,6 @@ public:
     /**
      * @brief Doorbell class destructor
      *
-     *
      */
     ~Doorbell();
 
@@ -78,8 +103,8 @@ public:
      *
      * open_window will create and show the GUI from VideoRecorder.
      *
-     * @params
-     * @params
+     * @params TODO
+     * @params TODO
      *
      */
     int open_window(char **argv, std::atomic<bool> *show_raw_camera);

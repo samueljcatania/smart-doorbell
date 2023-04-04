@@ -78,13 +78,13 @@ public:
      *
      * @param recording Boolean that represents the state of the camera, recording or not recording
      * @param shared_queue The collection of captured live-feed frames
-     * @param queue_lock
-     * @param camera_lock
-     * @param buffer_lock
-     * @param shared_lead_up_buffer
-     * @param recording_updated
-     * @param buffer_updated Boolean representing the
-     * @param queue_updated
+     * @param queue_lock TODO
+     * @param camera_lock TODO
+     * @param buffer_lock TODO
+     * @param shared_lead_up_buffer TODO
+     * @param recording_updated TODO
+     * @param buffer_updated Boolean representing the TODO
+     * @param queue_updated TODO
      */
     void write_frames(bool &recording, std::queue<cv::Mat> &shared_queue, std::mutex &queue_lock,
                       std::mutex &camera_lock, std::mutex &buffer_lock,
