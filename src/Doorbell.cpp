@@ -43,13 +43,13 @@ Doorbell::Doorbell(char **argv) {
         //recorder_thread
         master_thread = std::thread(&Doorbell::thread_manager, this);
 
-        open_window(argv, &show_raw_camera, &show_threshold_camera, &show_delta_camera);
+        open_window(argv, &show_raw_camera);
 
         while (1) {
             std::unique_lock<std::mutex> queue_unique_lock{queue_lock};
             camera_stream_updated.wait(queue_unique_lock);
 
-            open_window(argv, &show_raw_camera, &show_threshold_camera, &show_delta_camera);
+            open_window(argv, &show_raw_camera);
 
             queue_unique_lock.unlock();
         }
@@ -63,13 +63,12 @@ Doorbell::~Doorbell() {
     cv::destroyAllWindows();
 }
 
-int Doorbell::open_window(char **argv, std::atomic<bool> *show_raw_camera, std::atomic<bool> *show_threshold_camera,
-                          std::atomic<bool> *show_delta_camera) {
+int Doorbell::open_window(char **argv, std::atomic<bool> *show_raw_camera) {
     int argc = 1;
 
     Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
 
-    DisplayWindow display_window(show_raw_camera, show_threshold_camera, show_delta_camera, &camera_stream_updated);
+    DisplayWindow display_window(show_raw_camera);
 
     // Shows the window and returns when it is closed
     return app->run(display_window);

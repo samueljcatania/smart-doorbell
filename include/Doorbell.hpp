@@ -53,19 +53,17 @@ private:
      * mutex locks for controlling access to the queue, the camera, and the buffer
      */
     std::mutex queue_lock, camera_lock, buffer_lock;
-    std::condition_variable recording_updated, queue_updated, buffer_updated, camera_stream_updated;
-    std::thread camera_thread, recorder_thread, master_thread, display_window_thread;
 
     /**
      * Condition variables for tracking whether the recordings, queue or buffer were updated
      */
-    std::condition_variable recording_updated, queue_updated, buffer_updated;
+    std::condition_variable recording_updated, queue_updated, buffer_updated, camera_stream_updated;
 
     /**
      * camera_thread operates the camera, recorder_thread manages recording to a file, and master_thread
      * is the main thread of the program.
      */
-    std::thread camera_thread, recorder_thread, master_thread;
+    std::thread camera_thread, recorder_thread, master_thread, display_window_thread;
 
     /**
      * @brief Thread manager controls threading functionalities
@@ -110,7 +108,7 @@ public:
      * @params atomic boolean for determining whether raw footage is shown.
      *
      */
-    int open_window(char **argv, std::atomic<bool> *show_raw_camera, std::atomic<bool> *show_threshold_camera, std::atomic<bool> *show_delta_camera);
+    int open_window(char **argv, std::atomic<bool> *show_raw_camera);
 };
 
 

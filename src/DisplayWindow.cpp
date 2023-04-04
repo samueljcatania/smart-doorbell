@@ -1,19 +1,15 @@
 
-#include <iostream>
 #include <atomic>
 #include <pangomm/layout.h>
-#include <condition_variable>
 
 #include "../include/DisplayWindow.hpp"
 
-DisplayWindow::DisplayWindow(std::atomic<bool> *show_raw_camera_param, std::atomic<bool> *show_threshold_camera,
-                             std::atomic<bool> *show_delta_camera, std::condition_variable *camera_stream_updated_param)
+DisplayWindow::DisplayWindow(std::atomic<bool> *show_raw_camera_param)
         : raw_camera_button("View Camera"),
           camera_tab_label(
                   "INSTRUCTIONS: Use this button below to preview the Doorbell's camera. When looking at the Camera, press the ESC key to return back to this menu. Press the X in the top right of this window when you are satisfied with the camera.") {
 
     show_raw_camera = show_raw_camera_param;
-    camera_stream_updated = camera_stream_updated_param;
 
     set_title("Control Panel");
     set_border_width(10);
@@ -52,9 +48,6 @@ DisplayWindow::DisplayWindow(std::atomic<bool> *show_raw_camera_param, std::atom
 DisplayWindow::~DisplayWindow() = default;
 
 void DisplayWindow::on_notebook_switch_page(Gtk::Widget * /* page */, guint page_num) {
-    std::cout << "Switched to tab with index " << page_num << std::endl;
-
-    //You can also use m_Notebook.get_current_page() to get this index.
 }
 
 void DisplayWindow::on_button_clicked(const Glib::ustring &data) {

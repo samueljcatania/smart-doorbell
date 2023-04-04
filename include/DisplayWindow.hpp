@@ -22,12 +22,6 @@ public:
      * @param show_raw_camera_param atomic boolean that determines whether raw camera footage is shown.
      */
     DisplayWindow(std::atomic<bool> *show_raw_camera_param);
-    /**
-     * @brief Constructor for Display Window
-     *
-     */
-    DisplayWindow(std::atomic<bool> *show_raw_camera_param, std::atomic<bool> *show_threshold_camera,
-                  std::atomic<bool> *show_delta_camera, std::condition_variable *camera_stream_updated_param);
 
     /**
      * Destructor for displayWindow.
@@ -43,41 +37,27 @@ public:
 protected:
     /**
      * main_box is the main window box for the notebook on the GUI.
-     * face_detection_box is a box on the main window but for the face detection tab.
      */
-    Gtk::Box main_box, face_detection_box;
+    Gtk::Box main_box;
 
     /**
-     * scrolled_window lets you scroll through the captured face images.
+     * Grid for showing and organizing components
      */
-    Gtk::ScrolledWindow face_detection_scrolled_window;
-
-    /**
-     * Grids for showing and organizing components
-     * respectively for the camera, face detection, and recordings tab
-     * on the GUI.
-     */
-    Gtk::Grid camera_grid, face_detection_grid, recordings_grid;
+    Gtk::Grid camera_grid;
 
     /**
      * notebook - the tabs on the GUI.
      */
-    Gtk::Box main_box;
-    Gtk::Grid camera_grid;
     Gtk::Notebook notebook;
 
     /**
      * Labels for the GUI
      */
-    Gtk::Label camera_tab_label, raw_camera_label, thresh_camera_label, delta_camera_label, faces_tab_label, recordings_tab_label;
-
-    Gtk::ButtonBox button_box;
+    Gtk::Label camera_tab_label, raw_camera_label;
 
     /**
-     * Buttons for switching between camera footage types.
+     * Buttons for toggling camera footage.
      */
-    Gtk::Button raw_camera_button, thresh_camera_button, delta_camera_button;
-    Gtk::Label camera_tab_label, raw_camera_label;
     Gtk::Button raw_camera_button;
 
     /**
