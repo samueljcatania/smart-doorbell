@@ -1,0 +1,146 @@
+\hypertarget{classVideoRecorder}{}\doxysection{Video\+Recorder Class Reference}
+\label{classVideoRecorder}\index{VideoRecorder@{VideoRecorder}}
+
+
+The video recorder class contains functionality to record the live camera feed.  
+
+
+
+
+{\ttfamily \#include $<$Video\+Recorder.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classVideoRecorder_a12e1372af31a9fcfb0a64ff5cb35f185}{Video\+Recorder}} (int frame\+\_\+rate)
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{classVideoRecorder}{Video\+Recorder} class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classVideoRecorder_a5e1485723ebab38ce05427c01a8e5493}{$\sim$\+Video\+Recorder}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{classVideoRecorder}{Video\+Recorder} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classVideoRecorder_a3d07ed524cb9e48403c39bf3e0ff87e0}{write\+\_\+frames}} (bool \&recording, std\+::queue$<$ cv\+::\+Mat $>$ \&shared\+\_\+queue, std\+::mutex \&queue\+\_\+lock, std\+::mutex \&camera\+\_\+lock, std\+::mutex \&buffer\+\_\+lock, \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ cv\+::\+Mat $>$ \&shared\+\_\+lead\+\_\+up\+\_\+buffer, std\+::condition\+\_\+variable \&recording\+\_\+updated, std\+::condition\+\_\+variable \&buffer\+\_\+updated, std\+::condition\+\_\+variable \&queue\+\_\+updated)
+\begin{DoxyCompactList}\small\item\em This function writes the collection of frames which eventually becomes a video. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::string \mbox{\hyperlink{classVideoRecorder_a6f56f0506e669eef176776a769788a02}{generate\+\_\+timestamped\+\_\+filename}} ()
+\begin{DoxyCompactList}\small\item\em Create a timestamp for the recorded video. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ cv\+::\+Mat $>$ \mbox{\hyperlink{classVideoRecorder_acdca3e76bd8f61da3f86b5c22dddfeb8}{lead\+\_\+up\+\_\+buffer}} = \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$cv\+::\+Mat$>$(0)
+\item 
+cv\+::\+Video\+Writer \mbox{\hyperlink{classVideoRecorder_a05cf355e1bd7076cb6cb01c1e5eacdce}{video\+\_\+writer}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The video recorder class contains functionality to record the live camera feed. 
+
+\doxylink{classVideoRecorder}{Video\+Recorder} uses multithreading for the video recording process. There are methods to take live feed frames and generate a video using Open\+CV\textquotesingle{}s Video\+Writer. The video is overlayed with additional details, and the recording process will terminate when \doxylink{classVideoRecorder}{Video\+Recorder} is terminated.
+
+\begin{DoxyAuthor}{Author}
+Samuel Catania 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classVideoRecorder_a12e1372af31a9fcfb0a64ff5cb35f185}\label{classVideoRecorder_a12e1372af31a9fcfb0a64ff5cb35f185} 
+\index{VideoRecorder@{VideoRecorder}!VideoRecorder@{VideoRecorder}}
+\index{VideoRecorder@{VideoRecorder}!VideoRecorder@{VideoRecorder}}
+\doxysubsubsection{\texorpdfstring{VideoRecorder()}{VideoRecorder()}}
+{\footnotesize\ttfamily Video\+Recorder\+::\+Video\+Recorder (\begin{DoxyParamCaption}\item[{int}]{frame\+\_\+rate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for the \doxylink{classVideoRecorder}{Video\+Recorder} class. 
+
+This function will create a new \doxylink{classVideoRecorder}{Video\+Recorder} object and then begin recording the camera live feed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame\+\_\+rate} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classVideoRecorder_a5e1485723ebab38ce05427c01a8e5493}\label{classVideoRecorder_a5e1485723ebab38ce05427c01a8e5493} 
+\index{VideoRecorder@{VideoRecorder}!````~VideoRecorder@{$\sim$VideoRecorder}}
+\index{````~VideoRecorder@{$\sim$VideoRecorder}!VideoRecorder@{VideoRecorder}}
+\doxysubsubsection{\texorpdfstring{$\sim$VideoRecorder()}{~VideoRecorder()}}
+{\footnotesize\ttfamily Video\+Recorder\+::$\sim$\+Video\+Recorder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for the \doxylink{classVideoRecorder}{Video\+Recorder} class. 
+
+This function will terminate and destroy the \doxylink{classVideoRecorder}{Video\+Recorder} object. When this occurs, the recording of the live video also terminates, but the live video and other camera functionalities continue operating. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classVideoRecorder_a6f56f0506e669eef176776a769788a02}\label{classVideoRecorder_a6f56f0506e669eef176776a769788a02} 
+\index{VideoRecorder@{VideoRecorder}!generate\_timestamped\_filename@{generate\_timestamped\_filename}}
+\index{generate\_timestamped\_filename@{generate\_timestamped\_filename}!VideoRecorder@{VideoRecorder}}
+\doxysubsubsection{\texorpdfstring{generate\_timestamped\_filename()}{generate\_timestamped\_filename()}}
+{\footnotesize\ttfamily static std\+::string Video\+Recorder\+::generate\+\_\+timestamped\+\_\+filename (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Create a timestamp for the recorded video. 
+
+A timestamp corresponding to the current time is created. The recorded video will be titled according to this timestamp, in the form \char`\"{}\+YYYYMMDD\+\_\+\+HHMMSS\char`\"{}, where YYYY is the year MM is the month, DD is the day, HH is hour, MM is minutes, and SS is seconds.
+
+\begin{DoxyReturn}{Returns}
+the current timestamp on the system.
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Meg Zhang 
+\end{DoxyAuthor}
+\Hypertarget{classVideoRecorder_a3d07ed524cb9e48403c39bf3e0ff87e0}\label{classVideoRecorder_a3d07ed524cb9e48403c39bf3e0ff87e0} 
+\index{VideoRecorder@{VideoRecorder}!write\_frames@{write\_frames}}
+\index{write\_frames@{write\_frames}!VideoRecorder@{VideoRecorder}}
+\doxysubsubsection{\texorpdfstring{write\_frames()}{write\_frames()}}
+{\footnotesize\ttfamily void Video\+Recorder\+::write\+\_\+frames (\begin{DoxyParamCaption}\item[{bool \&}]{recording,  }\item[{std\+::queue$<$ cv\+::\+Mat $>$ \&}]{shared\+\_\+queue,  }\item[{std\+::mutex \&}]{queue\+\_\+lock,  }\item[{std\+::mutex \&}]{camera\+\_\+lock,  }\item[{std\+::mutex \&}]{buffer\+\_\+lock,  }\item[{\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ cv\+::\+Mat $>$ \&}]{shared\+\_\+lead\+\_\+up\+\_\+buffer,  }\item[{std\+::condition\+\_\+variable \&}]{recording\+\_\+updated,  }\item[{std\+::condition\+\_\+variable \&}]{buffer\+\_\+updated,  }\item[{std\+::condition\+\_\+variable \&}]{queue\+\_\+updated }\end{DoxyParamCaption})}
+
+
+
+This function writes the collection of frames which eventually becomes a video. 
+
+This method will continue writing individual frames to our output video file; as these consecutive frames come together to form a video. This method will begin grabbing frames after the creation of a \doxylink{classVideoRecorder}{Video\+Recorder} object, and will stop when the shared queue of frames is empty, which occurs when \doxylink{classVideoRecorder}{Video\+Recorder} is destroyed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em recording} & Boolean that represents the state of the camera, recording or not recording \\
+\hline
+{\em shared\+\_\+queue} & The collection of captured live-\/feed frames \\
+\hline
+{\em queue\+\_\+lock} & mutex lock for controlling access to the queue \\
+\hline
+{\em camera\+\_\+lock} & mutex lock for controlling access to the camera \\
+\hline
+{\em buffer\+\_\+lock} & mutex lock for controlling access to the buffer \\
+\hline
+{\em shared\+\_\+lead\+\_\+up\+\_\+buffer} & buffer that stores up to 15 seconds of footage prior to motion detection \\
+\hline
+{\em recording\+\_\+updated} & condition variable for tracking whether the recording was updated. \\
+\hline
+{\em buffer\+\_\+updated} & condition variable representing whether the buffer was updated. \\
+\hline
+{\em queue\+\_\+updated} & condition variable representing whether the queue was updated. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classVideoRecorder_acdca3e76bd8f61da3f86b5c22dddfeb8}\label{classVideoRecorder_acdca3e76bd8f61da3f86b5c22dddfeb8} 
+\index{VideoRecorder@{VideoRecorder}!lead\_up\_buffer@{lead\_up\_buffer}}
+\index{lead\_up\_buffer@{lead\_up\_buffer}!VideoRecorder@{VideoRecorder}}
+\doxysubsubsection{\texorpdfstring{lead\_up\_buffer}{lead\_up\_buffer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$cv\+::\+Mat$>$ Video\+Recorder\+::lead\+\_\+up\+\_\+buffer = \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$cv\+::\+Mat$>$(0)\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classVideoRecorder_a05cf355e1bd7076cb6cb01c1e5eacdce}\label{classVideoRecorder_a05cf355e1bd7076cb6cb01c1e5eacdce} 
+\index{VideoRecorder@{VideoRecorder}!video\_writer@{video\_writer}}
+\index{video\_writer@{video\_writer}!VideoRecorder@{VideoRecorder}}
+\doxysubsubsection{\texorpdfstring{video\_writer}{video\_writer}}
+{\footnotesize\ttfamily cv\+::\+Video\+Writer Video\+Recorder\+::video\+\_\+writer\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{VideoRecorder_8hpp}{Video\+Recorder.\+hpp}}\end{DoxyCompactItemize}

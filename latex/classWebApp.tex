@@ -1,0 +1,254 @@
+\hypertarget{classWebApp}{}\doxysection{Web\+App Class Reference}
+\label{classWebApp}\index{WebApp@{WebApp}}
+
+
+\doxylink{classWebApp}{Web\+App} is a self hosted web server that shows the status of the Smart \doxylink{classDoorbell}{Doorbell}.  
+
+
+
+
+{\ttfamily \#include $<$Web\+App.\+hpp$>$}
+
+Inheritance diagram for Web\+App\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classWebApp}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classWebApp_ae47220e366c5d47cd6d2e8f0d64e9cfa}{Web\+App}} (const Wt\+::\+WEnvironment \&env)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{classWebApp}{Web\+App}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{classWebApp_ad4d611d2553926057d5c9fbe567d8740}{start\+Application}} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em This static function initializes the \doxylink{classWebApp}{Web\+App} object. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classWebApp}{Web\+App}} $\ast$ \mbox{\hyperlink{classWebApp_a4f93a3ee015b5d4a420778be5731bc36}{get\+Instance}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classWebApp_a9032418121454ddc138bdf78222f001f}{motion\+Detected\+Curr}} = false
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classWebApp_a6536a515fc74afc2521ad33dcc2e6257}{update\+Server\+Time\+Msg}} ()
+\item 
+void \mbox{\hyperlink{classWebApp_a653001f60e03b191b827b9508ec9fc22}{update\+Motion\+Status}} ()
+\item 
+void \mbox{\hyperlink{classWebApp_abad76bedea59495ca7ff7c078cbd7d3b}{update\+File\+List}} ()
+\item 
+bool \mbox{\hyperlink{classWebApp_a0d740330dae4d9497b9314754088930d}{track\+Motion\+Changes}} ()
+\item 
+void \mbox{\hyperlink{classWebApp_a62b2595d33b0a52878943e3230562270}{update\+Images\+List}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classWebApp_ab4397d4a498abdf182e13aa4890149d7}{motion\+Detected\+Prev}} = false
+\item 
+Wt\+::\+WTable $\ast$ \mbox{\hyperlink{classWebApp_a422bab48b226911be0636edcd70f2d23}{file\+Table\+\_\+}}
+\item 
+Wt\+::\+WTable $\ast$ \mbox{\hyperlink{classWebApp_a419208f726971a7ad0099802d72cb08f}{image\+Table\+\_\+}}
+\item 
+Wt\+::\+WText $\ast$ \mbox{\hyperlink{classWebApp_ad2110892086031f4b12baf038f5fe69d}{server\+Message\+\_\+}}
+\item 
+Wt\+::\+WTimer $\ast$ \mbox{\hyperlink{classWebApp_a4c8f04f4220903142e9750f8cab59d15}{timer\+\_\+}}
+\item 
+Wt\+::\+WText $\ast$ \mbox{\hyperlink{classWebApp_a745ccce5f0197576e87f1d759d382aa6}{curr\+Motion\+Status\+\_\+}}
+\item 
+boost\+::filesystem\+::path \mbox{\hyperlink{classWebApp_ab92581f5310120a8398df90abf3ff8b3}{recordings\+Path\+\_\+}} \{\char`\"{}../recordings\char`\"{}\}
+\item 
+boost\+::filesystem\+::path \mbox{\hyperlink{classWebApp_ae3f40f7b332c1321fd2db80a0163791a}{images\+Path\+\_\+}} \{\char`\"{}../recordings/images\char`\"{}\}
+\item 
+std\+::set$<$ std\+::string $>$ \mbox{\hyperlink{classWebApp_a2cd1adc7d966269620a6f183b1792b6e}{displayed\+Images}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classWebApp}{Web\+App}} $\ast$ \mbox{\hyperlink{classWebApp_ad8de064d06c36910e05b42e1605c64b4}{instance\+\_\+}}
+\item 
+static Wt\+::\+WContainer\+Widget $\ast$ \mbox{\hyperlink{classWebApp_a9591dc96561a7024da53653d79e5e66c}{greetings\+Container\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classWebApp}{Web\+App} is a self hosted web server that shows the status of the Smart \doxylink{classDoorbell}{Doorbell}. 
+
+The Smart \doxylink{classDoorbell}{Doorbell} takes in command line arguments to bind to an IP address. When running, use --docroot . --http-\/address 0.\+0.\+0.\+0 --http-\/port 8080 You can change the http address to your computer\textquotesingle{}s IP address so that other devices on the network can access the webpage.
+
+\begin{DoxyAuthor}{Author}
+Meg Zhang 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classWebApp_ae47220e366c5d47cd6d2e8f0d64e9cfa}\label{classWebApp_ae47220e366c5d47cd6d2e8f0d64e9cfa} 
+\index{WebApp@{WebApp}!WebApp@{WebApp}}
+\index{WebApp@{WebApp}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{WebApp()}{WebApp()}}
+{\footnotesize\ttfamily Web\+App\+::\+Web\+App (\begin{DoxyParamCaption}\item[{const Wt\+::\+WEnvironment \&}]{env }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for \doxylink{classWebApp}{Web\+App}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em env} & Wt\+::\+WEnvironment object take takes in required info to create the web application. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classWebApp_a4f93a3ee015b5d4a420778be5731bc36}\label{classWebApp_a4f93a3ee015b5d4a420778be5731bc36} 
+\index{WebApp@{WebApp}!getInstance@{getInstance}}
+\index{getInstance@{getInstance}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{getInstance()}{getInstance()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{classWebApp}{Web\+App}} $\ast$ Web\+App\+::get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\doxylink{classWebApp_a4f93a3ee015b5d4a420778be5731bc36}{get\+Instance()} returns the singleton instance of \doxylink{classWebApp}{Web\+App}, if it has been initialized.
+
+\begin{DoxyReturn}{Returns}
+pointer to the current static instance of \doxylink{classWebApp}{Web\+App}. 
+\end{DoxyReturn}
+\Hypertarget{classWebApp_ad4d611d2553926057d5c9fbe567d8740}\label{classWebApp_ad4d611d2553926057d5c9fbe567d8740} 
+\index{WebApp@{WebApp}!startApplication@{startApplication}}
+\index{startApplication@{startApplication}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{startApplication()}{startApplication()}}
+{\footnotesize\ttfamily static int Web\+App\+::start\+Application (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+This static function initializes the \doxylink{classWebApp}{Web\+App} object. 
+
+Call start\+Application to start running the web application. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & number of command line arguments. Should be passed through main(). \\
+\hline
+{\em argv} & The content of the command line arguments. Should be passed through main(). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if server starts up successfully. 
+\end{DoxyReturn}
+\Hypertarget{classWebApp_a0d740330dae4d9497b9314754088930d}\label{classWebApp_a0d740330dae4d9497b9314754088930d} 
+\index{WebApp@{WebApp}!trackMotionChanges@{trackMotionChanges}}
+\index{trackMotionChanges@{trackMotionChanges}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{trackMotionChanges()}{trackMotionChanges()}}
+{\footnotesize\ttfamily bool Web\+App\+::track\+Motion\+Changes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+track\+Motion\+Changes tracks whether motion has been detected recently
+
+\begin{DoxyReturn}{Returns}
+whether motion is currently detected in the camera. 
+\end{DoxyReturn}
+\Hypertarget{classWebApp_abad76bedea59495ca7ff7c078cbd7d3b}\label{classWebApp_abad76bedea59495ca7ff7c078cbd7d3b} 
+\index{WebApp@{WebApp}!updateFileList@{updateFileList}}
+\index{updateFileList@{updateFileList}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{updateFileList()}{updateFileList()}}
+{\footnotesize\ttfamily void Web\+App\+::update\+File\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+This function is called by \doxylink{classWebApp}{Web\+App} in order to refresh the File Explorer so that any file additions/deletions are reflected. \Hypertarget{classWebApp_a62b2595d33b0a52878943e3230562270}\label{classWebApp_a62b2595d33b0a52878943e3230562270} 
+\index{WebApp@{WebApp}!updateImagesList@{updateImagesList}}
+\index{updateImagesList@{updateImagesList}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{updateImagesList()}{updateImagesList()}}
+{\footnotesize\ttfamily void Web\+App\+::update\+Images\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+This function adds new faces to the image gallery when images are captured. \Hypertarget{classWebApp_a653001f60e03b191b827b9508ec9fc22}\label{classWebApp_a653001f60e03b191b827b9508ec9fc22} 
+\index{WebApp@{WebApp}!updateMotionStatus@{updateMotionStatus}}
+\index{updateMotionStatus@{updateMotionStatus}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{updateMotionStatus()}{updateMotionStatus()}}
+{\footnotesize\ttfamily void Web\+App\+::update\+Motion\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+This function is called by \doxylink{classWebApp}{Web\+App} to check if there have been any motion changes. \Hypertarget{classWebApp_a6536a515fc74afc2521ad33dcc2e6257}\label{classWebApp_a6536a515fc74afc2521ad33dcc2e6257} 
+\index{WebApp@{WebApp}!updateServerTimeMsg@{updateServerTimeMsg}}
+\index{updateServerTimeMsg@{updateServerTimeMsg}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{updateServerTimeMsg()}{updateServerTimeMsg()}}
+{\footnotesize\ttfamily void Web\+App\+::update\+Server\+Time\+Msg (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+This function automatically updates the current time displayed on the \doxylink{classWebApp}{Web\+App}. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classWebApp_a745ccce5f0197576e87f1d759d382aa6}\label{classWebApp_a745ccce5f0197576e87f1d759d382aa6} 
+\index{WebApp@{WebApp}!currMotionStatus\_@{currMotionStatus\_}}
+\index{currMotionStatus\_@{currMotionStatus\_}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{currMotionStatus\_}{currMotionStatus\_}}
+{\footnotesize\ttfamily Wt\+::\+WText$\ast$ Web\+App\+::curr\+Motion\+Status\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+curr\+Motion\+Status is a variable storing text which is displayed on the \doxylink{classWebApp}{Web\+App} indicating whether or not motion is currently detected. \Hypertarget{classWebApp_a2cd1adc7d966269620a6f183b1792b6e}\label{classWebApp_a2cd1adc7d966269620a6f183b1792b6e} 
+\index{WebApp@{WebApp}!displayedImages@{displayedImages}}
+\index{displayedImages@{displayedImages}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{displayedImages}{displayedImages}}
+{\footnotesize\ttfamily std\+::set$<$std\+::string$>$ Web\+App\+::displayed\+Images\hspace{0.3cm}{\ttfamily [private]}}
+
+A set that stores the displayed images in the \doxylink{classWebApp}{Web\+App}. \Hypertarget{classWebApp_a422bab48b226911be0636edcd70f2d23}\label{classWebApp_a422bab48b226911be0636edcd70f2d23} 
+\index{WebApp@{WebApp}!fileTable\_@{fileTable\_}}
+\index{fileTable\_@{fileTable\_}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{fileTable\_}{fileTable\_}}
+{\footnotesize\ttfamily Wt\+::\+WTable$\ast$ Web\+App\+::file\+Table\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+file\+Table stores the files found on the system. It also includes weblinks so that you can remotely download the files. \Hypertarget{classWebApp_a9591dc96561a7024da53653d79e5e66c}\label{classWebApp_a9591dc96561a7024da53653d79e5e66c} 
+\index{WebApp@{WebApp}!greetingsContainer\_@{greetingsContainer\_}}
+\index{greetingsContainer\_@{greetingsContainer\_}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{greetingsContainer\_}{greetingsContainer\_}}
+{\footnotesize\ttfamily Wt\+::\+WContainer\+Widget$\ast$ Web\+App\+::greetings\+Container\+\_\+\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+Greetings\+Container stores the motion detected history. \Hypertarget{classWebApp_ae3f40f7b332c1321fd2db80a0163791a}\label{classWebApp_ae3f40f7b332c1321fd2db80a0163791a} 
+\index{WebApp@{WebApp}!imagesPath\_@{imagesPath\_}}
+\index{imagesPath\_@{imagesPath\_}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{imagesPath\_}{imagesPath\_}}
+{\footnotesize\ttfamily boost\+::filesystem\+::path Web\+App\+::images\+Path\+\_\+ \{\char`\"{}../recordings/images\char`\"{}\}\hspace{0.3cm}{\ttfamily [private]}}
+
+The path that the \doxylink{classWebApp}{Web\+App} accesses to look for images. \Hypertarget{classWebApp_a419208f726971a7ad0099802d72cb08f}\label{classWebApp_a419208f726971a7ad0099802d72cb08f} 
+\index{WebApp@{WebApp}!imageTable\_@{imageTable\_}}
+\index{imageTable\_@{imageTable\_}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{imageTable\_}{imageTable\_}}
+{\footnotesize\ttfamily Wt\+::\+WTable$\ast$ Web\+App\+::image\+Table\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+image\+Table stores the images found on the system. It displays them in a gallery. \Hypertarget{classWebApp_ad8de064d06c36910e05b42e1605c64b4}\label{classWebApp_ad8de064d06c36910e05b42e1605c64b4} 
+\index{WebApp@{WebApp}!instance\_@{instance\_}}
+\index{instance\_@{instance\_}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{instance\_}{instance\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classWebApp}{Web\+App}}$\ast$ Web\+App\+::instance\+\_\+\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+Returns the instance of \doxylink{classWebApp}{Web\+App} that is currently running. \Hypertarget{classWebApp_a9032418121454ddc138bdf78222f001f}\label{classWebApp_a9032418121454ddc138bdf78222f001f} 
+\index{WebApp@{WebApp}!motionDetectedCurr@{motionDetectedCurr}}
+\index{motionDetectedCurr@{motionDetectedCurr}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{motionDetectedCurr}{motionDetectedCurr}}
+{\footnotesize\ttfamily bool Web\+App\+::motion\+Detected\+Curr = false}
+
+bool motion\+Detected\+Curr is a control variable. Change this variable if motion has been detected, and then the \doxylink{classWebApp}{Web\+App} will automatically update the motion detected status. \Hypertarget{classWebApp_ab4397d4a498abdf182e13aa4890149d7}\label{classWebApp_ab4397d4a498abdf182e13aa4890149d7} 
+\index{WebApp@{WebApp}!motionDetectedPrev@{motionDetectedPrev}}
+\index{motionDetectedPrev@{motionDetectedPrev}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{motionDetectedPrev}{motionDetectedPrev}}
+{\footnotesize\ttfamily bool Web\+App\+::motion\+Detected\+Prev = false\hspace{0.3cm}{\ttfamily [private]}}
+
+motion\+Detected\+Prev tracks the recent history of motion detection, so that a motion detected notification isn\textquotesingle{}t displayed every second motion is detected in the \doxylink{classWebApp}{Web\+App}. \Hypertarget{classWebApp_ab92581f5310120a8398df90abf3ff8b3}\label{classWebApp_ab92581f5310120a8398df90abf3ff8b3} 
+\index{WebApp@{WebApp}!recordingsPath\_@{recordingsPath\_}}
+\index{recordingsPath\_@{recordingsPath\_}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{recordingsPath\_}{recordingsPath\_}}
+{\footnotesize\ttfamily boost\+::filesystem\+::path Web\+App\+::recordings\+Path\+\_\+ \{\char`\"{}../recordings\char`\"{}\}\hspace{0.3cm}{\ttfamily [private]}}
+
+The path that the \doxylink{classWebApp}{Web\+App} accesses to look for recordings. \Hypertarget{classWebApp_ad2110892086031f4b12baf038f5fe69d}\label{classWebApp_ad2110892086031f4b12baf038f5fe69d} 
+\index{WebApp@{WebApp}!serverMessage\_@{serverMessage\_}}
+\index{serverMessage\_@{serverMessage\_}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{serverMessage\_}{serverMessage\_}}
+{\footnotesize\ttfamily Wt\+::\+WText$\ast$ Web\+App\+::server\+Message\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+server\+Message keeps track of the current time and displays it on the \doxylink{classWebApp}{Web\+App}. \Hypertarget{classWebApp_a4c8f04f4220903142e9750f8cab59d15}\label{classWebApp_a4c8f04f4220903142e9750f8cab59d15} 
+\index{WebApp@{WebApp}!timer\_@{timer\_}}
+\index{timer\_@{timer\_}!WebApp@{WebApp}}
+\doxysubsubsection{\texorpdfstring{timer\_}{timer\_}}
+{\footnotesize\ttfamily Wt\+::\+WTimer$\ast$ Web\+App\+::timer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+Timer is used to refresh the data shown on the page at regular intervals. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{WebApp_8hpp}{Web\+App.\+hpp}}\end{DoxyCompactItemize}

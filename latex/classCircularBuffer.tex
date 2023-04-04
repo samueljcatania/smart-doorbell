@@ -1,0 +1,203 @@
+\hypertarget{classCircularBuffer}{}\doxysection{Circular\+Buffer\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classCircularBuffer}\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+
+
+Circular buffer class to aid in computations for motion detection.  
+
+
+
+
+{\ttfamily \#include $<$Circular\+Buffer.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCircularBuffer_aed928fe071a15c367bbdf0c551249438}{Circular\+Buffer}} (size\+\_\+t size)
+\item 
+\mbox{\hyperlink{classCircularBuffer_a466b38d1654f1427ca671ad40475cd70}{Circular\+Buffer}} (const \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ cv\+::\+Mat $>$ \&circular\+\_\+buffer)
+\item 
+\mbox{\hyperlink{classCircularBuffer_a90268eaf2901ea77181ed353d3716c21}{$\sim$\+Circular\+Buffer}} ()
+\item 
+void \mbox{\hyperlink{classCircularBuffer_a0057cdf837edf312105bc379a3351b70}{push}} (T element)
+\item 
+T \mbox{\hyperlink{classCircularBuffer_a3033e4e62f336be929c776e912f3b549}{pop}} ()
+\item 
+size\+\_\+t \mbox{\hyperlink{classCircularBuffer_a3b88cb962d254742238c104bfd6d1b33}{get\+\_\+size}} ()
+\item 
+size\+\_\+t \mbox{\hyperlink{classCircularBuffer_a6b4ad30befc95c4ece964db8f946aae5}{get\+\_\+capacity}} ()
+\item 
+void \mbox{\hyperlink{classCircularBuffer_ab0fcbd2689307569c9c4f374a4af9a0b}{set\+\_\+capacity}} (size\+\_\+t new\+\_\+max\+\_\+size)
+\item 
+void \mbox{\hyperlink{classCircularBuffer_a26caa4ec94de2f342f32b6558ac697eb}{clear}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{classCircularBuffer_a08167388a1d3969560dde4ee3c777edd}{head}} = 0
+\item 
+size\+\_\+t \mbox{\hyperlink{classCircularBuffer_a62307b131a9b25f0e9d600c86fcfd7ba}{tail}} = -\/1
+\item 
+size\+\_\+t \mbox{\hyperlink{classCircularBuffer_a9bbd895fcac212753fde8c8403a21e28}{current\+\_\+size}} = 0
+\item 
+size\+\_\+t \mbox{\hyperlink{classCircularBuffer_a3810e57881739620b4f9820e3116492e}{max\+\_\+size}}
+\item 
+std\+::vector$<$ T $>$ \mbox{\hyperlink{classCircularBuffer_a32e711ec90fa7a0d797be24cb5700549}{vector}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Circular\+Buffer$<$ T $>$}
+Circular buffer class to aid in computations for motion detection. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Generic type so that the Circular Buffer can handle many different types of objects. \\
+\hline
+\end{DoxyTemplParams}
+\doxylink{classCircularBuffer}{Circular\+Buffer} contains the constructor, getter, setter, and cleanup functions for the \doxylink{classCircularBuffer}{Circular\+Buffer}. The \doxylink{classCircularBuffer}{Circular\+Buffer} is utilized within \doxylink{classCamera}{Camera}\textquotesingle{}s motion detection method to perform the frame comparison computations.
+
+\begin{DoxyAuthor}{Author}
+Samuel Catania 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classCircularBuffer_aed928fe071a15c367bbdf0c551249438}\label{classCircularBuffer_aed928fe071a15c367bbdf0c551249438} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!CircularBuffer@{CircularBuffer}}
+\index{CircularBuffer@{CircularBuffer}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{CircularBuffer()}{CircularBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\mbox{\hyperlink{classCircularBuffer}{\+::\+Circular\+Buffer}} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructor for the \doxylink{classCircularBuffer}{Circular\+Buffer} 
+\begin{DoxyParams}{Parameters}
+{\em size} & the size of the \doxylink{classCircularBuffer}{Circular\+Buffer} \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classCircularBuffer_a466b38d1654f1427ca671ad40475cd70}\label{classCircularBuffer_a466b38d1654f1427ca671ad40475cd70} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!CircularBuffer@{CircularBuffer}}
+\index{CircularBuffer@{CircularBuffer}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{CircularBuffer()}{CircularBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\mbox{\hyperlink{classCircularBuffer}{\+::\+Circular\+Buffer}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ cv\+::\+Mat $>$ \&}]{circular\+\_\+buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructor for \doxylink{classCircularBuffer}{Circular\+Buffer} 
+\begin{DoxyParams}{Parameters}
+{\em circular\+\_\+buffer} & camera frame to load into the Circular buffer. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classCircularBuffer_a90268eaf2901ea77181ed353d3716c21}\label{classCircularBuffer_a90268eaf2901ea77181ed353d3716c21} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!````~CircularBuffer@{$\sim$CircularBuffer}}
+\index{````~CircularBuffer@{$\sim$CircularBuffer}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$CircularBuffer()}{~CircularBuffer()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor for Circular Buffer 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classCircularBuffer_a26caa4ec94de2f342f32b6558ac697eb}\label{classCircularBuffer_a26caa4ec94de2f342f32b6558ac697eb} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!clear@{clear}}
+\index{clear@{clear}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Clears elements from the queue. \Hypertarget{classCircularBuffer_a6b4ad30befc95c4ece964db8f946aae5}\label{classCircularBuffer_a6b4ad30befc95c4ece964db8f946aae5} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!get\_capacity@{get\_capacity}}
+\index{get\_capacity@{get\_capacity}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_capacity()}{get\_capacity()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+size\+\_\+t \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\+::get\+\_\+capacity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Return the max capacity of the buffer \begin{DoxyReturn}{Returns}
+the max capacity of the buffer 
+\end{DoxyReturn}
+\Hypertarget{classCircularBuffer_a3b88cb962d254742238c104bfd6d1b33}\label{classCircularBuffer_a3b88cb962d254742238c104bfd6d1b33} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!get\_size@{get\_size}}
+\index{get\_size@{get\_size}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{get\_size()}{get\_size()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+size\+\_\+t \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\+::get\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get the size of the buffer \begin{DoxyReturn}{Returns}
+the size of the buffer 
+\end{DoxyReturn}
+\Hypertarget{classCircularBuffer_a3033e4e62f336be929c776e912f3b549}\label{classCircularBuffer_a3033e4e62f336be929c776e912f3b549} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!pop@{pop}}
+\index{pop@{pop}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{pop()}{pop()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\+::pop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Pop element off of the buffer \begin{DoxyReturn}{Returns}
+the element that was popped out of the buffer. 
+\end{DoxyReturn}
+\Hypertarget{classCircularBuffer_a0057cdf837edf312105bc379a3351b70}\label{classCircularBuffer_a0057cdf837edf312105bc379a3351b70} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!push@{push}}
+\index{push@{push}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\+::push (\begin{DoxyParamCaption}\item[{T}]{element }\end{DoxyParamCaption})}
+
+Push element to the buffer 
+\begin{DoxyParams}{Parameters}
+{\em element} & the element to be pushed \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classCircularBuffer_ab0fcbd2689307569c9c4f374a4af9a0b}\label{classCircularBuffer_ab0fcbd2689307569c9c4f374a4af9a0b} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!set\_capacity@{set\_capacity}}
+\index{set\_capacity@{set\_capacity}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set\_capacity()}{set\_capacity()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\+::set\+\_\+capacity (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{new\+\_\+max\+\_\+size }\end{DoxyParamCaption})}
+
+Set a new max buffer size 
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+max\+\_\+size} & new size to be set. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classCircularBuffer_a9bbd895fcac212753fde8c8403a21e28}\label{classCircularBuffer_a9bbd895fcac212753fde8c8403a21e28} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!current\_size@{current\_size}}
+\index{current\_size@{current\_size}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{current\_size}{current\_size}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+size\+\_\+t \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\+::current\+\_\+size = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+current size of the queue \Hypertarget{classCircularBuffer_a08167388a1d3969560dde4ee3c777edd}\label{classCircularBuffer_a08167388a1d3969560dde4ee3c777edd} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!head@{head}}
+\index{head@{head}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{head}{head}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+size\+\_\+t \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\+::head = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+head location in queue \Hypertarget{classCircularBuffer_a3810e57881739620b4f9820e3116492e}\label{classCircularBuffer_a3810e57881739620b4f9820e3116492e} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!max\_size@{max\_size}}
+\index{max\_size@{max\_size}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{max\_size}{max\_size}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+size\+\_\+t \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\+::max\+\_\+size\hspace{0.3cm}{\ttfamily [private]}}
+
+maximum size of the queue \Hypertarget{classCircularBuffer_a62307b131a9b25f0e9d600c86fcfd7ba}\label{classCircularBuffer_a62307b131a9b25f0e9d600c86fcfd7ba} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!tail@{tail}}
+\index{tail@{tail}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{tail}{tail}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+size\+\_\+t \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\+::tail = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+tail location in queue \Hypertarget{classCircularBuffer_a32e711ec90fa7a0d797be24cb5700549}\label{classCircularBuffer_a32e711ec90fa7a0d797be24cb5700549} 
+\index{CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}!vector@{vector}}
+\index{vector@{vector}!CircularBuffer$<$ T $>$@{CircularBuffer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{vector}{vector}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::vector$<$T$>$ \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T $>$\+::vector\hspace{0.3cm}{\ttfamily [private]}}
+
+element in the queue 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{CircularBuffer_8hpp}{Circular\+Buffer.\+hpp}}\end{DoxyCompactItemize}

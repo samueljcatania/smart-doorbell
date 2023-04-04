@@ -1,0 +1,123 @@
+\hypertarget{classFaceDetector}{}\doxysection{Face\+Detector Class Reference}
+\label{classFaceDetector}\index{FaceDetector@{FaceDetector}}
+
+
+Face Detector contains the methods.  
+
+
+
+
+{\ttfamily \#include $<$Face\+Detector.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classFaceDetector_ab7ecd6d1c9fe5d343fc4f7631467cb78}{Face\+Detector}} ()
+\begin{DoxyCompactList}\small\item\em Constructor for Face Detector class. \end{DoxyCompactList}\item 
+std\+::vector$<$ cv\+::\+Rect $>$ \mbox{\hyperlink{classFaceDetector_ac5e46b984012edda50e574addc399708}{detect\+\_\+face\+\_\+rectangles}} (const cv\+::\+Mat \&frame)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+cv\+::dnn\+::\+Net \mbox{\hyperlink{classFaceDetector_a925cf960c870b53b51afada07d46a5f5}{network}}
+\item 
+const int \mbox{\hyperlink{classFaceDetector_a23890435c5b06d6551b124598156e0c7}{width}} = 300
+\item 
+const int \mbox{\hyperlink{classFaceDetector_a1ea77c3d336056825029b6cca28d0f04}{height}} = 300
+\item 
+const double \mbox{\hyperlink{classFaceDetector_af40756589bdc6bfeb4831d7c1c46b0d2}{scale\+\_\+factor}} = 1.\+0
+\item 
+const cv\+::\+Scalar \mbox{\hyperlink{classFaceDetector_af5de277b035c94ec3c4b1814a4f95009}{mean\+\_\+values}} = \{104., 177.\+0, 123.\+0\}
+\item 
+const float \mbox{\hyperlink{classFaceDetector_a1654147bb81bd9c9d5974b97f29ff27a}{confidence\+\_\+threshold}} = 0.\+5
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Face Detector contains the methods. 
+
+\doxylink{classDoorbell}{Doorbell} has methods to create threads, as well as the thread manager. This threading is necesary to make use of various processes running consecutively. There are also the initialization and cleanup methods for the GUI.
+
+\begin{DoxyAuthor}{Author}
+Samuel Catania 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classFaceDetector_ab7ecd6d1c9fe5d343fc4f7631467cb78}\label{classFaceDetector_ab7ecd6d1c9fe5d343fc4f7631467cb78} 
+\index{FaceDetector@{FaceDetector}!FaceDetector@{FaceDetector}}
+\index{FaceDetector@{FaceDetector}!FaceDetector@{FaceDetector}}
+\doxysubsubsection{\texorpdfstring{FaceDetector()}{FaceDetector()}}
+{\footnotesize\ttfamily Face\+Detector\+::\+Face\+Detector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for Face Detector class. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classFaceDetector_ac5e46b984012edda50e574addc399708}\label{classFaceDetector_ac5e46b984012edda50e574addc399708} 
+\index{FaceDetector@{FaceDetector}!detect\_face\_rectangles@{detect\_face\_rectangles}}
+\index{detect\_face\_rectangles@{detect\_face\_rectangles}!FaceDetector@{FaceDetector}}
+\doxysubsubsection{\texorpdfstring{detect\_face\_rectangles()}{detect\_face\_rectangles()}}
+{\footnotesize\ttfamily std\+::vector$<$ cv\+::\+Rect $>$ Face\+Detector\+::detect\+\_\+face\+\_\+rectangles (\begin{DoxyParamCaption}\item[{const cv\+::\+Mat \&}]{frame }\end{DoxyParamCaption})}
+
+detect\+\_\+face\+\_\+rectangles frames any detected faces in the current captured frame from the camera 
+\begin{DoxyParams}{Parameters}
+{\em frame} & Current frame captured from camera. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a rectangle to overlay over the footage. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classFaceDetector_a1654147bb81bd9c9d5974b97f29ff27a}\label{classFaceDetector_a1654147bb81bd9c9d5974b97f29ff27a} 
+\index{FaceDetector@{FaceDetector}!confidence\_threshold@{confidence\_threshold}}
+\index{confidence\_threshold@{confidence\_threshold}!FaceDetector@{FaceDetector}}
+\doxysubsubsection{\texorpdfstring{confidence\_threshold}{confidence\_threshold}}
+{\footnotesize\ttfamily const float Face\+Detector\+::confidence\+\_\+threshold = 0.\+5\hspace{0.3cm}{\ttfamily [private]}}
+
+Face detection confidence threshold \Hypertarget{classFaceDetector_a1ea77c3d336056825029b6cca28d0f04}\label{classFaceDetector_a1ea77c3d336056825029b6cca28d0f04} 
+\index{FaceDetector@{FaceDetector}!height@{height}}
+\index{height@{height}!FaceDetector@{FaceDetector}}
+\doxysubsubsection{\texorpdfstring{height}{height}}
+{\footnotesize\ttfamily const int Face\+Detector\+::height = 300\hspace{0.3cm}{\ttfamily [private]}}
+
+Input image height \Hypertarget{classFaceDetector_af5de277b035c94ec3c4b1814a4f95009}\label{classFaceDetector_af5de277b035c94ec3c4b1814a4f95009} 
+\index{FaceDetector@{FaceDetector}!mean\_values@{mean\_values}}
+\index{mean\_values@{mean\_values}!FaceDetector@{FaceDetector}}
+\doxysubsubsection{\texorpdfstring{mean\_values}{mean\_values}}
+{\footnotesize\ttfamily const cv\+::\+Scalar Face\+Detector\+::mean\+\_\+values = \{104., 177.\+0, 123.\+0\}\hspace{0.3cm}{\ttfamily [private]}}
+
+Mean normalization values network was trained with \Hypertarget{classFaceDetector_a925cf960c870b53b51afada07d46a5f5}\label{classFaceDetector_a925cf960c870b53b51afada07d46a5f5} 
+\index{FaceDetector@{FaceDetector}!network@{network}}
+\index{network@{network}!FaceDetector@{FaceDetector}}
+\doxysubsubsection{\texorpdfstring{network}{network}}
+{\footnotesize\ttfamily cv\+::dnn\+::\+Net Face\+Detector\+::network\hspace{0.3cm}{\ttfamily [private]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ cv::dnn::readNetFromCaffe(\textcolor{stringliteral}{"{}../assets/deploy.prototxt"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}../assets/res10\_300x300\_ssd\_iter\_140000\_fp16.caffemodel"{}})}
+
+\end{DoxyCode}
+Face detection network \Hypertarget{classFaceDetector_af40756589bdc6bfeb4831d7c1c46b0d2}\label{classFaceDetector_af40756589bdc6bfeb4831d7c1c46b0d2} 
+\index{FaceDetector@{FaceDetector}!scale\_factor@{scale\_factor}}
+\index{scale\_factor@{scale\_factor}!FaceDetector@{FaceDetector}}
+\doxysubsubsection{\texorpdfstring{scale\_factor}{scale\_factor}}
+{\footnotesize\ttfamily const double Face\+Detector\+::scale\+\_\+factor = 1.\+0\hspace{0.3cm}{\ttfamily [private]}}
+
+Scale factor when creating image blob \Hypertarget{classFaceDetector_a23890435c5b06d6551b124598156e0c7}\label{classFaceDetector_a23890435c5b06d6551b124598156e0c7} 
+\index{FaceDetector@{FaceDetector}!width@{width}}
+\index{width@{width}!FaceDetector@{FaceDetector}}
+\doxysubsubsection{\texorpdfstring{width}{width}}
+{\footnotesize\ttfamily const int Face\+Detector\+::width = 300\hspace{0.3cm}{\ttfamily [private]}}
+
+Input image width 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{FaceDetector_8hpp}{Face\+Detector.\+hpp}}\end{DoxyCompactItemize}

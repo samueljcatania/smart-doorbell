@@ -1,0 +1,57 @@
+\hypertarget{Doorbell_8hpp_source}{}\doxysection{Doorbell.\+hpp}
+\label{Doorbell_8hpp_source}\index{include/Doorbell.hpp@{include/Doorbell.hpp}}
+\mbox{\hyperlink{Doorbell_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Author:\ Samuel\ Catania}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Username:\ scatani9}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Student\ Number:\ 251175283}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Date:\ Wednesday,\ March\ 8,\ 2023}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Description\ of\ Doorbell.h:}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ GROUP\_17\_DOORBELL\_HPP}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ GROUP\_17\_DOORBELL\_HPP}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Camera_8hpp}{Camera.hpp}}"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{DisplayWindow_8hpp}{DisplayWindow.hpp}}"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classDoorbell}{Doorbell}}\ \{}
+\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{classCamera}{Camera}}\ \mbox{\hyperlink{classDoorbell_a2dec3e98159e288e0f21d7e93f2f616a}{camera}};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classDoorbell_a1570e016c99f4841c669f13cce9c8400}{recording}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00045\ \ \ \ \ std::queue<cv::Mat>\ \mbox{\hyperlink{classDoorbell_aff1ff37be72d855cb3d6c00d61a324b0}{shared\_queue}};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{classCircularBuffer}{CircularBuffer<cv::Mat>}}\ \mbox{\hyperlink{classDoorbell_ad275cfb1151b30d36f8adcad739276af}{shared\_lead\_up\_buffer}}\ =\ \mbox{\hyperlink{classCircularBuffer}{CircularBuffer<cv::Mat>}}(0);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00055\ \ \ \ \ std::mutex\ \mbox{\hyperlink{classDoorbell_ab57177ac800f4df6dc6e474a80859d3c}{queue\_lock}},\ \mbox{\hyperlink{classDoorbell_a645bb6cba5f5130155a6b56be53bba73}{camera\_lock}},\ \mbox{\hyperlink{classDoorbell_aac0b722bbad90ebd9d4654be643c7e5a}{buffer\_lock}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00060\ \ \ \ \ std::condition\_variable\ \mbox{\hyperlink{classDoorbell_a72e83321ce33de968c98f16d1a25b9ec}{recording\_updated}},\ \mbox{\hyperlink{classDoorbell_a3dfe4433c99b8613ae585e158100f967}{queue\_updated}},\ \mbox{\hyperlink{classDoorbell_adfbf5498d965f13094a9408dddce4f5b}{buffer\_updated}},\ \mbox{\hyperlink{classDoorbell_a592ea9c04007c607dcb800bb08e7a06a}{camera\_stream\_updated}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \ \ \ \ std::thread\ \mbox{\hyperlink{classDoorbell_a4d36efe1b446337f7a20b5e68f425cc0}{camera\_thread}},\ \mbox{\hyperlink{classDoorbell_ab3a339e84e76e8fcf7b69e9761ac6062}{recorder\_thread}},\ \mbox{\hyperlink{classDoorbell_a8a3e83caf5f93efc7f948b60e08fdcfe}{master\_thread}},\ \mbox{\hyperlink{classDoorbell_a425ed1d67e6ebb5b26a97c0280bf644f}{display\_window\_thread}};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classDoorbell_a510a0d2f85ca0d05c237196af467560c}{thread\_manager}}();}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classDoorbell_a4a31b98912da1c740f4ca5f929f8701d}{create\_video\_recorder\_thread}}();}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{classDoorbell_a1c1933dd4c62bca4d9e95ba5713ef67c}{Doorbell}}(\textcolor{keywordtype}{char}\ **argv);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{classDoorbell_ab913f1bbcf3cdab0e8396bc9188ea392}{\string~Doorbell}}();}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classDoorbell_a72f4cade5ab9b404f4d2ca368aa0d2c9}{open\_window}}(\textcolor{keywordtype}{char}\ **argv,\ std::atomic<bool>\ *show\_raw\_camera);}
+\DoxyCodeLine{00112\ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ GROUP\_17\_DOORBELL\_HPP}}
+
+\end{DoxyCode}

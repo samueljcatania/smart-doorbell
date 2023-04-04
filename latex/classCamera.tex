@@ -1,0 +1,189 @@
+\hypertarget{classCamera}{}\doxysection{Camera Class Reference}
+\label{classCamera}\index{Camera@{Camera}}
+
+
+\doxylink{classCamera}{Camera} class monitors the camera for motion, and also faces.  
+
+
+
+
+{\ttfamily \#include $<$Camera.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCamera_a01f94c3543f56ede7af49dc778f19331}{Camera}} ()
+\item 
+\mbox{\hyperlink{classCamera_ad1897942d0ccf91052386388a497349f}{$\sim$\+Camera}} ()
+\item 
+void \mbox{\hyperlink{classCamera_a8109a731b520427292b2a955dddeb440}{detect\+\_\+motion}} (std\+::atomic$<$ bool $>$ \&show\+\_\+raw\+\_\+camera, std\+::atomic$<$ bool $>$ \&show\+\_\+threshold\+\_\+camera, std\+::atomic$<$ bool $>$ \&show\+\_\+delta\+\_\+camera, bool \&recording, std\+::queue$<$ cv\+::\+Mat $>$ \&shared\+\_\+queue, std\+::mutex \&queue\+\_\+lock, std\+::mutex \&camera\+\_\+lock, std\+::mutex \&buffer\+\_\+lock, \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ cv\+::\+Mat $>$ \&shared\+\_\+lead\+\_\+up\+\_\+buffer, std\+::condition\+\_\+variable \&recording\+\_\+updated, std\+::condition\+\_\+variable \&buffer\+\_\+updated, std\+::condition\+\_\+variable \&queue\+\_\+updated, std\+::condition\+\_\+variable \&camera\+\_\+stream\+\_\+updated)
+\item 
+int \mbox{\hyperlink{classCamera_a1eb07b97ca92facf0bac1ae8c2a233d3}{get\+\_\+frame\+\_\+rate}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classCamera_a1610c8d6ca2ed07566f5e4e62d4143df}{measure\+\_\+camera\+\_\+frame\+\_\+rate}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+cv\+::\+Video\+Capture \mbox{\hyperlink{classCamera_aafe938d9ff104f3c568990a76b763fd0}{video\+\_\+capture}}
+\item 
+cv\+::\+Mat \mbox{\hyperlink{classCamera_a0ca08dae7f83406af5a0567551b53a92}{average\+\_\+frame}}
+\item 
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ cv\+::\+Mat $>$ \mbox{\hyperlink{classCamera_a43094e061e959dee0555d85b57c17ee0}{lead\+\_\+up\+\_\+buffer}} = \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$cv\+::\+Mat$>$(0)
+\item 
+std\+::chrono\+::time\+\_\+point$<$ std\+::chrono\+::system\+\_\+clock $>$ \mbox{\hyperlink{classCamera_af842650f60c691ec23a843173c432f3a}{last\+\_\+motion\+\_\+time}}
+\item 
+std\+::chrono\+::time\+\_\+point$<$ std\+::chrono\+::system\+\_\+clock $>$ \mbox{\hyperlink{classCamera_a6b3c56439a9216aa68c15014e69b11dc}{last\+\_\+face\+\_\+detection\+\_\+time}}
+\item 
+\mbox{\hyperlink{classFaceDetector}{Face\+Detector}} \mbox{\hyperlink{classCamera_ac52323973553c45e179a1c7c3f56e723}{face\+\_\+detector}}
+\item 
+int \mbox{\hyperlink{classCamera_ab427b09acb51392b40a303a4bd0428b0}{frame\+\_\+rate}}
+\item 
+int \mbox{\hyperlink{classCamera_aee07bdd1584d02f9af56c9e5d7415f91}{last\+\_\+number\+\_\+of\+\_\+faces\+\_\+detected}} = 0
+\item 
+bool \mbox{\hyperlink{classCamera_a955a586dfdd58cabdbc13bdd4b745373}{motion\+\_\+detected}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classCamera}{Camera} class monitors the camera for motion, and also faces. 
+
+\doxylink{classCamera}{Camera} starts the hardware camera, and then performs calculations to see if motion has been detected. \doxylink{classCamera}{Camera} is also able to detect faces.
+
+\begin{DoxyAuthor}{Author}
+Samuel Catania 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classCamera_a01f94c3543f56ede7af49dc778f19331}\label{classCamera_a01f94c3543f56ede7af49dc778f19331} 
+\index{Camera@{Camera}!Camera@{Camera}}
+\index{Camera@{Camera}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{Camera()}{Camera()}}
+{\footnotesize\ttfamily Camera\+::\+Camera (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructor for \doxylink{classCamera}{Camera}. Creates a new \doxylink{classCamera}{Camera} object. \Hypertarget{classCamera_ad1897942d0ccf91052386388a497349f}\label{classCamera_ad1897942d0ccf91052386388a497349f} 
+\index{Camera@{Camera}!````~Camera@{$\sim$Camera}}
+\index{````~Camera@{$\sim$Camera}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{$\sim$Camera()}{~Camera()}}
+{\footnotesize\ttfamily Camera\+::$\sim$\+Camera (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor for \doxylink{classCamera}{Camera}. Destroys the camera object. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classCamera_a8109a731b520427292b2a955dddeb440}\label{classCamera_a8109a731b520427292b2a955dddeb440} 
+\index{Camera@{Camera}!detect\_motion@{detect\_motion}}
+\index{detect\_motion@{detect\_motion}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{detect\_motion()}{detect\_motion()}}
+{\footnotesize\ttfamily void Camera\+::detect\+\_\+motion (\begin{DoxyParamCaption}\item[{std\+::atomic$<$ bool $>$ \&}]{show\+\_\+raw\+\_\+camera,  }\item[{std\+::atomic$<$ bool $>$ \&}]{show\+\_\+threshold\+\_\+camera,  }\item[{std\+::atomic$<$ bool $>$ \&}]{show\+\_\+delta\+\_\+camera,  }\item[{bool \&}]{recording,  }\item[{std\+::queue$<$ cv\+::\+Mat $>$ \&}]{shared\+\_\+queue,  }\item[{std\+::mutex \&}]{queue\+\_\+lock,  }\item[{std\+::mutex \&}]{camera\+\_\+lock,  }\item[{std\+::mutex \&}]{buffer\+\_\+lock,  }\item[{\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ cv\+::\+Mat $>$ \&}]{shared\+\_\+lead\+\_\+up\+\_\+buffer,  }\item[{std\+::condition\+\_\+variable \&}]{recording\+\_\+updated,  }\item[{std\+::condition\+\_\+variable \&}]{buffer\+\_\+updated,  }\item[{std\+::condition\+\_\+variable \&}]{queue\+\_\+updated,  }\item[{std\+::condition\+\_\+variable \&}]{camera\+\_\+stream\+\_\+updated }\end{DoxyParamCaption})}
+
+detect\+Motion performs calculations to determine if there is motion.
+
+
+\begin{DoxyParams}{Parameters}
+{\em recording} & whether the camera is currently recording. \\
+\hline
+{\em shared\+\_\+queue} & Shared queue shares captured frames between \doxylink{classCamera}{Camera} and \doxylink{classDoorbell}{Doorbell}. \\
+\hline
+{\em queue\+\_\+lock} & mutex lock to control access to the queue variable. \\
+\hline
+{\em camera\+\_\+lock} & mutex lock to control access to the camera variable. \\
+\hline
+{\em buffer\+\_\+lock} & mutex lock control access to the shared\+\_\+lead\+\_\+up\+\_\+buffer. \\
+\hline
+{\em shared\+\_\+lead\+\_\+up\+\_\+buffer} & stores 15 seconds worth of frames before motion is detected. \\
+\hline
+{\em recording\+\_\+updated} & conditional variable to track whether or not recording boolean has been changed. \\
+\hline
+{\em buffer\+\_\+updated} & conditional variable to track if a frame was added to the buffer \\
+\hline
+{\em queue\+\_\+updated} & conditional variable to track if a frame was added to the queue. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classCamera_a1eb07b97ca92facf0bac1ae8c2a233d3}\label{classCamera_a1eb07b97ca92facf0bac1ae8c2a233d3} 
+\index{Camera@{Camera}!get\_frame\_rate@{get\_frame\_rate}}
+\index{get\_frame\_rate@{get\_frame\_rate}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{get\_frame\_rate()}{get\_frame\_rate()}}
+{\footnotesize\ttfamily int Camera\+::get\+\_\+frame\+\_\+rate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+This function returns the frame rate of the connected hardware camera.
+
+\begin{DoxyReturn}{Returns}
+the calculated frame rate. 
+\end{DoxyReturn}
+\Hypertarget{classCamera_a1610c8d6ca2ed07566f5e4e62d4143df}\label{classCamera_a1610c8d6ca2ed07566f5e4e62d4143df} 
+\index{Camera@{Camera}!measure\_camera\_frame\_rate@{measure\_camera\_frame\_rate}}
+\index{measure\_camera\_frame\_rate@{measure\_camera\_frame\_rate}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{measure\_camera\_frame\_rate()}{measure\_camera\_frame\_rate()}}
+{\footnotesize\ttfamily int Camera\+::measure\+\_\+camera\+\_\+frame\+\_\+rate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Function that measures the frame rate of the camera.
+
+\begin{DoxyReturn}{Returns}
+calculated camera frame rate. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classCamera_a0ca08dae7f83406af5a0567551b53a92}\label{classCamera_a0ca08dae7f83406af5a0567551b53a92} 
+\index{Camera@{Camera}!average\_frame@{average\_frame}}
+\index{average\_frame@{average\_frame}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{average\_frame}{average\_frame}}
+{\footnotesize\ttfamily cv\+::\+Mat Camera\+::average\+\_\+frame\hspace{0.3cm}{\ttfamily [private]}}
+
+average\+\_\+frame is used to determine if recent changes in the camera mean that there is motion. \Hypertarget{classCamera_ac52323973553c45e179a1c7c3f56e723}\label{classCamera_ac52323973553c45e179a1c7c3f56e723} 
+\index{Camera@{Camera}!face\_detector@{face\_detector}}
+\index{face\_detector@{face\_detector}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{face\_detector}{face\_detector}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classFaceDetector}{Face\+Detector}} Camera\+::face\+\_\+detector\hspace{0.3cm}{\ttfamily [private]}}
+
+face\+\_\+detector is an object that scans frames to see if there are faces being captured by the camera. \Hypertarget{classCamera_ab427b09acb51392b40a303a4bd0428b0}\label{classCamera_ab427b09acb51392b40a303a4bd0428b0} 
+\index{Camera@{Camera}!frame\_rate@{frame\_rate}}
+\index{frame\_rate@{frame\_rate}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{frame\_rate}{frame\_rate}}
+{\footnotesize\ttfamily int Camera\+::frame\+\_\+rate\hspace{0.3cm}{\ttfamily [private]}}
+
+tracks frame rate of the camera \Hypertarget{classCamera_a6b3c56439a9216aa68c15014e69b11dc}\label{classCamera_a6b3c56439a9216aa68c15014e69b11dc} 
+\index{Camera@{Camera}!last\_face\_detection\_time@{last\_face\_detection\_time}}
+\index{last\_face\_detection\_time@{last\_face\_detection\_time}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{last\_face\_detection\_time}{last\_face\_detection\_time}}
+{\footnotesize\ttfamily std\+::chrono\+::time\+\_\+point$<$std\+::chrono\+::system\+\_\+clock$>$ Camera\+::last\+\_\+face\+\_\+detection\+\_\+time\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classCamera_af842650f60c691ec23a843173c432f3a}\label{classCamera_af842650f60c691ec23a843173c432f3a} 
+\index{Camera@{Camera}!last\_motion\_time@{last\_motion\_time}}
+\index{last\_motion\_time@{last\_motion\_time}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{last\_motion\_time}{last\_motion\_time}}
+{\footnotesize\ttfamily std\+::chrono\+::time\+\_\+point$<$std\+::chrono\+::system\+\_\+clock$>$ Camera\+::last\+\_\+motion\+\_\+time\hspace{0.3cm}{\ttfamily [private]}}
+
+last\+\_\+motion\+\_\+time and last\+\_\+face\+\_\+detection\+\_\+time store the time that each was last detected by \doxylink{classCamera}{Camera}. \Hypertarget{classCamera_aee07bdd1584d02f9af56c9e5d7415f91}\label{classCamera_aee07bdd1584d02f9af56c9e5d7415f91} 
+\index{Camera@{Camera}!last\_number\_of\_faces\_detected@{last\_number\_of\_faces\_detected}}
+\index{last\_number\_of\_faces\_detected@{last\_number\_of\_faces\_detected}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{last\_number\_of\_faces\_detected}{last\_number\_of\_faces\_detected}}
+{\footnotesize\ttfamily int Camera\+::last\+\_\+number\+\_\+of\+\_\+faces\+\_\+detected = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+tracks how many faces were detected by the camera last. \Hypertarget{classCamera_a43094e061e959dee0555d85b57c17ee0}\label{classCamera_a43094e061e959dee0555d85b57c17ee0} 
+\index{Camera@{Camera}!lead\_up\_buffer@{lead\_up\_buffer}}
+\index{lead\_up\_buffer@{lead\_up\_buffer}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{lead\_up\_buffer}{lead\_up\_buffer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$cv\+::\+Mat$>$ Camera\+::lead\+\_\+up\+\_\+buffer = \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$cv\+::\+Mat$>$(0)\hspace{0.3cm}{\ttfamily [private]}}
+
+lead\+\_\+up\+\_\+buffer stores 15 seconds of video recorded. It writes these frames into the video recording when motion is detected, so 15 seconds prior to motion detection are also recorded. \Hypertarget{classCamera_a955a586dfdd58cabdbc13bdd4b745373}\label{classCamera_a955a586dfdd58cabdbc13bdd4b745373} 
+\index{Camera@{Camera}!motion\_detected@{motion\_detected}}
+\index{motion\_detected@{motion\_detected}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{motion\_detected}{motion\_detected}}
+{\footnotesize\ttfamily bool Camera\+::motion\+\_\+detected = false\hspace{0.3cm}{\ttfamily [private]}}
+
+boolean to indicate whether motion has been detected. \Hypertarget{classCamera_aafe938d9ff104f3c568990a76b763fd0}\label{classCamera_aafe938d9ff104f3c568990a76b763fd0} 
+\index{Camera@{Camera}!video\_capture@{video\_capture}}
+\index{video\_capture@{video\_capture}!Camera@{Camera}}
+\doxysubsubsection{\texorpdfstring{video\_capture}{video\_capture}}
+{\footnotesize\ttfamily cv\+::\+Video\+Capture Camera\+::video\+\_\+capture\hspace{0.3cm}{\ttfamily [private]}}
+
+video\+\_\+capture captures frames from the hardware camera. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{Camera_8hpp}{Camera.\+hpp}}\end{DoxyCompactItemize}

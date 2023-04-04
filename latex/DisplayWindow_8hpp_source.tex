@@ -1,0 +1,39 @@
+\hypertarget{DisplayWindow_8hpp_source}{}\doxysection{Display\+Window.\+hpp}
+\label{DisplayWindow_8hpp_source}\index{include/DisplayWindow.hpp@{include/DisplayWindow.hpp}}
+\mbox{\hyperlink{DisplayWindow_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GROUP\_17\_DISPLAYWINDOW\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GROUP\_17\_DISPLAYWINDOW\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <gtkmm.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <atomic>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classDisplayWindow}{DisplayWindow}}\ :\ \textcolor{keyword}{public}\ Gtk::Window\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{classDisplayWindow_af9566ad11990ff91c5021a3fc27c3257}{DisplayWindow}}(std::atomic<bool>\ *show\_raw\_camera\_param);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classDisplayWindow_a48a56292904ef33a2bf796c7bd99d95a}{\string~DisplayWindow}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \ \ \ \ std::atomic<bool>\ *\mbox{\hyperlink{classDisplayWindow_a7b643966fd348af76167441ed30e9954}{show\_raw\_camera}};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00041\ \ \ \ \ Gtk::Box\ \mbox{\hyperlink{classDisplayWindow_ae01a25377f3db6ef60ccfa81b4717ccd}{main\_box}};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00046\ \ \ \ \ Gtk::Grid\ \mbox{\hyperlink{classDisplayWindow_a3add303a89172331019ef0571526ec6b}{camera\_grid}};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00051\ \ \ \ \ Gtk::Notebook\ \mbox{\hyperlink{classDisplayWindow_aac5d50a50c4478bf907747092263009e}{notebook}};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00056\ \ \ \ \ Gtk::Label\ \mbox{\hyperlink{classDisplayWindow_a72c738d06d478c1ef066b98ff9d7271c}{camera\_tab\_label}},\ \mbox{\hyperlink{classDisplayWindow_ae4d2385bf585425c38d0eb17a93c65d8}{raw\_camera\_label}};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00061\ \ \ \ \ Gtk::Button\ \mbox{\hyperlink{classDisplayWindow_a1ebc43518d2e07439c803b5d6d60849d}{raw\_camera\_button}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classDisplayWindow_af1cd7d6af62e0fab734d3dcd0b44ba28}{on\_notebook\_switch\_page}}(Gtk::Widget\ *page,\ guint\ page\_num);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classDisplayWindow_ac7b94c2a8e811e6d0cfa092a44a07e33}{on\_button\_clicked}}(\textcolor{keyword}{const}\ Glib::ustring\ \&data);}
+\DoxyCodeLine{00081\ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ GROUP\_17\_DISPLAYWINDOW\_HPP}}
+
+\end{DoxyCode}

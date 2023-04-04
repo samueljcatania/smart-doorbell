@@ -1,0 +1,57 @@
+\hypertarget{Camera_8hpp_source}{}\doxysection{Camera.\+hpp}
+\label{Camera_8hpp_source}\index{include/Camera.hpp@{include/Camera.hpp}}
+\mbox{\hyperlink{Camera_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GROUP\_17\_CAMERA\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GROUP\_17\_CAMERA\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <condition\_variable>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <opencv2/opencv.hpp>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <opencv2/core/utils/logger.hpp>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{FaceDetector_8hpp}{FaceDetector.hpp}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{VideoRecorder_8hpp}{VideoRecorder.hpp}}"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{CircularBuffer_8hpp}{CircularBuffer.hpp}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{WebApp_8hpp}{WebApp.hpp}}"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCamera}{Camera}}\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ cv::VideoCapture\ \mbox{\hyperlink{classCamera_aafe938d9ff104f3c568990a76b763fd0}{video\_capture}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00038\ \ \ \ \ cv::Mat\ \mbox{\hyperlink{classCamera_a0ca08dae7f83406af5a0567551b53a92}{average\_frame}};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{classCircularBuffer}{CircularBuffer<cv::Mat>}}\ \mbox{\hyperlink{classCamera_a43094e061e959dee0555d85b57c17ee0}{lead\_up\_buffer}}\ =\ \mbox{\hyperlink{classCircularBuffer}{CircularBuffer<cv::Mat>}}(0);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00051\ \ \ \ \ std::chrono::time\_point<std::chrono::system\_clock>\ \mbox{\hyperlink{classCamera_af842650f60c691ec23a843173c432f3a}{last\_motion\_time}},\ \mbox{\hyperlink{classCamera_a6b3c56439a9216aa68c15014e69b11dc}{last\_face\_detection\_time}};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{classFaceDetector}{FaceDetector}}\ \mbox{\hyperlink{classCamera_ac52323973553c45e179a1c7c3f56e723}{face\_detector}};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classCamera_ab427b09acb51392b40a303a4bd0428b0}{frame\_rate}};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classCamera_aee07bdd1584d02f9af56c9e5d7415f91}{last\_number\_of\_faces\_detected}}\ =\ 0;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classCamera_a955a586dfdd58cabdbc13bdd4b745373}{motion\_detected}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classCamera_a1610c8d6ca2ed07566f5e4e62d4143df}{measure\_camera\_frame\_rate}}();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{classCamera_a01f94c3543f56ede7af49dc778f19331}{Camera}}();}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{classCamera_ad1897942d0ccf91052386388a497349f}{\string~Camera}}();}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCamera_a8109a731b520427292b2a955dddeb440}{detect\_motion}}(std::atomic<bool>\ \&show\_raw\_camera,\ std::atomic<bool>\ \&show\_threshold\_camera,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::atomic<bool>\ \&show\_delta\_camera,\ \textcolor{keywordtype}{bool}\ \&recording,\ std::queue<cv::Mat>\ \&shared\_queue,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::mutex\ \&queue\_lock,\ std::mutex\ \&camera\_lock,\ std::mutex\ \&buffer\_lock,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classCircularBuffer}{CircularBuffer<cv::Mat>}}\ \&shared\_lead\_up\_buffer,\ std::condition\_variable\ \&recording\_updated,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::condition\_variable\ \&buffer\_updated,\ std::condition\_variable\ \&queue\_updated,\ std::condition\_variable\ \&camera\_stream\_updated);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classCamera_a1eb07b97ca92facf0bac1ae8c2a233d3}{get\_frame\_rate}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00117\ \};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ GROUP\_17\_CAMERA\_HPP}}
+
+\end{DoxyCode}

@@ -57,7 +57,7 @@ public:
      *
      * This function will create a new VideoRecorder object and then begin recording the camera live feed.
      *
-     * @param frame_rate The number of frames to save per second
+     * @param frame_rate
      */
     explicit VideoRecorder(int frame_rate);
 
