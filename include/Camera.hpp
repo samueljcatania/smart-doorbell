@@ -106,7 +106,7 @@ public:
                       std::atomic<bool> &show_delta_camera, bool &recording, std::queue<cv::Mat> &shared_queue,
                       std::mutex &queue_lock, std::mutex &camera_lock, std::mutex &buffer_lock,
                       CircularBuffer<cv::Mat> &shared_lead_up_buffer, std::condition_variable &recording_updated,
-                      std::condition_variable &buffer_updated, std::condition_variable &queue_updated) ;
+                      std::condition_variable &buffer_updated, std::condition_variable &queue_updated, std::condition_variable &camera_stream_updated);
 
     /**
      * This function returns the frame rate of the connected hardware camera.

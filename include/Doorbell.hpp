@@ -35,8 +35,8 @@ private:
     std::queue<cv::Mat> shared_queue;
     CircularBuffer<cv::Mat> shared_lead_up_buffer = CircularBuffer<cv::Mat>(0);
     std::mutex queue_lock, camera_lock, buffer_lock;
-    std::condition_variable recording_updated, queue_updated, buffer_updated;
-    std::thread camera_thread, recorder_thread, master_thread;
+    std::condition_variable recording_updated, queue_updated, buffer_updated, camera_stream_updated;
+    std::thread camera_thread, recorder_thread, master_thread, display_window_thread;
 
     /**
      * @brief Thread manager controls threading functionalities
@@ -82,7 +82,7 @@ public:
      * @params
      *
      */
-    int open_window(char **argv, std::atomic<bool> *show_raw_camera);
+    int open_window(char **argv, std::atomic<bool> *show_raw_camera, std::atomic<bool> *show_threshold_camera, std::atomic<bool> *show_delta_camera);
 };
 
 

@@ -10,6 +10,7 @@
 
 #include <gtkmm/application.h>
 #include <atomic>
+#include <gtkmm.h>
 
 #include "../include/Doorbell.hpp"
 #include "../include/VideoRecorder.hpp"
@@ -18,44 +19,57 @@ Doorbell::Doorbell(char **argv) {
     // Turn off OpenCV console logging output
     cv::utils::logging::setLogLevel(cv::utils::logging::LogLevel::LOG_LEVEL_SILENT);
 
-    std::atomic<bool> show_raw_camera{false};
-    std::atomic<bool> show_threshold_camera{false};
-    std::atomic<bool> show_delta_camera{false};
+    while (1) {
+        std::atomic<bool> show_raw_camera{false};
+        std::atomic<bool> show_threshold_camera{false};
+        std::atomic<bool> show_delta_camera{false};
 
-    camera_thread = std::thread(&Camera::detect_motion,
-                                camera,
-                                std::ref(show_raw_camera),
-                                std::ref(show_threshold_camera),
-                                std::ref(show_delta_camera),
-                                std::ref(recording),
-                                std::ref(shared_queue),
-                                std::ref(queue_lock),
-                                std::ref(camera_lock),
-                                std::ref(buffer_lock),
-                                std::ref(shared_lead_up_buffer),
-                                std::ref(recording_updated),
-                                std::ref(buffer_updated),
-                                std::ref(queue_updated));
+        camera_thread = std::thread(&Camera::detect_motion,
+                                    camera,
+                                    std::ref(show_raw_camera),
+                                    std::ref(show_threshold_camera),
+                                    std::ref(show_delta_camera),
+                                    std::ref(recording),
+                                    std::ref(shared_queue),
+                                    std::ref(queue_lock),
+                                    std::ref(camera_lock),
+                                    std::ref(buffer_lock),
+                                    std::ref(shared_lead_up_buffer),
+                                    std::ref(recording_updated),
+                                    std::ref(buffer_updated),
+                                    std::ref(queue_updated),
+                                    std::ref(camera_stream_updated));
 
-    //recorder_thread
-    master_thread = std::thread(&Doorbell::thread_manager, this);
+        //recorder_thread
+        master_thread = std::thread(&Doorbell::thread_manager, this);
 
-    open_window(argv, &show_raw_camera);
+        open_window(argv, &show_raw_camera, &show_threshold_camera, &show_delta_camera);
 
-    camera_thread.join();
-    master_thread.join();
+        while (1) {
+            std::unique_lock<std::mutex> queue_unique_lock{queue_lock};
+            camera_stream_updated.wait(queue_unique_lock);
+
+            open_window(argv, &show_raw_camera, &show_threshold_camera, &show_delta_camera);
+
+            queue_unique_lock.unlock();
+        }
+
+        camera_thread.join();
+        master_thread.join();
+    }
 }
 
 Doorbell::~Doorbell() {
     cv::destroyAllWindows();
 }
 
-int Doorbell::open_window(char **argv, std::atomic<bool> *show_raw_camera) {
+int Doorbell::open_window(char **argv, std::atomic<bool> *show_raw_camera, std::atomic<bool> *show_threshold_camera,
+                          std::atomic<bool> *show_delta_camera) {
     int argc = 1;
 
     Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
 
-    DisplayWindow display_window(show_raw_camera);
+    DisplayWindow display_window(show_raw_camera, show_threshold_camera, show_delta_camera, &camera_stream_updated);
 
     // Shows the window and returns when it is closed
     return app->run(display_window);
@@ -91,6 +105,6 @@ void Doorbell::create_video_recorder_thread() {
                                   std::ref(recording_updated),
                                   std::ref(buffer_updated),
                                   std::ref(queue_updated));
-    
+
     recorder_thread.join();
 }

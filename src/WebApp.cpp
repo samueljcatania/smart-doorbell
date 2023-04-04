@@ -217,8 +217,8 @@ void WebApp::updateImagesList() {
                 imageWidget->setAlternateText(fileName); // Set the alternate text to the file name
 
                 // Set the image size (width and height)
-                imageWidget->setWidth(Wt::WLength(150, Wt::LengthUnit::Pixel));
-                imageWidget->setHeight(Wt::WLength(100, Wt::LengthUnit::Pixel));
+                imageWidget->setWidth(Wt::WLength(500, Wt::LengthUnit::Pixel));
+                imageWidget->setHeight(Wt::WLength(450, Wt::LengthUnit::Pixel));
 
                 imageTable_->elementAt(row, 0)->addWidget(std::move(imageWidget));
 

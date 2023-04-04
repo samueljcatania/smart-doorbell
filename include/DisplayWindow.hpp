@@ -16,30 +16,32 @@
 
 class DisplayWindow : public Gtk::Window {
 public:
-    DisplayWindow(std::atomic<bool> *show_raw_camera_param);
+
     /**
      * @brief Constructor for Display Window
      *
      */
-    DisplayWindow();
+    DisplayWindow(std::atomic<bool> *show_raw_camera_param, std::atomic<bool> *show_threshold_camera,
+                  std::atomic<bool> *show_delta_camera, std::condition_variable *camera_stream_updated_param);
 
     ~DisplayWindow() override;
 
     std::atomic<bool> *show_raw_camera;
+    std::atomic<bool> *show_threshold_camera;
+    std::atomic<bool> *show_delta_camera;
+
+    std::condition_variable *camera_stream_updated;
 
 
 protected:
     /**
      * Initialization of various child widgets used for displaying, labeling, and using buttons on GUI
      */
-    Gtk::Box main_box, face_detection_box;
-    Gtk::ScrolledWindow face_detection_scrolled_window;
-    Gtk::Grid camera_grid, face_detection_grid, recordings_grid;
+    Gtk::Box main_box;
+    Gtk::Grid camera_grid;
     Gtk::Notebook notebook;
-    Gtk::Label camera_tab_label, raw_camera_label, thresh_camera_label, delta_camera_label, faces_tab_label, recordings_tab_label;
-
-    Gtk::ButtonBox button_box;
-    Gtk::Button raw_camera_button, thresh_camera_button, delta_camera_button;
+    Gtk::Label camera_tab_label, raw_camera_label;
+    Gtk::Button raw_camera_button;
 
     /**
      * @brief Signal handler for switching pages

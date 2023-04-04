@@ -54,8 +54,7 @@ Camera::Camera() {
         std::cout << "Cannot open the video camera" << std::endl;
     }
 
-    frame_rate = 30;
-//    frame_rate = measure_camera_frame_rate();
+    frame_rate = measure_camera_frame_rate();
 
     lead_up_buffer.set_capacity(SECONDS_OF_LEAD_UP_FOOTAGE * frame_rate);
 
@@ -73,12 +72,13 @@ Camera::~Camera() {
 
 void
 Camera::detect_motion(std::atomic<bool> &show_raw_camera, std::atomic<bool> &show_threshold_camera,
-                      std::atomic<bool> &show_delta_camera, bool &recording, std::queue<cv::Mat> &shared_queue,
+                      std::atomic<bool> &show_delta_camera, bool &recording, std::queue <cv::Mat> &shared_queue,
                       std::mutex &queue_lock, std::mutex &camera_lock, std::mutex &buffer_lock,
-                      CircularBuffer<cv::Mat> &shared_lead_up_buffer, std::condition_variable &recording_updated,
-                      std::condition_variable &buffer_updated, std::condition_variable &queue_updated) {
+                      CircularBuffer <cv::Mat> &shared_lead_up_buffer, std::condition_variable &recording_updated,
+                      std::condition_variable &buffer_updated, std::condition_variable &queue_updated,
+                      std::condition_variable &camera_stream_updated) {
     cv::Mat frame;
-    std::vector<std::vector<cv::Point> > contours;
+    std::vector <std::vector<cv::Point>> contours;
     int face_count = 0;
 
     while (video_capture.read(frame)) {
@@ -89,7 +89,7 @@ Camera::detect_motion(std::atomic<bool> &show_raw_camera, std::atomic<bool> &sho
                                 SECONDS_TO_WAIT_FOR_MOTION_OR_FACE)) {
 
             // Critical Section
-            std::lock_guard<std::mutex> lock_guard{queue_lock};
+            std::lock_guard <std::mutex> lock_guard{queue_lock};
             shared_queue.push(frame);
             queue_updated.notify_all();
 
@@ -100,14 +100,12 @@ Camera::detect_motion(std::atomic<bool> &show_raw_camera, std::atomic<bool> &sho
             if (motion_detected) {
                 motion_detected = false;
 
-                std::cout << "motion switched off" << std::endl;
-
                 // Critical Section
-                std::lock_guard<std::mutex> recording_lock_guard{camera_lock};
+                std::lock_guard <std::mutex> recording_lock_guard{camera_lock};
                 recording = false;
 
                 // Critical Section
-                std::lock_guard<std::mutex> queue_lock_guard{queue_lock};
+                std::lock_guard <std::mutex> queue_lock_guard{queue_lock};
                 shared_queue.push(frame);
                 queue_updated.notify_all();
 
@@ -195,11 +193,11 @@ Camera::detect_motion(std::atomic<bool> &show_raw_camera, std::atomic<bool> &sho
                 motion_detected = true;
 
                 // Critical Section
-                std::lock_guard<std::mutex> camera_lock_guard{camera_lock};
+                std::lock_guard <std::mutex> camera_lock_guard{camera_lock};
                 recording = true;
                 recording_updated.notify_all();
 
-                std::lock_guard<std::mutex> buffer_lock_guard{buffer_lock};
+                std::lock_guard <std::mutex> buffer_lock_guard{buffer_lock};
                 shared_lead_up_buffer = lead_up_buffer;
                 buffer_updated.notify_all();
             }
@@ -216,24 +214,28 @@ Camera::detect_motion(std::atomic<bool> &show_raw_camera, std::atomic<bool> &sho
                     cv::FONT_HERSHEY_SIMPLEX, 0.5, CV_RGB(0, 255, 0), 1);
 
         // Show the raw frame, thresh frame, and frame delta frame
-//        if (show_raw_camera) {
-        imshow("Camera", frame);
-//        }
+        if (show_raw_camera) {
+            imshow("Camera", frame);
+        }
 
-//        if (show_threshold_camera) {
-        imshow("Thresh", thresh);
-//        }
+        if (show_threshold_camera) {
+            imshow("Thresh", thresh);
+        }
 
-//        if (show_delta_camera) {
-        imshow("Frame Delta", frame_delta);
-//        }
+        if (show_delta_camera) {
+            imshow("Frame Delta", frame_delta);
+        }
 
         //If the Escape key is pressed, break the while loop.
         if (cv::waitKey(1) == 27) {
-            break;
+            cv::destroyAllWindows();
+
+            show_raw_camera = false;
+            show_threshold_camera = false;
+            show_delta_camera = false;
+            camera_stream_updated.notify_all();
         }
     }
-
     cv::destroyAllWindows();
     frame.release();
 }
