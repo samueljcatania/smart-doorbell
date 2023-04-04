@@ -1,8 +1,10 @@
 
 /**
- * Main function for the Smart Doorbell
+ * Main function for Smart Doorbell
  * This is the entry point for the program.
  * 4/3/23
+ * CS 3307 - Group 17
+ *
  * @authors Samuel Catania, Meg Zhang, Quintin Peter Phillips, Jonathan Enjie Lee, Junhong Lin
  *
  */

@@ -16,6 +16,11 @@
 
 class DisplayWindow : public Gtk::Window {
 public:
+
+    /**
+     * Constructor for Display Window
+     * @param show_raw_camera_param atomic boolean that determines whether raw camera footage is shown.
+     */
     DisplayWindow(std::atomic<bool> *show_raw_camera_param);
     /**
      * @brief Constructor for Display Window
