@@ -1,21 +1,22 @@
-/*
- * Author: Samuel Catania
- * Username: scatani9
- * Student Number: 251175283
- * Date: Wednesday, March 8, 2023
+
+/**
+ * Main function for Smart Doorbell
+ * This is the entry point for the program.
+ * 4/3/23
+ * CS 3307 - Group 17
  *
- * Description of Main.cpp:
+ * @authors Samuel Catania, Meg Zhang, Quintin Peter Phillips, Jonathan Enjie Lee, Junhong Lin
  *
  */
 
 #include <iostream>
 #include <thread>
-
 #include "../include/Doorbell.hpp"
 #include "../include/WebApp.hpp"
 #include "../include/DisplayWindow.hpp"
 
 int main(int argc, char *argv[]) {
+
     char *copy_argv[]{};
     copy_argv[0] = argv[0];
 

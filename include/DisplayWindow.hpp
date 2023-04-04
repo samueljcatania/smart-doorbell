@@ -18,28 +18,65 @@ class DisplayWindow : public Gtk::Window {
 public:
 
     /**
+     * Constructor for Display Window
+     * @param show_raw_camera_param atomic boolean that determines whether raw camera footage is shown.
+     */
+    DisplayWindow(std::atomic<bool> *show_raw_camera_param);
+    /**
      * @brief Constructor for Display Window
      *
      */
     DisplayWindow(std::atomic<bool> *show_raw_camera_param, std::atomic<bool> *show_threshold_camera,
                   std::atomic<bool> *show_delta_camera, std::condition_variable *camera_stream_updated_param);
 
+    /**
+     * Destructor for displayWindow.
+     */
     ~DisplayWindow() override;
 
+    /**
+     * atomic boolean to determine whether the raw footage from the camera is being shown.
+     */
     std::atomic<bool> *show_raw_camera;
-    std::atomic<bool> *show_threshold_camera;
-    std::atomic<bool> *show_delta_camera;
-
-    std::condition_variable *camera_stream_updated;
 
 
 protected:
     /**
-     * Initialization of various child widgets used for displaying, labeling, and using buttons on GUI
+     * main_box is the main window box for the notebook on the GUI.
+     * face_detection_box is a box on the main window but for the face detection tab.
+     */
+    Gtk::Box main_box, face_detection_box;
+
+    /**
+     * scrolled_window lets you scroll through the captured face images.
+     */
+    Gtk::ScrolledWindow face_detection_scrolled_window;
+
+    /**
+     * Grids for showing and organizing components
+     * respectively for the camera, face detection, and recordings tab
+     * on the GUI.
+     */
+    Gtk::Grid camera_grid, face_detection_grid, recordings_grid;
+
+    /**
+     * notebook - the tabs on the GUI.
      */
     Gtk::Box main_box;
     Gtk::Grid camera_grid;
     Gtk::Notebook notebook;
+
+    /**
+     * Labels for the GUI
+     */
+    Gtk::Label camera_tab_label, raw_camera_label, thresh_camera_label, delta_camera_label, faces_tab_label, recordings_tab_label;
+
+    Gtk::ButtonBox button_box;
+
+    /**
+     * Buttons for switching between camera footage types.
+     */
+    Gtk::Button raw_camera_button, thresh_camera_button, delta_camera_button;
     Gtk::Label camera_tab_label, raw_camera_label;
     Gtk::Button raw_camera_button;
 
@@ -48,8 +85,8 @@ protected:
      *
      * This signal handler is utilized when changing pages on the GUI.
      *
-     * @param page
-     * @param page_num
+     * @param page tabs on the window
+     * @param page_num current page number of the tab.
      */
     void on_notebook_switch_page(Gtk::Widget *page, guint page_num);
 
@@ -58,7 +95,7 @@ protected:
      *
      * This signal handler is utilized when buttons on the GUI are pressed
      *
-     * @param data
+     * @param data data sent when the button is clicked
      */
     void on_button_clicked(const Glib::ustring &data);
 };
