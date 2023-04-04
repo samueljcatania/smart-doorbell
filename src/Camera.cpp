@@ -216,17 +216,17 @@ Camera::detect_motion(std::atomic<bool> &show_raw_camera, std::atomic<bool> &sho
                     cv::FONT_HERSHEY_SIMPLEX, 0.5, CV_RGB(0, 255, 0), 1);
 
         // Show the raw frame, thresh frame, and frame delta frame
-        if (show_raw_camera) {
+//        if (show_raw_camera) {
             imshow("Camera", frame);
-        }
+//        }
 
-        if (show_threshold_camera) {
+//        if (show_threshold_camera) {
             imshow("Thresh", thresh);
-        }
+//        }
 
-        if (show_delta_camera) {
+//        if (show_delta_camera) {
             imshow("Frame Delta", frame_delta);
-        }
+//        }
 
         //If the Escape key is pressed, break the while loop.
         if (cv::waitKey(1) == 27) {

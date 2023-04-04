@@ -32,8 +32,6 @@ protected:
     /**
      * Initialization of various child widgets used for displaying, labeling, and using buttons on GUI
      */
-    Gtk::Box main_box;
-    //Child widgets:
     Gtk::Box main_box, face_detection_box;
     Gtk::ScrolledWindow face_detection_scrolled_window;
     Gtk::Grid camera_grid, face_detection_grid, recordings_grid;
