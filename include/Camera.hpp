@@ -102,10 +102,11 @@ public:
      * @param buffer_updated conditional variable to track if a frame was added to the buffer
      * @param queue_updated conditional variable to track if a frame was added to the queue.
      */
-    void detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::mutex &queue_lock,
-                       std::mutex &camera_lock, std::mutex &buffer_lock, CircularBuffer<cv::Mat> &shared_lead_up_buffer,
-                       std::condition_variable &recording_updated, std::condition_variable &buffer_updated,
-                       std::condition_variable &queue_updated);
+    void detect_motion(std::atomic<bool> &show_raw_camera, std::atomic<bool> &show_threshold_camera,
+                      std::atomic<bool> &show_delta_camera, bool &recording, std::queue<cv::Mat> &shared_queue,
+                      std::mutex &queue_lock, std::mutex &camera_lock, std::mutex &buffer_lock,
+                      CircularBuffer<cv::Mat> &shared_lead_up_buffer, std::condition_variable &recording_updated,
+                      std::condition_variable &buffer_updated, std::condition_variable &queue_updated) ;
 
     /**
      * This function returns the frame rate of the connected hardware camera.
@@ -113,7 +114,6 @@ public:
      * @return the calculated frame rate.
      */
     int get_frame_rate() const;
-
 };
 
 #endif // GROUP_17_CAMERA_HPP

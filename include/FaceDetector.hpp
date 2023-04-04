@@ -16,18 +16,18 @@
 
 class FaceDetector {
 private:
-/// Face detection network
+    // Face detection network
     cv::dnn::Net network = cv::dnn::readNetFromCaffe("../assets/deploy.prototxt",
                                                      "../assets/res10_300x300_ssd_iter_140000_fp16.caffemodel");;
-/// Input image width
+    // Input image width
     const int width = 300;
-/// Input image height
+    // Input image height
     const int height = 300;
-/// Scale factor when creating image blob
+    // Scale factor when creating image blob
     const double scale_factor = 1.0;
-/// Mean normalization values network was trained with
+    // Mean normalization values network was trained with
     const cv::Scalar mean_values = {104., 177.0, 123.0};
-/// Face detection confidence threshold
+    // Face detection confidence threshold
     const float confidence_threshold = 0.5;
 
 public:

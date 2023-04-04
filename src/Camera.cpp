@@ -9,6 +9,7 @@
  */
 
 #include <iostream>
+#include <atomic>
 #include <opencv2/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
@@ -71,10 +72,11 @@ Camera::~Camera() {
 }
 
 void
-Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::mutex &queue_lock,
-                      std::mutex &camera_lock, std::mutex &buffer_lock, CircularBuffer<cv::Mat> &shared_lead_up_buffer,
-                      std::condition_variable &recording_updated, std::condition_variable &buffer_updated,
-                      std::condition_variable &queue_updated) {
+Camera::detect_motion(std::atomic<bool> &show_raw_camera, std::atomic<bool> &show_threshold_camera,
+                      std::atomic<bool> &show_delta_camera, bool &recording, std::queue<cv::Mat> &shared_queue,
+                      std::mutex &queue_lock, std::mutex &camera_lock, std::mutex &buffer_lock,
+                      CircularBuffer<cv::Mat> &shared_lead_up_buffer, std::condition_variable &recording_updated,
+                      std::condition_variable &buffer_updated, std::condition_variable &queue_updated) {
     cv::Mat frame;
     std::vector<std::vector<cv::Point> > contours;
     int face_count = 0;
@@ -138,11 +140,9 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::m
         std::string camera_description = "No Motion";
         WebApp *webAppInstance = WebApp::getInstance();
 
-
         if (webAppInstance) {
             webAppInstance->motionDetectedCurr = false;
         }
-
 
         // Convert the current frame to greyscale
         cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
@@ -216,9 +216,17 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::m
                     cv::FONT_HERSHEY_SIMPLEX, 0.5, CV_RGB(0, 255, 0), 1);
 
         // Show the raw frame, thresh frame, and frame delta frame
-        imshow("Camera", frame);
-        imshow("Thresh", thresh);
-        imshow("Frame Delta", frame_delta);
+        if (show_raw_camera) {
+            imshow("Camera", frame);
+        }
+
+        if (show_threshold_camera) {
+            imshow("Thresh", thresh);
+        }
+
+        if (show_delta_camera) {
+            imshow("Frame Delta", frame_delta);
+        }
 
         //If the Escape key is pressed, break the while loop.
         if (cv::waitKey(1) == 27) {
@@ -226,6 +234,7 @@ Camera::detect_motion(bool &recording, std::queue<cv::Mat> &shared_queue, std::m
         }
     }
 
+    cv::destroyAllWindows();
     frame.release();
 }
 

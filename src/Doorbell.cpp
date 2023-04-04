@@ -9,16 +9,24 @@
  */
 
 #include <gtkmm/application.h>
+#include <atomic>
 
 #include "../include/Doorbell.hpp"
 #include "../include/VideoRecorder.hpp"
 
-Doorbell::Doorbell() {
+Doorbell::Doorbell(char **argv) {
     // Turn off OpenCV console logging output
     cv::utils::logging::setLogLevel(cv::utils::logging::LogLevel::LOG_LEVEL_SILENT);
 
+    std::atomic<bool> show_raw_camera{false};
+    std::atomic<bool> show_threshold_camera{false};
+    std::atomic<bool> show_delta_camera{false};
+
     camera_thread = std::thread(&Camera::detect_motion,
                                 camera,
+                                std::ref(show_raw_camera),
+                                std::ref(show_threshold_camera),
+                                std::ref(show_delta_camera),
                                 std::ref(recording),
                                 std::ref(shared_queue),
                                 std::ref(queue_lock),
@@ -32,6 +40,8 @@ Doorbell::Doorbell() {
     //recorder_thread
     master_thread = std::thread(&Doorbell::thread_manager, this);
 
+    open_window(argv, &show_raw_camera);
+
     camera_thread.join();
     master_thread.join();
 }
@@ -40,10 +50,12 @@ Doorbell::~Doorbell() {
     cv::destroyAllWindows();
 }
 
-int Doorbell::open_window(int argc, char *argv[]) {
+int Doorbell::open_window(char **argv, std::atomic<bool> *show_raw_camera) {
+    int argc = 1;
+
     Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
 
-    DisplayWindow display_window;
+    DisplayWindow display_window(show_raw_camera);
 
     // Shows the window and returns when it is closed
     return app->run(display_window);

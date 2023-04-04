@@ -22,7 +22,7 @@ private:
     bool recording = false;
     std::queue<cv::Mat> shared_queue;
     CircularBuffer<cv::Mat> shared_lead_up_buffer = CircularBuffer<cv::Mat>(0);
-    std::mutex queue_lock, camera_lock, recorder_lock, buffer_lock;
+    std::mutex queue_lock, camera_lock, buffer_lock;
     std::condition_variable recording_updated, queue_updated, buffer_updated;
     std::thread camera_thread, recorder_thread, master_thread;
 
@@ -30,13 +30,12 @@ private:
 
     void create_video_recorder_thread();
 
-
 public:
-    Doorbell();
+    Doorbell(char **argv);
 
     ~Doorbell();
 
-    static int open_window(int argc, char *argv[]);
+    int open_window(char **argv, std::atomic<bool> *show_raw_camera);
 };
 
 

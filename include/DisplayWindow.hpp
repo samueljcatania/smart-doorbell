@@ -6,16 +6,21 @@
 #define GROUP_17_DISPLAYWINDOW_HPP
 
 #include <gtkmm.h>
+#include <atomic>
 
 class DisplayWindow : public Gtk::Window {
 public:
-    DisplayWindow();
+    DisplayWindow(std::atomic<bool> *show_raw_camera_param);
 
     ~DisplayWindow() override;
 
+    std::atomic<bool> *show_raw_camera;
+
+
 protected:
     //Child widgets:
-    Gtk::Box main_box;
+    Gtk::Box main_box, face_detection_box;
+    Gtk::ScrolledWindow face_detection_scrolled_window;
     Gtk::Grid camera_grid, face_detection_grid, recordings_grid;
     Gtk::Notebook notebook;
     Gtk::Label camera_tab_label, raw_camera_label, thresh_camera_label, delta_camera_label, faces_tab_label, recordings_tab_label;

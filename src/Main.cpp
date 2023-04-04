@@ -15,13 +15,9 @@
 #include "../include/WebApp.hpp"
 #include "../include/DisplayWindow.hpp"
 
-int main(int argc, char *argv[]) {
-    Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
+int main(int argc, char **argv) {
+    Doorbell doorbell(argv);
 
-    DisplayWindow display_window;
-
-    // Shows the window and returns when it is closed
-    return app->run(display_window);
 //
 //    Doorbell doorbell;
 //    doorbell.open_window(argc, argv);
@@ -55,7 +51,7 @@ int main(int argc, char *argv[]) {
 //    vr.recordVideo(); // Start recording video.
 //    serverThread.join();
 
-   // WebApp::sendMessage("Hello World!");
+    // WebApp::sendMessage("Hello World!");
 
 //
 //
