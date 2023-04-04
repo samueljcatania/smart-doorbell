@@ -64,7 +64,9 @@ private:
 
 public:
     /**
-     * @brief Constructor for Face
+     * @brief Constructor for Face Detector class
+     *
+     *
      *
      */
     explicit FaceDetector();

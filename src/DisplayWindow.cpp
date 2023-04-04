@@ -4,6 +4,7 @@
 
 #include "../include/DisplayWindow.hpp"
 
+
 DisplayWindow::DisplayWindow()
         : raw_camera_button("View Raw Camera"),
           thresh_camera_button("View Threshed Camera"),

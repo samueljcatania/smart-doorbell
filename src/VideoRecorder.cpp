@@ -13,6 +13,7 @@
 #include <thread>
 #include "../include/VideoRecorder.hpp"
 
+
 // Function to generate the timestamped filename
 std::string VideoRecorder::generate_timestamped_filename() {
     auto now = std::chrono::system_clock::now();
