@@ -30,37 +30,38 @@
 class Doorbell {
 private:
     /**
-     * TODO
+     * Constructor for camera.
      */
     Camera camera;
 
     /**
-     * TODO
+     * variable tracking whether the camera is currently recording
      */
     bool recording = false;
 
     /**
-     * TODO
+     * shared queue for camera frames
      */
     std::queue<cv::Mat> shared_queue;
 
     /**
-     * TODO
+     * lead up buffer storing 15 seconds worth of frames prior to motion detection
      */
     CircularBuffer<cv::Mat> shared_lead_up_buffer = CircularBuffer<cv::Mat>(0);
 
     /**
-     * TODO
+     * mutex locks for controlling access to the queue, the camera, and the buffer
      */
     std::mutex queue_lock, camera_lock, buffer_lock;
 
     /**
-     * TODO
+     * Condition variables for tracking whether the recordings, queue or buffer were updated
      */
     std::condition_variable recording_updated, queue_updated, buffer_updated;
 
     /**
-     * TODO
+     * camera_thread operates the camera, recorder_thread manages recording to a file, and master_thread
+     * is the main thread of the program.
      */
     std::thread camera_thread, recorder_thread, master_thread;
 
@@ -103,8 +104,8 @@ public:
      *
      * open_window will create and show the GUI from VideoRecorder.
      *
-     * @params TODO
-     * @params TODO
+     * @params argv - takes in the current directory of the program (first argv argument)
+     * @params atomic boolean for determining whether raw footage is shown.
      *
      */
     int open_window(char **argv, std::atomic<bool> *show_raw_camera);
