@@ -1,0 +1,75 @@
+\hypertarget{WebApp_8hpp_source}{}\doxysection{Web\+App.\+hpp}
+\label{WebApp_8hpp_source}\index{include/WebApp.hpp@{include/WebApp.hpp}}
+\mbox{\hyperlink{WebApp_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <Wt/WApplication.h>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <Wt/WBreak.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Wt/WContainerWidget.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <Wt/WLineEdit.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <Wt/WPushButton.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <Wt/WText.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <Wt/WServer.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <Wt/WEnvironment.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <Wt/WTable.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <Wt/WAnchor.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <Wt/WFileResource.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <boost/filesystem.hpp>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <Wt/WTimer.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <Wt/WSignal.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifndef\ GROUP\_17\_WEBSOCKET\_HPP}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ GROUP\_17\_WEBSOCKET\_HPP}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classWebApp}{WebApp}}\ :\ \textcolor{keyword}{public}\ Wt::WApplication}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classWebApp_ae47220e366c5d47cd6d2e8f0d64e9cfa}{WebApp}}(\textcolor{keyword}{const}\ Wt::WEnvironment\&\ env);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classWebApp_ad4d611d2553926057d5c9fbe567d8740}{startApplication}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classWebApp}{WebApp}}*\ \mbox{\hyperlink{classWebApp_a4f93a3ee015b5d4a420778be5731bc36}{getInstance}}();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classWebApp_a9032418121454ddc138bdf78222f001f}{motionDetectedCurr}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classWebApp_ab4397d4a498abdf182e13aa4890149d7}{motionDetectedPrev}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00078\ \ \ \ \ Wt::WTable\ *\mbox{\hyperlink{classWebApp_a422bab48b226911be0636edcd70f2d23}{fileTable\_}};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00084\ \ \ \ \ Wt::WTable\ *\mbox{\hyperlink{classWebApp_a419208f726971a7ad0099802d72cb08f}{imageTable\_}};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00089\ \ \ \ \ Wt::WText\ *\mbox{\hyperlink{classWebApp_ad2110892086031f4b12baf038f5fe69d}{serverMessage\_}};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00094\ \ \ \ \ Wt::WTimer\ *\mbox{\hyperlink{classWebApp_a4c8f04f4220903142e9750f8cab59d15}{timer\_}};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00100\ \ \ \ \ Wt::WText\ *\mbox{\hyperlink{classWebApp_a745ccce5f0197576e87f1d759d382aa6}{currMotionStatus\_}};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00106\ \ \ \ \ boost::filesystem::path\ \mbox{\hyperlink{classWebApp_ab92581f5310120a8398df90abf3ff8b3}{recordingsPath\_}}\{\textcolor{stringliteral}{"{}../recordings"{}}\};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00112\ \ \ \ \ boost::filesystem::path\ \mbox{\hyperlink{classWebApp_ae3f40f7b332c1321fd2db80a0163791a}{imagesPath\_}}\{\textcolor{stringliteral}{"{}../recordings/images"{}}\};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00117\ \ \ \ \ std::set<std::string>\ \mbox{\hyperlink{classWebApp_a2cd1adc7d966269620a6f183b1792b6e}{displayedImages}};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classWebApp}{WebApp}}\ *\mbox{\hyperlink{classWebApp_ad8de064d06c36910e05b42e1605c64b4}{instance\_}};}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{static}\ Wt::WContainerWidget\ *\mbox{\hyperlink{classWebApp_a9591dc96561a7024da53653d79e5e66c}{greetingsContainer\_}};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classWebApp_a6536a515fc74afc2521ad33dcc2e6257}{updateServerTimeMsg}}();}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classWebApp_a653001f60e03b191b827b9508ec9fc22}{updateMotionStatus}}();}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classWebApp_abad76bedea59495ca7ff7c078cbd7d3b}{updateFileList}}();}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classWebApp_a0d740330dae4d9497b9314754088930d}{trackMotionChanges}}();}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classWebApp_a62b2595d33b0a52878943e3230562270}{updateImagesList}}();}
+\DoxyCodeLine{00162\ \};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//GROUP\_17\_WEBSOCKET\_HPP}}
+
+\end{DoxyCode}

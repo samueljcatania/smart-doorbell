@@ -1,0 +1,226 @@
+\hypertarget{classDoorbell}{}\doxysection{Doorbell Class Reference}
+\label{classDoorbell}\index{Doorbell@{Doorbell}}
+
+
+\doxylink{classDoorbell}{Doorbell} class holds threading functionalities and GUI methods.  
+
+
+
+
+{\ttfamily \#include $<$Doorbell.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDoorbell_a1c1933dd4c62bca4d9e95ba5713ef67c}{Doorbell}} (char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em \doxylink{classDoorbell}{Doorbell} class constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDoorbell_ab913f1bbcf3cdab0e8396bc9188ea392}{$\sim$\+Doorbell}} ()
+\begin{DoxyCompactList}\small\item\em \doxylink{classDoorbell}{Doorbell} class destructor. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classDoorbell_a72f4cade5ab9b404f4d2ca368aa0d2c9}{open\+\_\+window}} (char $\ast$$\ast$argv, std\+::atomic$<$ bool $>$ $\ast$show\+\_\+raw\+\_\+camera)
+\begin{DoxyCompactList}\small\item\em Display and cleanup the GUI window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classDoorbell_a510a0d2f85ca0d05c237196af467560c}{thread\+\_\+manager}} ()
+\begin{DoxyCompactList}\small\item\em Thread manager controls threading functionalities. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDoorbell_a4a31b98912da1c740f4ca5f929f8701d}{create\+\_\+video\+\_\+recorder\+\_\+thread}} ()
+\begin{DoxyCompactList}\small\item\em Method to create threads for the video recorder. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCamera}{Camera}} \mbox{\hyperlink{classDoorbell_a2dec3e98159e288e0f21d7e93f2f616a}{camera}}
+\item 
+bool \mbox{\hyperlink{classDoorbell_a1570e016c99f4841c669f13cce9c8400}{recording}} = false
+\item 
+std\+::queue$<$ cv\+::\+Mat $>$ \mbox{\hyperlink{classDoorbell_aff1ff37be72d855cb3d6c00d61a324b0}{shared\+\_\+queue}}
+\item 
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ cv\+::\+Mat $>$ \mbox{\hyperlink{classDoorbell_ad275cfb1151b30d36f8adcad739276af}{shared\+\_\+lead\+\_\+up\+\_\+buffer}} = \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$cv\+::\+Mat$>$(0)
+\item 
+std\+::mutex \mbox{\hyperlink{classDoorbell_ab57177ac800f4df6dc6e474a80859d3c}{queue\+\_\+lock}}
+\item 
+std\+::mutex \mbox{\hyperlink{classDoorbell_a645bb6cba5f5130155a6b56be53bba73}{camera\+\_\+lock}}
+\item 
+std\+::mutex \mbox{\hyperlink{classDoorbell_aac0b722bbad90ebd9d4654be643c7e5a}{buffer\+\_\+lock}}
+\item 
+std\+::condition\+\_\+variable \mbox{\hyperlink{classDoorbell_a72e83321ce33de968c98f16d1a25b9ec}{recording\+\_\+updated}}
+\item 
+std\+::condition\+\_\+variable \mbox{\hyperlink{classDoorbell_a3dfe4433c99b8613ae585e158100f967}{queue\+\_\+updated}}
+\item 
+std\+::condition\+\_\+variable \mbox{\hyperlink{classDoorbell_adfbf5498d965f13094a9408dddce4f5b}{buffer\+\_\+updated}}
+\item 
+std\+::condition\+\_\+variable \mbox{\hyperlink{classDoorbell_a592ea9c04007c607dcb800bb08e7a06a}{camera\+\_\+stream\+\_\+updated}}
+\item 
+std\+::thread \mbox{\hyperlink{classDoorbell_a4d36efe1b446337f7a20b5e68f425cc0}{camera\+\_\+thread}}
+\item 
+std\+::thread \mbox{\hyperlink{classDoorbell_ab3a339e84e76e8fcf7b69e9761ac6062}{recorder\+\_\+thread}}
+\item 
+std\+::thread \mbox{\hyperlink{classDoorbell_a8a3e83caf5f93efc7f948b60e08fdcfe}{master\+\_\+thread}}
+\item 
+std\+::thread \mbox{\hyperlink{classDoorbell_a425ed1d67e6ebb5b26a97c0280bf644f}{display\+\_\+window\+\_\+thread}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classDoorbell}{Doorbell} class holds threading functionalities and GUI methods. 
+
+\doxylink{classDoorbell}{Doorbell} has methods to create threads, as well as the thread manager. This threading is necesary to make use of various processes running consecutively. There are also the initialization and cleanup methods for the GUI.
+
+\begin{DoxyAuthor}{Author}
+Samuel Catania 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classDoorbell_a1c1933dd4c62bca4d9e95ba5713ef67c}\label{classDoorbell_a1c1933dd4c62bca4d9e95ba5713ef67c} 
+\index{Doorbell@{Doorbell}!Doorbell@{Doorbell}}
+\index{Doorbell@{Doorbell}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{Doorbell()}{Doorbell()}}
+{\footnotesize\ttfamily Doorbell\+::\+Doorbell (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+\doxylink{classDoorbell}{Doorbell} class constructor. 
+
+\Hypertarget{classDoorbell_ab913f1bbcf3cdab0e8396bc9188ea392}\label{classDoorbell_ab913f1bbcf3cdab0e8396bc9188ea392} 
+\index{Doorbell@{Doorbell}!````~Doorbell@{$\sim$Doorbell}}
+\index{````~Doorbell@{$\sim$Doorbell}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{$\sim$Doorbell()}{~Doorbell()}}
+{\footnotesize\ttfamily Doorbell\+::$\sim$\+Doorbell (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxylink{classDoorbell}{Doorbell} class destructor. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classDoorbell_a4a31b98912da1c740f4ca5f929f8701d}\label{classDoorbell_a4a31b98912da1c740f4ca5f929f8701d} 
+\index{Doorbell@{Doorbell}!create\_video\_recorder\_thread@{create\_video\_recorder\_thread}}
+\index{create\_video\_recorder\_thread@{create\_video\_recorder\_thread}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{create\_video\_recorder\_thread()}{create\_video\_recorder\_thread()}}
+{\footnotesize\ttfamily void Doorbell\+::create\+\_\+video\+\_\+recorder\+\_\+thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Method to create threads for the video recorder. 
+
+This method is utilized by the thread manager in order to create video recorder threads which are neccecsary to \Hypertarget{classDoorbell_a72f4cade5ab9b404f4d2ca368aa0d2c9}\label{classDoorbell_a72f4cade5ab9b404f4d2ca368aa0d2c9} 
+\index{Doorbell@{Doorbell}!open\_window@{open\_window}}
+\index{open\_window@{open\_window}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{open\_window()}{open\_window()}}
+{\footnotesize\ttfamily int Doorbell\+::open\+\_\+window (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{argv,  }\item[{std\+::atomic$<$ bool $>$ $\ast$}]{show\+\_\+raw\+\_\+camera }\end{DoxyParamCaption})}
+
+
+
+Display and cleanup the GUI window. 
+
+open\+\_\+window will create and show the GUI from \doxylink{classVideoRecorder}{Video\+Recorder}.
+
+@params argv -\/ takes in the current directory of the program (first argv argument) @params atomic boolean for determining whether raw footage is shown. \Hypertarget{classDoorbell_a510a0d2f85ca0d05c237196af467560c}\label{classDoorbell_a510a0d2f85ca0d05c237196af467560c} 
+\index{Doorbell@{Doorbell}!thread\_manager@{thread\_manager}}
+\index{thread\_manager@{thread\_manager}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{thread\_manager()}{thread\_manager()}}
+{\footnotesize\ttfamily void Doorbell\+::thread\+\_\+manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Thread manager controls threading functionalities. 
+
+The thread manager creates new video recorder thread when recording begins. It uses the create\+\_\+video\+\_\+recorder\+\_\+thread for the thread creation process 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classDoorbell_aac0b722bbad90ebd9d4654be643c7e5a}\label{classDoorbell_aac0b722bbad90ebd9d4654be643c7e5a} 
+\index{Doorbell@{Doorbell}!buffer\_lock@{buffer\_lock}}
+\index{buffer\_lock@{buffer\_lock}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{buffer\_lock}{buffer\_lock}}
+{\footnotesize\ttfamily std\+::mutex Doorbell\+::buffer\+\_\+lock\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classDoorbell_adfbf5498d965f13094a9408dddce4f5b}\label{classDoorbell_adfbf5498d965f13094a9408dddce4f5b} 
+\index{Doorbell@{Doorbell}!buffer\_updated@{buffer\_updated}}
+\index{buffer\_updated@{buffer\_updated}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{buffer\_updated}{buffer\_updated}}
+{\footnotesize\ttfamily std\+::condition\+\_\+variable Doorbell\+::buffer\+\_\+updated\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classDoorbell_a2dec3e98159e288e0f21d7e93f2f616a}\label{classDoorbell_a2dec3e98159e288e0f21d7e93f2f616a} 
+\index{Doorbell@{Doorbell}!camera@{camera}}
+\index{camera@{camera}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{camera}{camera}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCamera}{Camera}} Doorbell\+::camera\hspace{0.3cm}{\ttfamily [private]}}
+
+Constructor for camera. \Hypertarget{classDoorbell_a645bb6cba5f5130155a6b56be53bba73}\label{classDoorbell_a645bb6cba5f5130155a6b56be53bba73} 
+\index{Doorbell@{Doorbell}!camera\_lock@{camera\_lock}}
+\index{camera\_lock@{camera\_lock}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{camera\_lock}{camera\_lock}}
+{\footnotesize\ttfamily std\+::mutex Doorbell\+::camera\+\_\+lock\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classDoorbell_a592ea9c04007c607dcb800bb08e7a06a}\label{classDoorbell_a592ea9c04007c607dcb800bb08e7a06a} 
+\index{Doorbell@{Doorbell}!camera\_stream\_updated@{camera\_stream\_updated}}
+\index{camera\_stream\_updated@{camera\_stream\_updated}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{camera\_stream\_updated}{camera\_stream\_updated}}
+{\footnotesize\ttfamily std\+::condition\+\_\+variable Doorbell\+::camera\+\_\+stream\+\_\+updated\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classDoorbell_a4d36efe1b446337f7a20b5e68f425cc0}\label{classDoorbell_a4d36efe1b446337f7a20b5e68f425cc0} 
+\index{Doorbell@{Doorbell}!camera\_thread@{camera\_thread}}
+\index{camera\_thread@{camera\_thread}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{camera\_thread}{camera\_thread}}
+{\footnotesize\ttfamily std\+::thread Doorbell\+::camera\+\_\+thread\hspace{0.3cm}{\ttfamily [private]}}
+
+camera\+\_\+thread operates the camera, recorder\+\_\+thread manages recording to a file, and master\+\_\+thread is the main thread of the program. \Hypertarget{classDoorbell_a425ed1d67e6ebb5b26a97c0280bf644f}\label{classDoorbell_a425ed1d67e6ebb5b26a97c0280bf644f} 
+\index{Doorbell@{Doorbell}!display\_window\_thread@{display\_window\_thread}}
+\index{display\_window\_thread@{display\_window\_thread}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{display\_window\_thread}{display\_window\_thread}}
+{\footnotesize\ttfamily std\+::thread Doorbell\+::display\+\_\+window\+\_\+thread\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classDoorbell_a8a3e83caf5f93efc7f948b60e08fdcfe}\label{classDoorbell_a8a3e83caf5f93efc7f948b60e08fdcfe} 
+\index{Doorbell@{Doorbell}!master\_thread@{master\_thread}}
+\index{master\_thread@{master\_thread}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{master\_thread}{master\_thread}}
+{\footnotesize\ttfamily std\+::thread Doorbell\+::master\+\_\+thread\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classDoorbell_ab57177ac800f4df6dc6e474a80859d3c}\label{classDoorbell_ab57177ac800f4df6dc6e474a80859d3c} 
+\index{Doorbell@{Doorbell}!queue\_lock@{queue\_lock}}
+\index{queue\_lock@{queue\_lock}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{queue\_lock}{queue\_lock}}
+{\footnotesize\ttfamily std\+::mutex Doorbell\+::queue\+\_\+lock\hspace{0.3cm}{\ttfamily [private]}}
+
+mutex locks for controlling access to the queue, the camera, and the buffer \Hypertarget{classDoorbell_a3dfe4433c99b8613ae585e158100f967}\label{classDoorbell_a3dfe4433c99b8613ae585e158100f967} 
+\index{Doorbell@{Doorbell}!queue\_updated@{queue\_updated}}
+\index{queue\_updated@{queue\_updated}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{queue\_updated}{queue\_updated}}
+{\footnotesize\ttfamily std\+::condition\+\_\+variable Doorbell\+::queue\+\_\+updated\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classDoorbell_ab3a339e84e76e8fcf7b69e9761ac6062}\label{classDoorbell_ab3a339e84e76e8fcf7b69e9761ac6062} 
+\index{Doorbell@{Doorbell}!recorder\_thread@{recorder\_thread}}
+\index{recorder\_thread@{recorder\_thread}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{recorder\_thread}{recorder\_thread}}
+{\footnotesize\ttfamily std\+::thread Doorbell\+::recorder\+\_\+thread\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{classDoorbell_a1570e016c99f4841c669f13cce9c8400}\label{classDoorbell_a1570e016c99f4841c669f13cce9c8400} 
+\index{Doorbell@{Doorbell}!recording@{recording}}
+\index{recording@{recording}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{recording}{recording}}
+{\footnotesize\ttfamily bool Doorbell\+::recording = false\hspace{0.3cm}{\ttfamily [private]}}
+
+variable tracking whether the camera is currently recording \Hypertarget{classDoorbell_a72e83321ce33de968c98f16d1a25b9ec}\label{classDoorbell_a72e83321ce33de968c98f16d1a25b9ec} 
+\index{Doorbell@{Doorbell}!recording\_updated@{recording\_updated}}
+\index{recording\_updated@{recording\_updated}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{recording\_updated}{recording\_updated}}
+{\footnotesize\ttfamily std\+::condition\+\_\+variable Doorbell\+::recording\+\_\+updated\hspace{0.3cm}{\ttfamily [private]}}
+
+Condition variables for tracking whether the recordings, queue or buffer were updated \Hypertarget{classDoorbell_ad275cfb1151b30d36f8adcad739276af}\label{classDoorbell_ad275cfb1151b30d36f8adcad739276af} 
+\index{Doorbell@{Doorbell}!shared\_lead\_up\_buffer@{shared\_lead\_up\_buffer}}
+\index{shared\_lead\_up\_buffer@{shared\_lead\_up\_buffer}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{shared\_lead\_up\_buffer}{shared\_lead\_up\_buffer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$cv\+::\+Mat$>$ Doorbell\+::shared\+\_\+lead\+\_\+up\+\_\+buffer = \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$cv\+::\+Mat$>$(0)\hspace{0.3cm}{\ttfamily [private]}}
+
+lead up buffer storing 15 seconds worth of frames prior to motion detection \Hypertarget{classDoorbell_aff1ff37be72d855cb3d6c00d61a324b0}\label{classDoorbell_aff1ff37be72d855cb3d6c00d61a324b0} 
+\index{Doorbell@{Doorbell}!shared\_queue@{shared\_queue}}
+\index{shared\_queue@{shared\_queue}!Doorbell@{Doorbell}}
+\doxysubsubsection{\texorpdfstring{shared\_queue}{shared\_queue}}
+{\footnotesize\ttfamily std\+::queue$<$cv\+::\+Mat$>$ Doorbell\+::shared\+\_\+queue\hspace{0.3cm}{\ttfamily [private]}}
+
+shared queue for camera frames 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{Doorbell_8hpp}{Doorbell.\+hpp}}\end{DoxyCompactItemize}

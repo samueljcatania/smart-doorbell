@@ -1,0 +1,42 @@
+\hypertarget{FaceDetector_8hpp_source}{}\doxysection{Face\+Detector.\+hpp}
+\label{FaceDetector_8hpp_source}\index{include/FaceDetector.hpp@{include/FaceDetector.hpp}}
+\mbox{\hyperlink{FaceDetector_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Author:\ Samuel\ Catania}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Username:\ scatani9}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Student\ Number:\ 251175283}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Date:\ Wednesday,\ March\ 8,\ 2023}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Description\ of\ Camera.hpp:}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifndef\ GROUP\_17\_FACEDETECTOR\_HPP}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ GROUP\_17\_FACEDETECTOR\_HPP}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <opencv2/dnn.hpp>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFaceDetector}{FaceDetector}}\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ cv::dnn::Net\ \mbox{\hyperlink{classFaceDetector_a925cf960c870b53b51afada07d46a5f5}{network}}\ =\ cv::dnn::readNetFromCaffe(\textcolor{stringliteral}{"{}../assets/deploy.prototxt"{}},}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}../assets/res10\_300x300\_ssd\_iter\_140000\_fp16.caffemodel"{}});;}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFaceDetector_a23890435c5b06d6551b124598156e0c7}{width}}\ =\ 300;}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFaceDetector_a1ea77c3d336056825029b6cca28d0f04}{height}}\ =\ 300;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classFaceDetector_af40756589bdc6bfeb4831d7c1c46b0d2}{scale\_factor}}\ =\ 1.0;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{const}\ cv::Scalar\ \mbox{\hyperlink{classFaceDetector_af5de277b035c94ec3c4b1814a4f95009}{mean\_values}}\ =\ \{104.,\ 177.0,\ 123.0\};}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classFaceDetector_a1654147bb81bd9c9d5974b97f29ff27a}{confidence\_threshold}}\ =\ 0.5;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classFaceDetector_ab7ecd6d1c9fe5d343fc4f7631467cb78}{FaceDetector}}();}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00076\ \ \ \ \ std::vector<cv::Rect>\ \mbox{\hyperlink{classFaceDetector_ac5e46b984012edda50e574addc399708}{detect\_face\_rectangles}}(\textcolor{keyword}{const}\ cv::Mat\ \&frame);}
+\DoxyCodeLine{00077\ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//GROUP\_17\_FACEDETECTOR\_HPP}}
+
+\end{DoxyCode}

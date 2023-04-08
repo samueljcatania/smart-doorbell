@@ -1,0 +1,51 @@
+\hypertarget{CircularBuffer_8hpp_source}{}\doxysection{Circular\+Buffer.\+hpp}
+\label{CircularBuffer_8hpp_source}\index{include/CircularBuffer.hpp@{include/CircularBuffer.hpp}}
+\mbox{\hyperlink{CircularBuffer_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ GROUP\_17\_CIRCULARBUFFER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ GROUP\_17\_CIRCULARBUFFER\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <opencv2/opencv.hpp>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCircularBuffer}{CircularBuffer}}\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classCircularBuffer_a08167388a1d3969560dde4ee3c777edd}{head}}\ =\ 0;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classCircularBuffer_a62307b131a9b25f0e9d600c86fcfd7ba}{tail}}\ =\ -\/1;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classCircularBuffer_a9bbd895fcac212753fde8c8403a21e28}{current\_size}}\ =\ 0;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classCircularBuffer_a3810e57881739620b4f9820e3116492e}{max\_size}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00049\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{classCircularBuffer_a32e711ec90fa7a0d797be24cb5700549}{vector}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classCircularBuffer_aed928fe071a15c367bbdf0c551249438}{CircularBuffer}}(\textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classCircularBuffer_a466b38d1654f1427ca671ad40475cd70}{CircularBuffer}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classCircularBuffer}{CircularBuffer<cv::Mat>}}\ \&circular\_buffer);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{classCircularBuffer_a90268eaf2901ea77181ed353d3716c21}{\string~CircularBuffer}}();}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCircularBuffer_a0057cdf837edf312105bc379a3351b70}{push}}(T\ element);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00079\ \ \ \ \ T\ \mbox{\hyperlink{classCircularBuffer_a3033e4e62f336be929c776e912f3b549}{pop}}();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classCircularBuffer_a3b88cb962d254742238c104bfd6d1b33}{get\_size}}();}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classCircularBuffer_a6b4ad30befc95c4ece964db8f946aae5}{get\_capacity}}();}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCircularBuffer_ab0fcbd2689307569c9c4f374a4af9a0b}{set\_capacity}}(\textcolor{keywordtype}{size\_t}\ new\_max\_size);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classCircularBuffer_a26caa4ec94de2f342f32b6558ac697eb}{clear}}();}
+\DoxyCodeLine{00104\ \};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//GROUP\_17\_CIRCULARBUFFER\_HPP}}
+
+\end{DoxyCode}

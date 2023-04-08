@@ -1,0 +1,170 @@
+\hypertarget{classDisplayWindow}{}\doxysection{Display\+Window Class Reference}
+\label{classDisplayWindow}\index{DisplayWindow@{DisplayWindow}}
+
+
+The Display Window class creates the GUI from which camera functionalities can be utilized.  
+
+
+
+
+{\ttfamily \#include $<$Display\+Window.\+hpp$>$}
+
+Inheritance diagram for Display\+Window\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classDisplayWindow}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDisplayWindow_af9566ad11990ff91c5021a3fc27c3257}{Display\+Window}} (std\+::atomic$<$ bool $>$ $\ast$show\+\_\+raw\+\_\+camera\+\_\+param)
+\item 
+\mbox{\hyperlink{classDisplayWindow_a48a56292904ef33a2bf796c7bd99d95a}{$\sim$\+Display\+Window}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::atomic$<$ bool $>$ $\ast$ \mbox{\hyperlink{classDisplayWindow_a7b643966fd348af76167441ed30e9954}{show\+\_\+raw\+\_\+camera}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classDisplayWindow_af1cd7d6af62e0fab734d3dcd0b44ba28}{on\+\_\+notebook\+\_\+switch\+\_\+page}} (Gtk\+::\+Widget $\ast$page, guint page\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Signal handler for switching pages. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDisplayWindow_ac7b94c2a8e811e6d0cfa092a44a07e33}{on\+\_\+button\+\_\+clicked}} (const Glib\+::ustring \&data)
+\begin{DoxyCompactList}\small\item\em Signal handler for button clicks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Gtk\+::\+Box \mbox{\hyperlink{classDisplayWindow_ae01a25377f3db6ef60ccfa81b4717ccd}{main\+\_\+box}}
+\item 
+Gtk\+::\+Grid \mbox{\hyperlink{classDisplayWindow_a3add303a89172331019ef0571526ec6b}{camera\+\_\+grid}}
+\item 
+Gtk\+::\+Notebook \mbox{\hyperlink{classDisplayWindow_aac5d50a50c4478bf907747092263009e}{notebook}}
+\item 
+Gtk\+::\+Label \mbox{\hyperlink{classDisplayWindow_a72c738d06d478c1ef066b98ff9d7271c}{camera\+\_\+tab\+\_\+label}}
+\item 
+Gtk\+::\+Label \mbox{\hyperlink{classDisplayWindow_ae4d2385bf585425c38d0eb17a93c65d8}{raw\+\_\+camera\+\_\+label}}
+\item 
+Gtk\+::\+Button \mbox{\hyperlink{classDisplayWindow_a1ebc43518d2e07439c803b5d6d60849d}{raw\+\_\+camera\+\_\+button}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The Display Window class creates the GUI from which camera functionalities can be utilized. 
+
+\doxylink{classDisplayWindow}{Display\+Window} will create the GUI that allows the user to interact with the camera. The various views can be selected to be displayed. Saved images and videos can also be accessed via this GUI.
+
+\begin{DoxyAuthor}{Author}
+Samuel Catania 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classDisplayWindow_af9566ad11990ff91c5021a3fc27c3257}\label{classDisplayWindow_af9566ad11990ff91c5021a3fc27c3257} 
+\index{DisplayWindow@{DisplayWindow}!DisplayWindow@{DisplayWindow}}
+\index{DisplayWindow@{DisplayWindow}!DisplayWindow@{DisplayWindow}}
+\doxysubsubsection{\texorpdfstring{DisplayWindow()}{DisplayWindow()}}
+{\footnotesize\ttfamily Display\+Window\+::\+Display\+Window (\begin{DoxyParamCaption}\item[{std\+::atomic$<$ bool $>$ $\ast$}]{show\+\_\+raw\+\_\+camera\+\_\+param }\end{DoxyParamCaption})}
+
+Constructor for Display Window 
+\begin{DoxyParams}{Parameters}
+{\em show\+\_\+raw\+\_\+camera\+\_\+param} & atomic boolean that determines whether raw camera footage is shown. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classDisplayWindow_a48a56292904ef33a2bf796c7bd99d95a}\label{classDisplayWindow_a48a56292904ef33a2bf796c7bd99d95a} 
+\index{DisplayWindow@{DisplayWindow}!````~DisplayWindow@{$\sim$DisplayWindow}}
+\index{````~DisplayWindow@{$\sim$DisplayWindow}!DisplayWindow@{DisplayWindow}}
+\doxysubsubsection{\texorpdfstring{$\sim$DisplayWindow()}{~DisplayWindow()}}
+{\footnotesize\ttfamily Display\+Window\+::$\sim$\+Display\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+Destructor for display\+Window. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classDisplayWindow_ac7b94c2a8e811e6d0cfa092a44a07e33}\label{classDisplayWindow_ac7b94c2a8e811e6d0cfa092a44a07e33} 
+\index{DisplayWindow@{DisplayWindow}!on\_button\_clicked@{on\_button\_clicked}}
+\index{on\_button\_clicked@{on\_button\_clicked}!DisplayWindow@{DisplayWindow}}
+\doxysubsubsection{\texorpdfstring{on\_button\_clicked()}{on\_button\_clicked()}}
+{\footnotesize\ttfamily void Display\+Window\+::on\+\_\+button\+\_\+clicked (\begin{DoxyParamCaption}\item[{const Glib\+::ustring \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Signal handler for button clicks. 
+
+This signal handler is utilized when buttons on the GUI are pressed
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & data sent when the button is clicked \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classDisplayWindow_af1cd7d6af62e0fab734d3dcd0b44ba28}\label{classDisplayWindow_af1cd7d6af62e0fab734d3dcd0b44ba28} 
+\index{DisplayWindow@{DisplayWindow}!on\_notebook\_switch\_page@{on\_notebook\_switch\_page}}
+\index{on\_notebook\_switch\_page@{on\_notebook\_switch\_page}!DisplayWindow@{DisplayWindow}}
+\doxysubsubsection{\texorpdfstring{on\_notebook\_switch\_page()}{on\_notebook\_switch\_page()}}
+{\footnotesize\ttfamily void Display\+Window\+::on\+\_\+notebook\+\_\+switch\+\_\+page (\begin{DoxyParamCaption}\item[{Gtk\+::\+Widget $\ast$}]{page,  }\item[{guint}]{page\+\_\+num }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Signal handler for switching pages. 
+
+This signal handler is utilized when changing pages on the GUI.
+
+
+\begin{DoxyParams}{Parameters}
+{\em page} & tabs on the window \\
+\hline
+{\em page\+\_\+num} & current page number of the tab. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classDisplayWindow_a3add303a89172331019ef0571526ec6b}\label{classDisplayWindow_a3add303a89172331019ef0571526ec6b} 
+\index{DisplayWindow@{DisplayWindow}!camera\_grid@{camera\_grid}}
+\index{camera\_grid@{camera\_grid}!DisplayWindow@{DisplayWindow}}
+\doxysubsubsection{\texorpdfstring{camera\_grid}{camera\_grid}}
+{\footnotesize\ttfamily Gtk\+::\+Grid Display\+Window\+::camera\+\_\+grid\hspace{0.3cm}{\ttfamily [protected]}}
+
+Grid for showing and organizing components \Hypertarget{classDisplayWindow_a72c738d06d478c1ef066b98ff9d7271c}\label{classDisplayWindow_a72c738d06d478c1ef066b98ff9d7271c} 
+\index{DisplayWindow@{DisplayWindow}!camera\_tab\_label@{camera\_tab\_label}}
+\index{camera\_tab\_label@{camera\_tab\_label}!DisplayWindow@{DisplayWindow}}
+\doxysubsubsection{\texorpdfstring{camera\_tab\_label}{camera\_tab\_label}}
+{\footnotesize\ttfamily Gtk\+::\+Label Display\+Window\+::camera\+\_\+tab\+\_\+label\hspace{0.3cm}{\ttfamily [protected]}}
+
+Labels for the GUI \Hypertarget{classDisplayWindow_ae01a25377f3db6ef60ccfa81b4717ccd}\label{classDisplayWindow_ae01a25377f3db6ef60ccfa81b4717ccd} 
+\index{DisplayWindow@{DisplayWindow}!main\_box@{main\_box}}
+\index{main\_box@{main\_box}!DisplayWindow@{DisplayWindow}}
+\doxysubsubsection{\texorpdfstring{main\_box}{main\_box}}
+{\footnotesize\ttfamily Gtk\+::\+Box Display\+Window\+::main\+\_\+box\hspace{0.3cm}{\ttfamily [protected]}}
+
+main\+\_\+box is the main window box for the notebook on the GUI. \Hypertarget{classDisplayWindow_aac5d50a50c4478bf907747092263009e}\label{classDisplayWindow_aac5d50a50c4478bf907747092263009e} 
+\index{DisplayWindow@{DisplayWindow}!notebook@{notebook}}
+\index{notebook@{notebook}!DisplayWindow@{DisplayWindow}}
+\doxysubsubsection{\texorpdfstring{notebook}{notebook}}
+{\footnotesize\ttfamily Gtk\+::\+Notebook Display\+Window\+::notebook\hspace{0.3cm}{\ttfamily [protected]}}
+
+notebook -\/ the tabs on the GUI. \Hypertarget{classDisplayWindow_a1ebc43518d2e07439c803b5d6d60849d}\label{classDisplayWindow_a1ebc43518d2e07439c803b5d6d60849d} 
+\index{DisplayWindow@{DisplayWindow}!raw\_camera\_button@{raw\_camera\_button}}
+\index{raw\_camera\_button@{raw\_camera\_button}!DisplayWindow@{DisplayWindow}}
+\doxysubsubsection{\texorpdfstring{raw\_camera\_button}{raw\_camera\_button}}
+{\footnotesize\ttfamily Gtk\+::\+Button Display\+Window\+::raw\+\_\+camera\+\_\+button\hspace{0.3cm}{\ttfamily [protected]}}
+
+Buttons for toggling camera footage. \Hypertarget{classDisplayWindow_ae4d2385bf585425c38d0eb17a93c65d8}\label{classDisplayWindow_ae4d2385bf585425c38d0eb17a93c65d8} 
+\index{DisplayWindow@{DisplayWindow}!raw\_camera\_label@{raw\_camera\_label}}
+\index{raw\_camera\_label@{raw\_camera\_label}!DisplayWindow@{DisplayWindow}}
+\doxysubsubsection{\texorpdfstring{raw\_camera\_label}{raw\_camera\_label}}
+{\footnotesize\ttfamily Gtk\+::\+Label Display\+Window\+::raw\+\_\+camera\+\_\+label\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classDisplayWindow_a7b643966fd348af76167441ed30e9954}\label{classDisplayWindow_a7b643966fd348af76167441ed30e9954} 
+\index{DisplayWindow@{DisplayWindow}!show\_raw\_camera@{show\_raw\_camera}}
+\index{show\_raw\_camera@{show\_raw\_camera}!DisplayWindow@{DisplayWindow}}
+\doxysubsubsection{\texorpdfstring{show\_raw\_camera}{show\_raw\_camera}}
+{\footnotesize\ttfamily std\+::atomic$<$bool$>$$\ast$ Display\+Window\+::show\+\_\+raw\+\_\+camera}
+
+atomic boolean to determine whether the raw footage from the camera is being shown. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{DisplayWindow_8hpp}{Display\+Window.\+hpp}}\end{DoxyCompactItemize}

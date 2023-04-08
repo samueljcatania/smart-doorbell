@@ -1,0 +1,50 @@
+\hypertarget{VideoRecorder_8hpp_source}{}\doxysection{Video\+Recorder.\+hpp}
+\label{VideoRecorder_8hpp_source}\index{include/VideoRecorder.hpp@{include/VideoRecorder.hpp}}
+\mbox{\hyperlink{VideoRecorder_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Author:\ Samuel\ Catania}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Username:\ scatani9}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Student\ Number:\ 251175283}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Date:\ Friday,\ March\ 17,\ 2023}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Description\ of\ Camera.cpp:}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ GROUP\_17\_VIDEORECORDER\_HPP}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ GROUP\_17\_VIDEORECORDER\_HPP}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <condition\_variable>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <opencv2/opencv.hpp>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{CircularBuffer_8hpp}{CircularBuffer.hpp}}"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classVideoRecorder}{VideoRecorder}}\ \{}
+\DoxyCodeLine{00037\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{classCircularBuffer}{CircularBuffer<cv::Mat>}}\ \mbox{\hyperlink{classVideoRecorder_acdca3e76bd8f61da3f86b5c22dddfeb8}{lead\_up\_buffer}}\ =\ \mbox{\hyperlink{classCircularBuffer}{CircularBuffer<cv::Mat>}}(0);}
+\DoxyCodeLine{00039\ \ \ \ \ cv::VideoWriter\ \mbox{\hyperlink{classVideoRecorder_a05cf355e1bd7076cb6cb01c1e5eacdce}{video\_writer}};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \mbox{\hyperlink{classVideoRecorder_a6f56f0506e669eef176776a769788a02}{generate\_timestamped\_filename}}();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classVideoRecorder_a12e1372af31a9fcfb0a64ff5cb35f185}{VideoRecorder}}(\textcolor{keywordtype}{int}\ frame\_rate);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{classVideoRecorder_a5e1485723ebab38ce05427c01a8e5493}{\string~VideoRecorder}}();}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classVideoRecorder_a3d07ed524cb9e48403c39bf3e0ff87e0}{write\_frames}}(\textcolor{keywordtype}{bool}\ \&recording,\ std::queue<cv::Mat>\ \&shared\_queue,\ std::mutex\ \&queue\_lock,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::mutex\ \&camera\_lock,\ std::mutex\ \&buffer\_lock,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classCircularBuffer}{CircularBuffer<cv::Mat>}}\ \&shared\_lead\_up\_buffer,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::condition\_variable\ \&recording\_updated,\ std::condition\_variable\ \&buffer\_updated,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::condition\_variable\ \&queue\_updated);}
+\DoxyCodeLine{00096\ \};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ GROUP\_17\_VIDEORECORDER\_HPP}}
+
+\end{DoxyCode}
