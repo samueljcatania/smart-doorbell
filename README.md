@@ -76,6 +76,7 @@ sudo ldconfig
 More specific instructions based on platform can be accessed here: https://redmine.webtoolkit.eu/projects/wt/wiki/Wt_Installation
 
 =============================================================================================================
+
 RUNNING THE PROGRAM
 
 After installing GTK 3.0 and OpenCV, navigate to the working directory. You can compile the program by following these commands in your terminal:
@@ -84,6 +85,7 @@ make
 make clean
 
 =============================================================================================================
+
 Notes about running the program:
 Recorded footage files are saved to a folder called 'recordings' in the project directory. 
 IMPORTANT: please create a 'recordings' folder before first run. 
