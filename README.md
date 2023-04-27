@@ -1,5 +1,8 @@
 # smart-doorbell
 
+![smart-doorbell](https://user-images.githubusercontent.com/69449284/234736068-86c86212-825b-4df0-bfee-513a306828f3.png)
+
+
 ### Prerequisites:
 Required Dependencies:
 - GTK-3.0
